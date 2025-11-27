@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Ghost export (contains content, don't commit)
+scripts/ghost-export.json

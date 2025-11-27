@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "migrate": "node scripts/migrate-from-ghost.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",
@@ -14,5 +15,9 @@
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.2",
     "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "@types/turndown": "^5.0.6",
+    "turndown": "^7.2.2"
   }
 }

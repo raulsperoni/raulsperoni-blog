@@ -112,7 +112,13 @@ All code is yours to tweak:
 
 ## Migration from Ghost
 
-(TODO: Run migration script to pull existing posts from Ghost)
+Ready to import your existing Ghost posts? See [`MIGRATION.md`](MIGRATION.md) for complete instructions.
+
+**Quick version:**
+1. Export from Ghost Admin → Settings → Labs → Export
+2. Save JSON as `scripts/ghost-export.json`
+3. Run `npm run migrate`
+4. Review posts and push to deploy
 
 ## Why This Stack?
 

@@ -1,62 +1,112 @@
-# Astro Starter Kit: Blog
+# Raul Speroni's Blog
 
-```sh
-npm create astro@latest -- --template blog
+A Git-backed, Obsidian-powered, Astro-built blog. Content lives in markdown files forever. No databases, no vendor lock-in, just files.
+
+## The Setup
+
+**Stack:**
+- **Astro**: Static site generator (fast, modern, tweakable)
+- **Markdown/MDX**: Blog posts in `src/content/blog/`
+- **Obsidian**: Beautiful markdown editor for writing
+- **GitHub Actions**: Auto-deploy on push
+- **GitHub Pages**: Free hosting at raulsperoni.me
+
+**Philosophy:**
+- Content is sacred → stored as markdown in Git
+- Future-proof → files can move anywhere
+- Tweakable → it's just code
+- Simple workflow → write, commit, push, deployed
+
+## Writing Workflow
+
+### Option 1: Obsidian (Recommended)
+1. Open Obsidian
+2. Point it to `Projects/blog/src/content/blog/` as a vault
+3. Write your post as a `.md` file
+4. Add frontmatter:
+   ```yaml
+   ---
+   title: 'Your Post Title'
+   description: 'Brief description'
+   pubDate: 'Nov 27 2025'
+   ---
+   ```
+5. Save (Obsidian auto-saves)
+6. Commit and push when ready:
+   ```bash
+   git add .
+   git commit -m "New post: Your Title"
+   git push
+   ```
+7. GitHub Actions builds and deploys automatically
+
+### Option 2: Any Text Editor
+Just create a `.md` file in `src/content/blog/` and follow the same frontmatter format.
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server (localhost:4321)
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project Structure
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```
+src/
+  content/
+    blog/          # ← Your blog posts (markdown files)
+  pages/           # Routes/pages
+  components/      # Reusable components
+  layouts/         # Page layouts (BlogPost.astro is the main one)
+  styles/          # CSS
+.github/
+  workflows/
+    deploy.yml     # Auto-deployment workflow
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Automatic**: Push to `main` → GitHub Actions builds → deploys to GitHub Pages
+- **Custom domain**: Configured for `raulsperoni.me` in `astro.config.mjs`
+- **First-time setup**:
+  1. Go to repo Settings → Pages
+  2. Source: "GitHub Actions"
+  3. (Optional) Add custom domain and configure DNS
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## Customization
 
-Any static assets, like images, can be placed in the `public/` directory.
+All code is yours to tweak:
 
-## 🧞 Commands
+- **Styling**: Edit `src/styles/global.css`
+- **Layout**: Edit `src/layouts/BlogPost.astro`
+- **Components**: Edit files in `src/components/`
+- **Add pages**: Create `.astro` files in `src/pages/`
 
-All commands are run from the root of the project, from a terminal:
+## Migration from Ghost
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+(TODO: Run migration script to pull existing posts from Ghost)
 
-## 👀 Want to learn more?
+## Why This Stack?
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- ✅ **Content safety**: Files in Git, never locked in a database
+- ✅ **Future-proof**: Markdown is universal, will work in 2050
+- ✅ **No vendor lock-in**: Move to any platform that reads markdown
+- ✅ **Free hosting**: GitHub Pages is free forever
+- ✅ **Fast**: Static sites are instant
+- ✅ **Tweakable**: Full control over every line of code
+- ✅ **Great writing experience**: Obsidian is beautiful
+- ✅ **Simple workflow**: Write → commit → push → live
 
-## Credit
+---
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Built with [Astro](https://astro.build). Theme based on [Bear Blog](https://github.com/HermanMartinus/bearblog/).

@@ -19,11 +19,29 @@ A Git-backed, Obsidian-powered, Astro-built blog. Content lives in markdown file
 
 ## Writing Workflow
 
-### Option 1: Obsidian (Recommended)
-1. Open Obsidian
-2. Point it to `Projects/blog/src/content/blog/` as a vault
-3. Write your post as a `.md` file
-4. Add frontmatter:
+### Mobile (Primary Method)
+
+**Write on your phone, auto-publish to the web!**
+
+1. Open Obsidian mobile app
+2. Write your post
+3. Close app (or wait 5 minutes)
+4. **Auto-magic**: GitHub Sync plugin commits → GitHub Actions deploys → Live in 2-3 min
+
+**Setup required**: See [`SETUP-MOBILE.md`](SETUP-MOBILE.md) for detailed setup instructions
+
+**Tech**: Uses the GitHub Sync plugin for Obsidian - no Mac needed, works on Android
+
+### Desktop (Alternative)
+
+**Option 1: Obsidian with GitHub Sync Plugin**
+1. Write in Obsidian
+2. Plugin auto-commits and pushes (or manual commit)
+3. Auto-deploys
+
+**Option 2: Manual Git Workflow**
+1. Create `.md` file in `src/content/blog/`
+2. Add frontmatter:
    ```yaml
    ---
    title: 'Your Post Title'
@@ -31,17 +49,17 @@ A Git-backed, Obsidian-powered, Astro-built blog. Content lives in markdown file
    pubDate: 'Nov 27 2025'
    ---
    ```
-5. Save (Obsidian auto-saves)
-6. Commit and push when ready:
+3. Write content
+4. Commit and push:
    ```bash
    git add .
    git commit -m "New post: Your Title"
    git push
    ```
-7. GitHub Actions builds and deploys automatically
+5. GitHub Actions deploys automatically
 
-### Option 2: Any Text Editor
-Just create a `.md` file in `src/content/blog/` and follow the same frontmatter format.
+### Any Text Editor
+Just create a `.md` file in `src/content/blog/` and follow the frontmatter format above.
 
 ## Development
 
@@ -105,7 +123,9 @@ All code is yours to tweak:
 - ✅ **Fast**: Static sites are instant
 - ✅ **Tweakable**: Full control over every line of code
 - ✅ **Great writing experience**: Obsidian is beautiful
-- ✅ **Simple workflow**: Write → commit → push → live
+- ✅ **Mobile-first**: Write on your phone, auto-publishes
+- ✅ **Simple workflow**: Write → auto-commit → auto-deploy → live
+- ✅ **No Mac required**: GitHub Sync plugin handles everything
 
 ---
 

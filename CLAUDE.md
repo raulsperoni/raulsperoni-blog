@@ -6,7 +6,8 @@
 - **Styling**: CSS (in `src/styles/`)
 - **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions (`.github/workflows/deploy.yml`)
-- **Writing**: Obsidian pointed at `src/content/blog/` folder
+- **Writing**: Obsidian (desktop + mobile with GitHub Sync plugin)
+- **Mobile Sync**: GitHub Sync plugin for Obsidian (auto-commit/push)
 
 ## Project Structure
 ```
@@ -48,13 +49,32 @@ src/
 - **Tweakable**: All code is accessible for customization
 - **Simple deployment**: Write → commit → push → deployed
 
+## Writing Workflows
+
+### Mobile Workflow (Primary)
+1. Open Obsidian mobile app
+2. Write post in `src/content/blog/` folder
+3. Close app or wait 5 minutes
+4. GitHub Sync plugin auto-commits and pushes
+5. GitHub Actions deploys (2-3 minutes)
+6. Post is live!
+
+**Setup**: See `SETUP-MOBILE.md` for detailed instructions
+
+### Desktop Workflow
+1. Open Obsidian or any text editor
+2. Create `.md` file in `src/content/blog/`
+3. Add required frontmatter
+4. Write content
+5. Commit and push manually (auto-deploys)
+
 ## Common Tasks
 
 ### Add a new blog post
 1. Create `.md` file in `src/content/blog/`
 2. Add required frontmatter
 3. Write content
-4. Commit and push (auto-deploys)
+4. Commit and push (auto-deploys via plugin or manual)
 
 ### Customize styling
 - Edit `src/styles/global.css`

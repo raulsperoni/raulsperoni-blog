@@ -117,8 +117,9 @@ Ready to import your existing Ghost posts? See [`MIGRATION.md`](MIGRATION.md) fo
 **Quick version:**
 1. Export from Ghost Admin → Settings → Labs → Export
 2. Save JSON as `scripts/ghost-export.json`
-3. Run `npm run migrate`
-4. Review posts and push to deploy
+3. Run `npm run migrate` (migrates posts)
+4. Run `npm run migrate:images` (downloads images locally)
+5. Review posts and push to deploy
 
 ## Why This Stack?
 

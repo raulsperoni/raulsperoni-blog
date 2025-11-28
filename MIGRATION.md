@@ -51,32 +51,27 @@ This guide will help you import all your existing Ghost blog posts into your new
    - ✅ Links working
    - ✅ Code blocks formatted properly
 
-### Step 4: Handle Images
+### Step 4: Migrate Images (Recommended)
 
-Ghost images will still reference the Ghost CDN. You have two options:
+Ghost images will still reference the Ghost CDN. You should download them locally:
 
-**Option A: Keep Ghost CDN links (Easy)**
-- Images continue loading from Ghost
-- No changes needed
-- Works as long as Ghost blog is live
-
-**Option B: Download images locally (Recommended)**
-- Full control over assets
-- Faster loading
-- No external dependencies
-
-To migrate images:
 ```bash
-# Create images directory
-mkdir -p public/images
-
-# Download images (you'll need to do this manually or create a script)
-# For each image URL in your posts:
-# curl [ghost-image-url] -o public/images/[image-name.jpg]
-
-# Then update markdown files to reference local images:
-# ![alt](/images/image-name.jpg)
+npm run migrate:images
 ```
+
+This script will:
+- ✅ Scan all migrated posts for image URLs
+- ✅ Download images from Ghost CDN
+- ✅ Save to `public/images/`
+- ✅ Update markdown files to reference local images
+- ✅ Handle both hero images and content images
+- ✅ Avoid duplicate downloads
+
+**Alternative: Keep Ghost CDN links**
+If you prefer to keep images on Ghost CDN (not recommended):
+- Images work as long as Ghost blog is live
+- No control over assets
+- Slower loading from external CDN
 
 ### Step 5: Clean Up Demo Posts
 

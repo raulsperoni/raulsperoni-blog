@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "migrate": "node scripts/migrate-from-ghost.js"
+    "migrate": "node scripts/migrate-from-ghost.js",
+    "migrate:images": "node scripts/migrate-images.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",

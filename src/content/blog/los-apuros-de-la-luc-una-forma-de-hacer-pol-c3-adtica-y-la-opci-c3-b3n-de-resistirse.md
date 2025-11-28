@@ -2,7 +2,7 @@
 title: 'Los apuros de la LUC, una forma de hacer política, y la opción de resistirse.'
 description: ''
 pubDate: 'Mar 19 2022'
-heroImage: '/images/1-fj0owmdak2xvou3psbcmkw.png'
+heroImage: '../../assets/images/1-fj0owmdak2xvou3psbcmkw.png'
 tags: ['pienso ✊🏽']
 ---
 

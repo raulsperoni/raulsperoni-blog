@@ -2,7 +2,7 @@
 title: 'El Gigante.'
 description: ''
 pubDate: 'May 15 2018'
-heroImage: '/images/IMG_20180515_172410.webp'
+heroImage: '../../assets/images/IMG_20180515_172410.webp'
 tags: ['escribo ✍🏻']
 ---
 

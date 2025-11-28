@@ -2,7 +2,7 @@
 title: 'La Guardia de Azúcar'
 description: ''
 pubDate: 'Jul 11 2021'
-heroImage: '/images/IMG_20200828_193337_1_.webp'
+heroImage: '../../assets/images/IMG_20200828_193337_1_.webp'
 tags: ['escribo ✍🏻']
 ---
 

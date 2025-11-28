@@ -2,7 +2,7 @@
 title: 'Prioridades.'
 description: ''
 pubDate: 'Jul 24 2019'
-heroImage: '/images/IMG_20201127_230541.webp'
+heroImage: '../../assets/images/IMG_20201127_230541.webp'
 tags: ['escribo ✍🏻']
 ---
 

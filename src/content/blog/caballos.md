@@ -2,7 +2,7 @@
 title: 'Caballos'
 description: ''
 pubDate: 'Aug 1 2020'
-heroImage: '/images/IMG_20190714_151613.webp'
+heroImage: '../../assets/images/IMG_20190714_151613.webp'
 tags: ['escribo ✍🏻']
 ---
 

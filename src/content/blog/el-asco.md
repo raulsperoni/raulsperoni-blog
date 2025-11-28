@@ -2,7 +2,7 @@
 title: 'El Asco.'
 description: ''
 pubDate: 'Sep 7 2020'
-heroImage: '/images/IMG_20201213_180955.webp'
+heroImage: '../../assets/images/IMG_20201213_180955.webp'
 tags: ['escribo ✍🏻']
 ---
 

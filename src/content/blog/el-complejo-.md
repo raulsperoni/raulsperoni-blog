@@ -2,7 +2,7 @@
 title: 'El Complejo.'
 description: ''
 pubDate: 'Mar 30 2020'
-heroImage: '/images/IMG_20191205_173542.webp'
+heroImage: '../../assets/images/IMG_20191205_173542.webp'
 tags: ['escribo ✍🏻']
 ---
 

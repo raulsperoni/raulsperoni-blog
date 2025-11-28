@@ -2,7 +2,7 @@
 title: 'Y sin embargo soy tolerado.'
 description: ''
 pubDate: 'May 16 2019'
-heroImage: '/images/IMG_20180225_172835.webp'
+heroImage: '../../assets/images/IMG_20180225_172835.webp'
 tags: ['escribo ✍🏻']
 ---
 

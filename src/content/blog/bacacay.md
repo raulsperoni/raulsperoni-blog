@@ -2,7 +2,7 @@
 title: 'Bacacay.'
 description: ''
 pubDate: 'May 30 2018'
-heroImage: '/images/IMG_20191205_173346_1_.webp'
+heroImage: '../../assets/images/IMG_20191205_173346_1_.webp'
 tags: ['escribo ✍🏻']
 ---
 

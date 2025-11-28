@@ -2,7 +2,7 @@
 title: 'El monitor.'
 description: ''
 pubDate: 'Jul 27 2019'
-heroImage: '/images/IMG_20200718_123958.webp'
+heroImage: '../../assets/images/IMG_20200718_123958.webp'
 tags: ['escribo ✍🏻']
 ---
 

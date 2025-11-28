@@ -2,7 +2,7 @@
 title: 'Colores.'
 description: ''
 pubDate: 'Aug 2 2020'
-heroImage: '/images/IMG_20201101_182453.webp'
+heroImage: '../../assets/images/IMG_20201101_182453.webp'
 tags: ['escribo ✍🏻']
 ---
 

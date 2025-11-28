@@ -2,7 +2,7 @@
 title: 'Ese no es mi padre'
 description: ''
 pubDate: 'Aug 15 2021'
-heroImage: '/images/PXL_20210625_153828262.webp'
+heroImage: '../../assets/images/PXL_20210625_153828262.webp'
 tags: ['escribo ✍🏻']
 ---
 

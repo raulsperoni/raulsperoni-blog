@@ -2,7 +2,7 @@
 title: 'Contexto'
 description: ''
 pubDate: 'May 13 2022'
-heroImage: '/images/PXL_20220501_140908725.webp'
+heroImage: '../../assets/images/PXL_20220501_140908725.webp'
 tags: ['escribo ✍🏻']
 ---
 

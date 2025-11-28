@@ -2,7 +2,7 @@
 title: 'El buen vecino.'
 description: ''
 pubDate: 'Aug 23 2020'
-heroImage: '/images/IMG_20201113_190214.webp'
+heroImage: '../../assets/images/IMG_20201113_190214.webp'
 tags: ['escribo ✍🏻']
 ---
 

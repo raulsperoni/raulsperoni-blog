@@ -2,7 +2,7 @@
 title: 'Tenés nombre de viejo.'
 description: ''
 pubDate: 'Sep 14 2020'
-heroImage: '/images/IMG_20201130_174621_1_.webp'
+heroImage: '../../assets/images/IMG_20201130_174621_1_.webp'
 tags: ['escribo ✍🏻']
 ---
 

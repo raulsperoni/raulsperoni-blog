@@ -3,7 +3,7 @@ title: 'Los apuros de la LUC, una forma de hacer política, y la opción de resi
 description: ''
 pubDate: 'Mar 19 2022'
 heroImage: '../../assets/images/1-fj0owmdak2xvou3psbcmkw.png'
-tags: ['pienso ✊🏽']
+tags: ['escribo ✍🏻', 'hago 🔧']
 ---
 
 Leí en algún lado que la democracia se parecía mucho a la técnica matemática de reducción de dimensionalidad. Es normal en Ingeniería y otras disciplinas intentar convertir un problema de muchas variables, en otro más digerible, con menos, aún sabiendo que en el proceso se pierden detalles e información. Se trata de simplificar problemas para procesarlos con las herramientas que tenemos, o visualizarlos, o entenderlos.

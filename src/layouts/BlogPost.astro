@@ -57,18 +57,27 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				flex-wrap: wrap;
 				gap: 0.5rem;
 				margin: 1em 0;
+				justify-content: center;
 			}
 			.tag {
 				padding: 0.25rem 0.75rem;
-				background: rgb(var(--accent));
-				color: white;
-				border-radius: 0.25rem;
+				background: var(--accent);
+				color: white !important;
+				border-radius: 1rem;
 				text-decoration: none;
 				font-size: 0.875rem;
-				transition: background 0.2s;
+				font-weight: 500;
+				transition: all 0.2s;
 			}
 			.tag:hover {
-				background: rgb(var(--accent-dark));
+				background: var(--accent-dark);
+				color: white !important;
+				transform: translateY(-1px);
+				box-shadow: 0 2px 8px rgba(35, 55, 255, 40%);
+			}
+			.tag::before {
+				content: '#';
+				opacity: 0.8;
 			}
 		</style>
 	</head>

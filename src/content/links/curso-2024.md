@@ -5,7 +5,7 @@ description: ''
 pubDate: 'Dec 1, 2025'
 favicon: 'https://www.fic.edu.uy/sites/default/files/favicon.ico'
 siteName: 'FIC - Facultad de Información y  Comunicación'
-tags: ['proyectos']
+tags: ['hago 🔧']
 ---
 
 Add your notes about this link here.

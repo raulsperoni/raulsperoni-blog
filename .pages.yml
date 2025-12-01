@@ -42,6 +42,11 @@ content:
         list: true
         required: false
 
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+
     view:
       fields:
         - title
@@ -111,6 +116,11 @@ content:
         label: Tags
         type: string
         list: true
+        required: false
+
+      - name: body
+        label: Notes
+        type: rich-text
         required: false
 
     view:

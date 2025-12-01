@@ -3,7 +3,7 @@ title: 'El todo es menor que la suma de las partes'
 description: ''
 pubDate: 'Nov 24 2025'
 heroImage: '../../assets/images/PXL_20251123_205344114.jpg'
-tags: ['escribo ✍🏻']
+tags: ['escribo ✍🏻', 'hago 🔧']
 ---
 
 **Domingo 26 de octubre, 17:08**

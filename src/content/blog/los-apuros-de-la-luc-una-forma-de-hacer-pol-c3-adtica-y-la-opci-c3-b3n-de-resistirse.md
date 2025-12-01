@@ -30,7 +30,7 @@ Evolución de visitas a resistencia.uy
 
 Entre Enero y Abril de 2021 la página recibió 3% de tráfico desde _yofirmo.uy_, 20% de tráfico desde Twitter y Facebook y 60% de tráfico directo. Lo que podemos suponer de ese tráfico directo, ya que el link no fue publicitado en ningún medio, es que la página empezó a circular por Whatsapp y boca a boca y no desde sitios ni cuentas oficiales de partidos u organizaciones.
 
-En algún punto la página de la LUC Comparada, [resistencia.uy](https://resistencia.uy/), pasó a ser el primer resultado de Google ante la búsqueda de la palabra “LUC” y desde el 1o de Mayo hasta ayer, el 53% de las visitas llegaron desde Google, 25% es tráfico directo y 12% de Twitter y Facebook.
+En algún punto la página de la LUC Comparada, [resistencia.uy](/links/resistenciauy/), pasó a ser el primer resultado de Google ante la búsqueda de la palabra “LUC” y desde el 1o de Mayo hasta ayer, el 53% de las visitas llegaron desde Google, 25% es tráfico directo y 12% de Twitter y Facebook.
 
 No es posible saber exactamente cuántas personas diferentes visitaron la página pero si sabemos que las visitas corresponden a 340 mil usuarios (que pueden ser personas diferentes, o personas que usan más de un dispositivo) que pasaron alrededor de 4 minutos en promedio leyendo sobre la LUC.
 

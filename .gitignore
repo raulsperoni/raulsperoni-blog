@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Ghost export (contains content, don't commit)
 scripts/ghost-export.json
+
+#Obsidian
+.obsidian/

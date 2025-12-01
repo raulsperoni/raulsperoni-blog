@@ -19,6 +19,7 @@ npm run build          # Production build to dist/
 npm run preview        # Preview production build locally
 npm run migrate        # Migrate posts from Ghost JSON export
 npm run migrate:images # Download Ghost images locally
+npm run add-link       # Add a new link with SEO metadata
 ```
 
 ## Content System Architecture
@@ -26,9 +27,9 @@ npm run migrate:images # Download Ghost images locally
 **Content Collections** (`src/content.config.ts`):
 - Uses Astro's Content Collections API with glob loader
 - Schema validation with Zod
-- **Important**: `heroImage` field uses `image()` helper for optimization
-  - Returns ImageMetadata object with optimized image info
-  - Enables automatic format conversion, resizing, and lazy loading
+- Two collections: `blog` and `links`
+
+### Blog Posts
 
 **Blog Post Frontmatter** (required fields):
 ```yaml
@@ -37,6 +38,7 @@ title: 'Post Title'
 description: 'Brief description'
 pubDate: 'Nov 27 2025'  # Coerced to Date by schema
 heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/assets
+tags: ['tag1', 'tag2']  # Optional array of tags
 ---
 ```
 
@@ -44,6 +46,40 @@ heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/as
 - `src/pages/blog/[...slug].astro` - Dynamic route for all blog posts
 - Uses `getStaticPaths()` to generate routes from Content Collections
 - Post ID from filename becomes the slug
+
+**Important**: `heroImage` field uses `image()` helper for optimization
+- Returns ImageMetadata object with optimized image info
+- Enables automatic format conversion, resizing, and lazy loading
+
+### Links Collection
+
+**Link Frontmatter** (required fields):
+```yaml
+---
+title: 'Link Title'
+url: 'https://example.com'
+description: 'Brief description of the link'
+pubDate: 'Dec 01 2025'  # Coerced to Date by schema
+tags: ['tag1', 'tag2']  # Optional, uses same tag system as blog posts
+# Optional SEO metadata (auto-fetched by add-link script):
+ogImage: 'https://example.com/og-image.jpg'
+favicon: 'https://example.com/favicon.ico'
+siteName: 'Example Site'
+linkImage: '../../assets/images/screenshot.webp'  # Optional custom image
+---
+```
+
+**Routing**:
+- `src/pages/links/index.astro` - Links listing page
+- `src/pages/links/[...slug].astro` - Individual link pages with notes
+- Links can include markdown content below frontmatter for notes/commentary
+
+**Adding Links**:
+1. **Automatic** (recommended): `npm run add-link <url> [slug] [tags...]`
+   - Fetches title, description, Open Graph image, favicon, and site name
+   - Creates markdown file in `src/content/links/`
+   - Example: `npm run add-link https://astro.build astro-site web development`
+2. **Manual**: Create markdown file in `src/content/links/` with frontmatter above
 
 ## Image Handling
 
@@ -61,6 +97,7 @@ heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/as
 
 **Content**:
 - `src/content/blog/` - All blog posts (managed by Obsidian or any editor)
+- `src/content/links/` - Link bookmarks with SEO metadata
 - `src/content.config.ts` - Content Collections schema and validation
 
 **Layouts**:
@@ -70,6 +107,9 @@ heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/as
 - `src/pages/index.astro` - Homepage
 - `src/pages/blog/index.astro` - Blog listing page
 - `src/pages/blog/[...slug].astro` - Dynamic blog post pages
+- `src/pages/links/index.astro` - Links listing page
+- `src/pages/links/[...slug].astro` - Individual link pages
+- `src/pages/tags/[tag].astro` - Tag filtering (works for both blog posts and links)
 - `src/pages/about.astro` - About page
 
 **Components**:
@@ -79,6 +119,7 @@ heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/as
 
 **Config**:
 - `astro.config.mjs` - Site URL: `https://raulsperoni.me`, MDX + Sitemap integrations
+- `pages.config.json` - PagesCMS configuration for web-based content editing
 
 ## Deployment
 
@@ -89,16 +130,35 @@ heroImage: '../../assets/images/photo.webp'  # Optional, relative path to src/as
 
 ## Writing Workflows
 
+### PagesCMS (Recommended)
+- Web-based CMS at https://pagescms.org
+- Connect your GitHub repository
+- Edit blog posts and links via web interface
+- Auto-commits to GitHub → triggers deployment
+- Configuration: `pages.config.json`
+
+### Obsidian
 **Primary (Mobile)**: Obsidian mobile app → GitHub Sync plugin auto-commits → auto-deploys
 **Desktop**: Obsidian desktop or any text editor → manual git commit or auto-commit plugin
 
-## Migration Tools
+### Direct Editing
+Any text editor → manual git commit → push → auto-deploys
+
+## Scripts & Tools
 
 **Ghost Import** (`scripts/migrate-from-ghost.js`):
 - Converts Ghost JSON export to Markdown files
 - Downloads and converts images to WebP
 - Run: `npm run migrate` then `npm run migrate:images`
 - See `MIGRATION.md` for details
+
+**Link SEO Fetcher** (`scripts/fetch-link-seo.js`):
+- Automatically fetches metadata from URLs (title, description, OG image, favicon, site name)
+- Creates markdown files in `src/content/links/` with proper frontmatter
+- Usage: `npm run add-link <url> [slug] [tags...]`
+- Example: `npm run add-link https://docs.astro.build astro-docs documentation astro`
+- If slug is omitted, generates one from the page title
+- Tags are optional and space-separated
 
 ## Philosophy
 

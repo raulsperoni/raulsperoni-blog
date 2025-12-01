@@ -1,0 +1,119 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+	const links = await getCollection('links');
+	return links.map((link) => ({
+		params: { slug: link.id },
+		props: link,
+	}));
+}
+type Props = CollectionEntry<'links'>;
+
+const link = Astro.props;
+const { Content } = await render(link);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={link.data.title} description={link.data.description} />
+		<style>
+			main {
+				width: 960px;
+			}
+			.link-header {
+				padding: 2rem 0;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.link-title {
+				margin: 0 0 0.5rem 0;
+				font-size: 2.5rem;
+			}
+			.link-url {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: rgb(var(--accent));
+				text-decoration: none;
+				font-size: 1.1rem;
+				margin: 1rem 0;
+			}
+			.link-url:hover {
+				text-decoration: underline;
+			}
+			.favicon {
+				width: 20px;
+				height: 20px;
+			}
+			.link-meta {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-top: 1rem;
+				color: rgb(var(--gray));
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			.tag {
+				padding: 0.25rem 0.5rem;
+				background: rgb(var(--accent));
+				color: white;
+				border-radius: 0.25rem;
+				font-size: 0.875rem;
+				text-decoration: none;
+			}
+			.link-content {
+				padding: 2rem 0;
+			}
+			.external-icon {
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="link-header">
+					<h1 class="link-title">{link.data.title}</h1>
+					<p>{link.data.description}</p>
+					<a href={link.data.url} target="_blank" rel="noopener noreferrer" class="link-url">
+						{link.data.favicon && (
+							<img src={link.data.favicon} alt="" class="favicon" />
+						)}
+						{link.data.siteName || new URL(link.data.url).hostname}
+						<svg class="external-icon" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+							<path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+						</svg>
+					</a>
+					<div class="link-meta">
+						<FormattedDate date={link.data.pubDate} />
+						{link.data.tags && link.data.tags.length > 0 && (
+							<div class="tags">
+								{link.data.tags.map((tag) => (
+									<a href={`/tags/${tag}/`} class="tag">{tag}</a>
+								))}
+							</div>
+						)}
+					</div>
+				</div>
+				<div class="link-content">
+					<Content />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

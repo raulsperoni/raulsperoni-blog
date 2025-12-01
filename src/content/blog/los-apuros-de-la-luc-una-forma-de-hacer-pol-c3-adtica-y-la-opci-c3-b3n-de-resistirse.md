@@ -24,7 +24,7 @@ Es así que surge la LUC Comparada, un sitio en internet que toma datos del Impo
 
 Esta página, que necesitábamos fuera rápida y simple, que se podía instalar como app en el teléfono (porque aparentemente las apps gustan) recibió desde diciembre del 2021, 4.6 millones de visitas. Ese número en sí no es muy informativo porque podríamos haber pautado publicidad (que no lo hicimos, porque además con qué), pero sí es interesante observar de dónde vinieron las visitas, o mejor, desde donde no vinieron.
 
-![](/images/1-i4x5vggwvvsk4vgyhnz__a.png)
+![](../../assets/images/1-i4x5vggwvvsk4vgyhnz__a.png)
 
 Evolución de visitas a resistencia.uy
 
@@ -34,7 +34,7 @@ En algún punto la página de la LUC Comparada, [resistencia.uy](https://resiste
 
 No es posible saber exactamente cuántas personas diferentes visitaron la página pero si sabemos que las visitas corresponden a 340 mil usuarios (que pueden ser personas diferentes, o personas que usan más de un dispositivo) que pasaron alrededor de 4 minutos en promedio leyendo sobre la LUC.
 
-![](/images/1-em0mmpnw5a9wrhpfytm6ww.png)
+![](../../assets/images/1-em0mmpnw5a9wrhpfytm6ww.png)
 
 Los 15 artículos más consultados
 

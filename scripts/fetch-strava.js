@@ -124,11 +124,38 @@ async function main() {
       console.log('✓ Fetched athlete stats');
     }
 
+    // Privacy filter: Strip sensitive location and time data from activities
+    // Intentionally removing:
+    // - GPS coordinates (start_latlng, end_latlng, map polyline)
+    // - Exact time of day (keeping only the date)
+    // - Location names that could reveal home/work addresses
+    const sanitizedActivities = activities.map(activity => {
+      const activityDate = new Date(activity.start_date_local);
+      // Strip time, keep only date
+      const dateOnly = activityDate.toISOString().split('T')[0];
+
+      return {
+        id: activity.id,
+        name: activity.name,
+        distance: activity.distance,
+        moving_time: activity.moving_time,
+        elapsed_time: activity.elapsed_time,
+        total_elevation_gain: activity.total_elevation_gain,
+        type: activity.type,
+        sport_type: activity.sport_type,
+        start_date_local: `${dateOnly}T00:00:00Z`,
+        // Explicitly omitting: start_latlng, end_latlng, map, location_city,
+        // location_state, location_country, timezone, and other location data
+      };
+    });
+
     const data = {
       lastUpdated: new Date().toISOString(),
       stats,
-      recentActivities: activities,
+      recentActivities: sanitizedActivities,
       athleteId,
+      // Privacy notice for transparency
+      _privacy_note: 'GPS coordinates, exact activity times, and location names have been removed for privacy',
     };
 
     const dataDir = path.join(__dirname, '../src/data');

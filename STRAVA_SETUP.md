@@ -166,7 +166,22 @@ The daily cron job should stay well within these limits.
 
 ## Data Privacy
 
+The fetch script includes built-in privacy protections:
+
+**Automatically Removed:**
+- GPS coordinates (start/end locations, route maps)
+- Exact time of day (only date is kept)
+- Location names (city, state, country)
+- Timezone information
+
+**What's Kept:**
+- Activity name
+- Date (without time)
+- Distance, duration, elevation gain
+- Activity type (run, ride, swim)
+
+**Additional Privacy:**
 - All API credentials are stored as GitHub Secrets (encrypted)
 - Only aggregated stats and recent activities are published
-- No personal data (like heart rate, power, etc.) is exposed
 - You can adjust what data is displayed by editing `src/pages/fitness.astro`
+- The sanitization happens in `scripts/fetch-strava.js` before data is committed to the repo

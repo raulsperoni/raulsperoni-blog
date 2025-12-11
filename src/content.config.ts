@@ -38,4 +38,51 @@ const links = defineCollection({
 		}),
 });
 
-export const collections = { blog, links };
+const strava = defineCollection({
+	loader: async () => {
+		try {
+			const fs = await import('node:fs/promises');
+			const path = await import('node:path');
+
+			const dataPath = path.join(process.cwd(), 'src/data/strava.json');
+			const fileContent = await fs.readFile(dataPath, 'utf-8');
+			const stravaData = JSON.parse(fileContent);
+			const activities = stravaData.recentActivities || [];
+
+			return activities.map((activity: any) => {
+				const date = new Date(activity.start_date_local);
+				const distanceKm = (activity.distance / 1000).toFixed(1);
+				const timeMinutes = Math.round(activity.moving_time / 60);
+
+				return {
+					id: activity.id.toString(),
+					title: activity.name,
+					description: `${distanceKm} km in ${timeMinutes} minutes`,
+					pubDate: date,
+					tags: ['corro 🏃'],
+					distance: activity.distance,
+					movingTime: activity.moving_time,
+					elevationGain: activity.total_elevation_gain,
+					sportType: activity.sport_type || activity.type,
+					stravaUrl: `https://www.strava.com/activities/${activity.id}`,
+				};
+			});
+		} catch (error) {
+			console.warn('Failed to load Strava data:', error);
+			return [];
+		}
+	},
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.date(),
+		tags: z.array(z.string()).default([]),
+		distance: z.number(),
+		movingTime: z.number(),
+		elevationGain: z.number(),
+		sportType: z.string(),
+		stravaUrl: z.string().url(),
+	}),
+});
+
+export const collections = { blog, links, strava };

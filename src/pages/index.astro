@@ -7,6 +7,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const allPosts = await getCollection('blog');
 const allLinks = await getCollection('links');
+const allStrava = await getCollection('strava');
 
 const allContent = [
 	...allPosts.map(post => ({
@@ -18,6 +19,11 @@ const allContent = [
 		...link,
 		type: 'link' as const,
 		url: `/links/${link.id}/`
+	})),
+	...allStrava.map(activity => ({
+		...activity,
+		type: 'strava' as const,
+		url: activity.data.stravaUrl
 	}))
 ].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -110,6 +116,11 @@ const sortedTags = Array.from(tagMap.entries())
 				color: white;
 			}
 
+			.content-type.strava {
+				background: #fc4c02;
+				color: white;
+			}
+
 			.content-link {
 				flex: 1;
 				color: var(--text);
@@ -122,6 +133,13 @@ const sortedTags = Array.from(tagMap.entries())
 			.content-link:hover {
 				color: var(--accent);
 				border: none;
+			}
+
+			.strava-details {
+				color: var(--text-light);
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+				font-size: 0.875rem;
+				font-weight: 400;
 			}
 
 			@media (max-width: 720px) {
@@ -142,14 +160,28 @@ const sortedTags = Array.from(tagMap.entries())
 						<span class="tag-count">({items.length})</span>
 					</div>
 					<ul class="content-list">
-						{items.slice(0, 5).map(item => (
-							<li class="content-item">
-								<span class={`content-type ${item.type}`}>{item.type}</span>
-								<a href={item.url} class="content-link">
-									{item.data.title}
-								</a>
-							</li>
-						))}
+						{items.slice(0, 5).map(item => {
+							const isStrava = item.type === 'strava';
+							let stravaDetails = '';
+							if (isStrava) {
+								const distanceKm = (item.data.distance / 1000).toFixed(1);
+								const paceMinPerKm = item.data.distance > 0
+									? (item.data.movingTime / 60) / (item.data.distance / 1000)
+									: 0;
+								const paceFormatted = paceMinPerKm > 0
+									? `${Math.floor(paceMinPerKm)}:${String(Math.round((paceMinPerKm % 1) * 60)).padStart(2, '0')}`
+									: '';
+								stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
+							}
+							return (
+								<li class="content-item">
+									<span class={`content-type ${item.type}`}>{item.type}</span>
+									<a href={item.url} class="content-link">
+										{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				</section>
 			))}

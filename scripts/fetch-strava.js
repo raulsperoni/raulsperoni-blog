@@ -85,6 +85,17 @@ async function getRecentActivities(accessToken, perPage = 20) {
   );
 
   if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    console.error('Activities API error:', errorData);
+
+    if (response.status === 401) {
+      throw new Error(
+        'Failed to fetch activities: 401 Unauthorized. ' +
+        'Your refresh token may not have the "activity:read_all" scope. ' +
+        'Run: node scripts/setup-strava-oauth.js to get a new token.'
+      );
+    }
+
     throw new Error(
       `Failed to fetch activities: ${response.status} ${response.statusText}`
     );

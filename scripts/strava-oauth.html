@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava OAuth Setup</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .step {
+      background: #f5f5f5;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border-left: 4px solid #fc4c02;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    button {
+      background: #fc4c02;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    button:hover {
+      background: #e64402;
+    }
+    .output {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 13px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      border-color: #c3e6cb;
+      color: #155724;
+    }
+    .error {
+      background: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    a {
+      color: #fc4c02;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚴 Strava OAuth Setup</h1>
+  <p>This tool helps you get a Strava refresh token with the <code>activity:read_all</code> scope for your static blog.</p>
+
+  <div class="step">
+    <h2>Step 1: Enter Your Strava App Credentials</h2>
+    <p>Get these from <a href="https://www.strava.com/settings/api" target="_blank">Strava API Settings</a></p>
+
+    <label>Client ID:</label>
+    <input type="text" id="clientId" placeholder="Your Client ID">
+
+    <label>Client Secret:</label>
+    <input type="text" id="clientSecret" placeholder="Your Client Secret">
+
+    <button onclick="generateAuthUrl()">Generate Authorization URL</button>
+
+    <div id="authUrlOutput" class="output"></div>
+  </div>
+
+  <div class="step">
+    <h2>Step 2: Authorize the App</h2>
+    <p>Click the authorization URL above, log in to Strava, and click "Authorize".</p>
+    <p>You'll be redirected to a URL like: <code>http://localhost/?state=&code=XXXXX&scope=...</code></p>
+    <p>The page won't load (that's OK!), just copy the entire URL from your browser's address bar.</p>
+  </div>
+
+  <div class="step">
+    <h2>Step 3: Paste the Redirect URL</h2>
+
+    <label>Paste the redirect URL here:</label>
+    <input type="text" id="redirectUrl" placeholder="http://localhost/?state=&code=...">
+
+    <button onclick="exchangeToken()">Get Refresh Token</button>
+
+    <div id="tokenOutput" class="output"></div>
+  </div>
+
+  <script>
+    function generateAuthUrl() {
+      const clientId = document.getElementById('clientId').value.trim();
+
+      if (!clientId) {
+        alert('Please enter your Client ID');
+        return;
+      }
+
+      const authUrl = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=activity:read_all`;
+
+      const output = document.getElementById('authUrlOutput');
+      output.innerHTML = `<strong>✓ Authorization URL generated!</strong>\n\nClick this link to authorize:\n<a href="${authUrl}" target="_blank" style="word-break: break-all;">${authUrl}</a>\n\nAfter authorizing, you'll be redirected to a localhost URL that won't load.\nDon't worry - just copy that entire URL and paste it in Step 3 below.`;
+      output.style.display = 'block';
+      output.className = 'output success';
+    }
+
+    async function exchangeToken() {
+      const clientId = document.getElementById('clientId').value.trim();
+      const clientSecret = document.getElementById('clientSecret').value.trim();
+      const redirectUrl = document.getElementById('redirectUrl').value.trim();
+      const output = document.getElementById('tokenOutput');
+
+      if (!clientId || !clientSecret || !redirectUrl) {
+        output.innerHTML = '❌ Please fill in all fields above';
+        output.style.display = 'block';
+        output.className = 'output error';
+        return;
+      }
+
+      // Extract the code from the redirect URL
+      const urlParams = new URLSearchParams(redirectUrl.split('?')[1]);
+      const code = urlParams.get('code');
+
+      if (!code) {
+        output.innerHTML = '❌ Could not find authorization code in the URL.\n\nMake sure you pasted the complete redirect URL from your browser.';
+        output.style.display = 'block';
+        output.className = 'output error';
+        return;
+      }
+
+      output.innerHTML = '⏳ Exchanging code for tokens...';
+      output.style.display = 'block';
+      output.className = 'output';
+
+      try {
+        const response = await fetch('https://www.strava.com/oauth/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: clientId,
+            client_secret: clientSecret,
+            code: code,
+            grant_type: 'authorization_code',
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.errors) {
+          output.innerHTML = `❌ Error exchanging token:\n\n${JSON.stringify(data, null, 2)}\n\nThe authorization code may have expired. Go back to Step 1 and try again.`;
+          output.className = 'output error';
+          return;
+        }
+
+        output.innerHTML = `✅ Success! Here are your tokens:\n\n` +
+          `Add these to your GitHub repository secrets:\n\n` +
+          `STRAVA_CLIENT_ID\n${clientId}\n\n` +
+          `STRAVA_CLIENT_SECRET\n${clientSecret}\n\n` +
+          `STRAVA_REFRESH_TOKEN\n${data.refresh_token}\n\n` +
+          `────────────────────────────────────────\n\n` +
+          `To test locally, run these commands:\n\n` +
+          `export STRAVA_CLIENT_ID="${clientId}"\n` +
+          `export STRAVA_CLIENT_SECRET="${clientSecret}"\n` +
+          `export STRAVA_REFRESH_TOKEN="${data.refresh_token}"\n\n` +
+          `node scripts/test-strava-local.js\n\n` +
+          `────────────────────────────────────────\n\n` +
+          `Athlete: ${data.athlete.firstname} ${data.athlete.lastname}\n` +
+          `Access Token Expires: ${new Date(data.expires_at * 1000).toLocaleString()}`;
+
+        output.className = 'output success';
+
+      } catch (error) {
+        output.innerHTML = `❌ Network error:\n\n${error.message}\n\nPlease check your internet connection and try again.`;
+        output.className = 'output error';
+      }
+    }
+  </script>
+</body>
+</html>

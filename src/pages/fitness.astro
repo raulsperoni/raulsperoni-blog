@@ -1,0 +1,443 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import stravaData from '../data/strava.json';
+
+const { lastUpdated, stats, recentActivities } = stravaData;
+
+function formatDistance(meters: number): string {
+  return (meters / 1000).toFixed(1);
+}
+
+function formatTime(seconds: number): string {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
+  }
+  return `${minutes}m`;
+}
+
+function formatElevation(meters: number): string {
+  return Math.round(meters).toString();
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(date);
+}
+
+const lastUpdatedDate = new Date(lastUpdated);
+const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZoneName: 'short',
+}).format(lastUpdatedDate);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`Fitness | ${SITE_TITLE}`}
+      description="Fitness and training stats from Strava"
+    />
+    <style>
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+      }
+
+      .stat-card h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat-row:last-child {
+        border-bottom: none;
+      }
+
+      .stat-label {
+        color: var(--text-light);
+        font-size: 0.875rem;
+      }
+
+      .stat-value {
+        font-weight: 600;
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .activity-item {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+      }
+
+      .activity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.75rem;
+      }
+
+      .activity-name {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0;
+      }
+
+      .activity-type {
+        padding: 0.25rem 0.5rem;
+        background: var(--accent-light);
+        color: var(--accent-dark);
+        border-radius: 3px;
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      .activity-details {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--text-light);
+      }
+
+      .activity-detail {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .activity-detail-label {
+        color: var(--text-light);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .activity-detail-value {
+        color: var(--text);
+        font-weight: 600;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .last-updated {
+        text-align: center;
+        color: var(--text-light);
+        font-size: 0.875rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .section-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .section-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .section-header p {
+        color: var(--text-light);
+        font-size: 1rem;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-light);
+      }
+
+      @media (max-width: 720px) {
+        .activity-header {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .activity-details {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="section-header">
+        <h1>Fitness Stats</h1>
+        <p>Training data powered by Strava</p>
+      </div>
+
+      {stats ? (
+        <>
+          <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">
+            Year to Date
+          </h2>
+          <div class="stats-grid">
+            {stats.ytd_run_totals && stats.ytd_run_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Running</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.ytd_run_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.ytd_run_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.ytd_run_totals.elapsed_time)}
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Elevation</span>
+                  <span class="stat-value">
+                    {formatElevation(stats.ytd_run_totals.elevation_gain)} m
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {stats.ytd_ride_totals && stats.ytd_ride_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Cycling</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.ytd_ride_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.ytd_ride_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.ytd_ride_totals.elapsed_time)}
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Elevation</span>
+                  <span class="stat-value">
+                    {formatElevation(stats.ytd_ride_totals.elevation_gain)} m
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {stats.ytd_swim_totals && stats.ytd_swim_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Swimming</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.ytd_swim_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.ytd_swim_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.ytd_swim_totals.elapsed_time)}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <h2 style="margin-bottom: 1rem; margin-top: 2rem; font-size: 1.25rem;">
+            All Time
+          </h2>
+          <div class="stats-grid">
+            {stats.all_run_totals && stats.all_run_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Running</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.all_run_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.all_run_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.all_run_totals.elapsed_time)}
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Elevation</span>
+                  <span class="stat-value">
+                    {formatElevation(stats.all_run_totals.elevation_gain)} m
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {stats.all_ride_totals && stats.all_ride_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Cycling</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.all_ride_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.all_ride_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.all_ride_totals.elapsed_time)}
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Elevation</span>
+                  <span class="stat-value">
+                    {formatElevation(stats.all_ride_totals.elevation_gain)} m
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {stats.all_swim_totals && stats.all_swim_totals.count > 0 && (
+              <div class="stat-card">
+                <h2>Swimming</h2>
+                <div class="stat-row">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value">
+                    {formatDistance(stats.all_swim_totals.distance)} km
+                  </span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Activities</span>
+                  <span class="stat-value">{stats.all_swim_totals.count}</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value">
+                    {formatTime(stats.all_swim_totals.elapsed_time)}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <div class="empty-state">
+          <p>No stats available yet. Check back after Strava data is fetched.</p>
+        </div>
+      )}
+
+      {recentActivities.length > 0 && (
+        <>
+          <h2 style="margin-bottom: 1rem; margin-top: 2rem; font-size: 1.25rem;">
+            Recent Activities
+          </h2>
+          <ul class="activity-list">
+            {recentActivities.slice(0, 10).map((activity) => (
+              <li class="activity-item">
+                <div class="activity-header">
+                  <h3 class="activity-name">{activity.name}</h3>
+                  <span class="activity-type">
+                    {activity.sport_type || activity.type}
+                  </span>
+                </div>
+                <div class="activity-details">
+                  <div class="activity-detail">
+                    <span class="activity-detail-label">Distance</span>
+                    <span class="activity-detail-value">
+                      {formatDistance(activity.distance)} km
+                    </span>
+                  </div>
+                  <div class="activity-detail">
+                    <span class="activity-detail-label">Time</span>
+                    <span class="activity-detail-value">
+                      {formatTime(activity.moving_time)}
+                    </span>
+                  </div>
+                  {activity.total_elevation_gain > 0 && (
+                    <div class="activity-detail">
+                      <span class="activity-detail-label">Elevation</span>
+                      <span class="activity-detail-value">
+                        {formatElevation(activity.total_elevation_gain)} m
+                      </span>
+                    </div>
+                  )}
+                  <div class="activity-detail">
+                    <span class="activity-detail-label">Date</span>
+                    <span class="activity-detail-value">
+                      {formatDate(activity.start_date_local)}
+                    </span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <div class="last-updated">
+        Last updated: {formattedLastUpdated}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

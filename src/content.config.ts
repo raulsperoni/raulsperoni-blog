@@ -1,5 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const blog = defineCollection({
 	// Load Markdown and MDX files in the `src/content/blog/` directory.
@@ -41,11 +43,8 @@ const links = defineCollection({
 const strava = defineCollection({
 	loader: async () => {
 		try {
-			const fs = await import('node:fs/promises');
-			const path = await import('node:path');
-
 			const dataPath = path.join(process.cwd(), 'src/data/strava.json');
-			const fileContent = await fs.readFile(dataPath, 'utf-8');
+			const fileContent = fs.readFileSync(dataPath, 'utf-8');
 			const stravaData = JSON.parse(fileContent);
 			const activities = stravaData.recentActivities || [];
 

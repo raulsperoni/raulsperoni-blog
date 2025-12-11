@@ -9,8 +9,9 @@ import FormattedDate from '../../components/FormattedDate.astro';
 export const getStaticPaths = (async () => {
 	const allPosts = await getCollection('blog');
 	const allLinks = await getCollection('links');
+	const allStrava = await getCollection('strava');
 
-	const allContent = [...allPosts, ...allLinks];
+	const allContent = [...allPosts, ...allLinks, ...allStrava];
 	const uniqueTags = [...new Set(allContent.flatMap(item => item.data.tags))];
 
 	return uniqueTags.map((tag) => {
@@ -22,9 +23,13 @@ export const getStaticPaths = (async () => {
 			link.data.tags.includes(tag)
 		).map(link => ({ ...link, type: 'link' as const, url: `/links/${link.id}/` }));
 
+		const filteredStrava = allStrava.filter(activity =>
+			activity.data.tags.includes(tag)
+		).map(activity => ({ ...activity, type: 'strava' as const, url: null }));
+
 		return {
 			params: { tag },
-			props: { content: [...filteredPosts, ...filteredLinks] },
+			props: { content: [...filteredPosts, ...filteredLinks, ...filteredStrava] },
 		};
 	});
 }) satisfies GetStaticPaths;
@@ -49,17 +54,44 @@ const sortedContent = content.sort(
 				<h1>#{tag}</h1>
 				<ul>
 					{
-						sortedContent.map((item) => (
-							<li>
-								<span class={`content-type ${item.type}`}>{item.type}</span>
-								<a href={item.url}>
-									<h4 class="title">{item.data.title}</h4>
+						sortedContent.map((item) => {
+							const isStrava = item.type === 'strava';
+							let stravaDetails = '';
+							if (isStrava) {
+								const distanceKm = (item.data.distance / 1000).toFixed(1);
+								const paceMinPerKm = item.data.distance > 0
+									? (item.data.movingTime / 60) / (item.data.distance / 1000)
+									: 0;
+								const paceFormatted = paceMinPerKm > 0
+									? `${Math.floor(paceMinPerKm)}:${String(Math.round((paceMinPerKm % 1) * 60)).padStart(2, '0')}`
+									: '';
+								stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
+							}
+
+							const content = (
+								<>
+									<h4 class="title">{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}</h4>
 									<p class="date">
 										<FormattedDate date={item.data.pubDate} />
 									</p>
-								</a>
-							</li>
-						))
+								</>
+							);
+
+							return (
+								<li>
+									<span class={`content-type ${item.type}`}>{item.type}</span>
+									{item.url ? (
+										<a href={item.url}>
+											{content}
+										</a>
+									) : (
+										<div class="no-link">
+											{content}
+										</div>
+									)}
+								</li>
+							);
+						})
 					}
 				</ul>
 			</section>
@@ -109,7 +141,13 @@ const sortedContent = content.sort(
 		color: white;
 	}
 
-	ul li a {
+	.content-type.strava {
+		background: #fc4c02;
+		color: white;
+	}
+
+	ul li a,
+	ul li .no-link {
 		flex: 1;
 		text-decoration: none;
 		border: none;

@@ -40,6 +40,74 @@ allContent.forEach(item => {
 
 const sortedTags = Array.from(tagMap.entries())
 	.sort((a, b) => b[1].length - a[1].length);
+
+// Timeline: Group by date first, then merge consecutive same-type dates
+interface TimelineGroup {
+	startDate: string;
+	endDate: string;
+	typeGroups: {
+		type: string;
+		items: typeof allContent;
+	}[];
+}
+
+const TIMELINE_LIMIT = 30;
+const CONDENSE_THRESHOLD = 3;
+
+// Group by date
+const dateGroups = new Map<string, typeof allContent>();
+for (let i = 0; i < Math.min(allContent.length, TIMELINE_LIMIT); i++) {
+	const item = allContent[i];
+	const dateKey = item.data.pubDate.toISOString().split('T')[0];
+
+	if (!dateGroups.has(dateKey)) {
+		dateGroups.set(dateKey, []);
+	}
+	dateGroups.get(dateKey)!.push(item);
+}
+
+// Convert to array and sort by date (newest first)
+const sortedDates = Array.from(dateGroups.entries()).sort((a, b) =>
+	new Date(b[0]).getTime() - new Date(a[0]).getTime()
+);
+
+// Build timeline with type grouping per date
+const timeline: TimelineGroup[] = [];
+for (const [date, items] of sortedDates) {
+	const typeGroups: { type: string; items: typeof allContent }[] = [];
+
+	for (const item of items) {
+		const lastGroup = typeGroups[typeGroups.length - 1];
+
+		if (lastGroup && lastGroup.type === item.type) {
+			lastGroup.items.push(item);
+		} else {
+			typeGroups.push({
+				type: item.type,
+				items: [item],
+			});
+		}
+	}
+
+	// Check if we can merge with the previous timeline group
+	const lastTimelineGroup = timeline[timeline.length - 1];
+	const isSingleType = typeGroups.length === 1;
+	const lastIsSingleType = lastTimelineGroup && lastTimelineGroup.typeGroups.length === 1;
+
+	if (lastTimelineGroup && isSingleType && lastIsSingleType &&
+		typeGroups[0].type === lastTimelineGroup.typeGroups[0].type) {
+		// Merge into existing group
+		lastTimelineGroup.endDate = date;
+		lastTimelineGroup.typeGroups[0].items.push(...typeGroups[0].items);
+	} else {
+		// Create new group
+		timeline.push({
+			startDate: date,
+			endDate: date,
+			typeGroups
+		});
+	}
+}
 ---
 
 <!doctype html>
@@ -47,21 +115,31 @@ const sortedTags = Array.from(tagMap.entries())
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			.tag-section {
+			.tags-grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 2rem;
 				margin-bottom: 4rem;
+			}
+
+			.tag-section {
+				background: var(--bg-elevated);
+				padding: 1.5rem;
+				border-radius: 8px;
+				border: 1px solid var(--border);
 			}
 
 			.tag-header {
 				display: flex;
 				align-items: baseline;
 				gap: 0.75rem;
-				margin-bottom: 1.5rem;
+				margin-bottom: 1rem;
 				padding-bottom: 0.75rem;
 				border-bottom: 1px solid var(--border);
 			}
 
 			.tag-name {
-				font-size: 1.5rem;
+				font-size: 1.25rem;
 				font-weight: 600;
 				color: var(--text);
 				text-decoration: none;
@@ -76,7 +154,7 @@ const sortedTags = Array.from(tagMap.entries())
 
 			.tag-count {
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-				font-size: 0.875rem;
+				font-size: 0.8125rem;
 				color: var(--text-light);
 			}
 
@@ -89,8 +167,8 @@ const sortedTags = Array.from(tagMap.entries())
 			.content-item {
 				display: flex;
 				align-items: baseline;
-				gap: 1rem;
-				padding: 0.75rem 0;
+				gap: 0.75rem;
+				padding: 0.625rem 0;
 				border-bottom: 1px solid var(--border);
 			}
 
@@ -142,10 +220,110 @@ const sortedTags = Array.from(tagMap.entries())
 				font-weight: 400;
 			}
 
+			.timeline-section {
+				margin-bottom: 4rem;
+			}
+
+			.timeline-section h2 {
+				font-size: 1.5rem;
+				font-weight: 600;
+				margin-bottom: 1.5rem;
+				padding-bottom: 0.75rem;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.timeline-group {
+				margin-bottom: 2.5rem;
+				position: relative;
+				padding-left: 2rem;
+			}
+
+			.timeline-group::before {
+				content: '';
+				position: absolute;
+				left: 0.5rem;
+				top: 2rem;
+				bottom: 0;
+				width: 2px;
+				background: var(--border);
+			}
+
+			.timeline-date {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+				font-size: 0.875rem;
+				font-weight: 600;
+				color: var(--text-light);
+				margin-bottom: 0.75rem;
+				margin-left: -2rem;
+				padding-left: 2rem;
+			}
+
+			.timeline-items {
+				list-style: none;
+				padding: 0;
+				margin: 0 0 0.5rem 0;
+			}
+
+			.timeline-items .content-item {
+				position: relative;
+				padding-left: 1.5rem;
+			}
+
+			.timeline-items .content-item::before {
+				content: '';
+				position: absolute;
+				left: -1.8rem;
+				top: 0.75rem;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: var(--accent);
+				border: 2px solid var(--bg);
+				z-index: 1;
+			}
+
+			.type-group-wrapper {
+				position: relative;
+			}
+
+			.condensed-notice {
+				padding: 0.5rem 0;
+				margin: 0.5rem 0 0.75rem 1.5rem;
+				font-size: 0.875rem;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-light);
+			}
+
+			.condensed-tag {
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: 500;
+			}
+
+			.condensed-tag:hover {
+				text-decoration: underline;
+			}
+
+			.condensed-count {
+				color: var(--text-light);
+			}
+
+			@media (min-width: 1024px) {
+				.tags-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
 			@media (max-width: 720px) {
 				.content-item {
 					flex-direction: column;
 					gap: 0.5rem;
+				}
+
+				.tag-section {
+					padding: 1rem;
 				}
 			}
 		</style>
@@ -153,38 +331,132 @@ const sortedTags = Array.from(tagMap.entries())
 	<body>
 		<Header />
 		<main>
-			{sortedTags.map(([tag, items]) => (
-				<section class="tag-section">
-					<div class="tag-header">
-						<a href={`/tags/${tag}/`} class="tag-name">#{tag}</a>
-						<span class="tag-count">({items.length})</span>
-					</div>
-					<ul class="content-list">
-						{items.slice(0, 5).map(item => {
-							const isStrava = item.type === 'strava';
-							let stravaDetails = '';
-							if (isStrava) {
-								const distanceKm = (item.data.distance / 1000).toFixed(1);
-								const paceMinPerKm = item.data.distance > 0
-									? (item.data.movingTime / 60) / (item.data.distance / 1000)
-									: 0;
-								const paceFormatted = paceMinPerKm > 0
-									? `${Math.floor(paceMinPerKm)}:${String(Math.round((paceMinPerKm % 1) * 60)).padStart(2, '0')}`
-									: '';
-								stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
-							}
-							return (
-								<li class="content-item">
-									<span class={`content-type ${item.type}`}>{item.type}</span>
-									<a href={item.url} class="content-link">
-										{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
-									</a>
-								</li>
-							);
-						})}
-					</ul>
-				</section>
-			))}
+			<section class="timeline-section">
+				{timeline.map(dateGroup => {
+					const startDateObj = new Date(dateGroup.startDate);
+					const endDateObj = new Date(dateGroup.endDate);
+					const now = new Date();
+					const startDiffTime = now.getTime() - startDateObj.getTime();
+					const startDiffDays = Math.floor(startDiffTime / (1000 * 60 * 60 * 24));
+					const endDiffTime = now.getTime() - endDateObj.getTime();
+					const endDiffDays = Math.floor(endDiffTime / (1000 * 60 * 60 * 24));
+
+					let dateLabel: string;
+					// If date range spans multiple days, show range
+					if (dateGroup.startDate !== dateGroup.endDate) {
+						const formatDayLabel = (diffDays: number) => {
+							if (diffDays === 0) return 'Today';
+							if (diffDays === 1) return 'Yesterday';
+							if (diffDays < 7) return `${diffDays} days ago`;
+							if (diffDays < 14) return '1 week ago';
+							if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+							if (diffDays < 60) return '1 month ago';
+							return `${Math.floor(diffDays / 30)} months ago`;
+						};
+						dateLabel = `${formatDayLabel(startDiffDays)} - ${formatDayLabel(endDiffDays)}`;
+					} else {
+						// Single day
+						if (startDiffDays === 0) {
+							dateLabel = 'Today';
+						} else if (startDiffDays === 1) {
+							dateLabel = 'Yesterday';
+						} else if (startDiffDays < 7) {
+							dateLabel = `${startDiffDays} days ago`;
+						} else if (startDiffDays < 14) {
+							dateLabel = '1 week ago';
+						} else if (startDiffDays < 30) {
+							dateLabel = `${Math.floor(startDiffDays / 7)} weeks ago`;
+						} else if (startDiffDays < 60) {
+							dateLabel = '1 month ago';
+						} else {
+							dateLabel = `${Math.floor(startDiffDays / 30)} months ago`;
+						}
+					}
+
+					return (
+						<div class="timeline-group">
+							<div class="timeline-date">{dateLabel}</div>
+							{dateGroup.typeGroups.map(typeGroup => {
+								const shouldCondense = typeGroup.items.length >= CONDENSE_THRESHOLD;
+								const visibleItems = shouldCondense ? typeGroup.items.slice(0, 2) : typeGroup.items;
+								const hiddenCount = typeGroup.items.length - visibleItems.length;
+
+								return (
+									<div class="type-group-wrapper">
+										<ul class="timeline-items">
+											{visibleItems.map((item: typeof allContent[0]) => {
+												const isStrava = item.type === 'strava';
+												let stravaDetails = '';
+												if (isStrava) {
+													const distanceKm = (item.data.distance / 1000).toFixed(1);
+													const paceMinPerKm = item.data.distance > 0
+														? (item.data.movingTime / 60) / (item.data.distance / 1000)
+														: 0;
+													const paceFormatted = paceMinPerKm > 0
+														? `${Math.floor(paceMinPerKm)}:${String(Math.round((paceMinPerKm % 1) * 60)).padStart(2, '0')}`
+														: '';
+													stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
+												}
+												return (
+													<li class="content-item">
+														<span class={`content-type ${item.type}`}>{item.type}</span>
+														<a href={item.url} class="content-link">
+															{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
+														</a>
+													</li>
+												);
+											})}
+										</ul>
+										{shouldCondense && (
+											<div class="condensed-notice">
+												<a href={`/tags/${typeGroup.items[0].data.tags[0]}/`} class="condensed-tag">
+													#{typeGroup.items[0].data.tags[0]}
+												</a>
+												<span class="condensed-count">+{hiddenCount}</span>
+											</div>
+										)}
+									</div>
+								);
+							})}
+						</div>
+					);
+				})}
+			</section>
+
+			<div class="tags-grid">
+				{sortedTags.map(([tag, items]) => (
+					<section class="tag-section">
+						<div class="tag-header">
+							<a href={`/tags/${tag}/`} class="tag-name">#{tag}</a>
+							<span class="tag-count">({items.length})</span>
+						</div>
+						<ul class="content-list">
+							{items.slice(0, 5).map(item => {
+								const isStrava = item.type === 'strava';
+								let stravaDetails = '';
+								if (isStrava) {
+									const distanceKm = (item.data.distance / 1000).toFixed(1);
+									const paceMinPerKm = item.data.distance > 0
+										? (item.data.movingTime / 60) / (item.data.distance / 1000)
+										: 0;
+									const paceFormatted = paceMinPerKm > 0
+										? `${Math.floor(paceMinPerKm)}:${String(Math.round((paceMinPerKm % 1) * 60)).padStart(2, '0')}`
+										: '';
+									stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
+								}
+								return (
+									<li class="content-item">
+										<span class={`content-type ${item.type}`}>{item.type}</span>
+										<a href={item.url} class="content-link">
+											{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</section>
+				))}
+			</div>
 		</main>
 		<Footer />
 	</body>

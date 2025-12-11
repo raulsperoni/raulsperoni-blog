@@ -41,75 +41,93 @@ const sortedTags = Array.from(tagMap.entries())
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
 			.tag-section {
-				margin-bottom: 3rem;
+				margin-bottom: 4rem;
 			}
+
 			.tag-header {
 				display: flex;
 				align-items: baseline;
-				gap: 1rem;
-				margin-bottom: 1rem;
-				padding-bottom: 0.5rem;
-				border-bottom: 2px solid rgb(var(--gray-light));
+				gap: 0.75rem;
+				margin-bottom: 1.5rem;
+				padding-bottom: 0.75rem;
+				border-bottom: 1px solid var(--border);
 			}
+
 			.tag-name {
 				font-size: 1.5rem;
-				font-weight: bold;
-				color: rgb(var(--black));
+				font-weight: 600;
+				color: var(--text);
 				text-decoration: none;
+				border: none;
+				letter-spacing: -0.02em;
 			}
+
 			.tag-name:hover {
-				color: rgb(var(--accent));
+				color: var(--accent);
+				border: none;
 			}
+
 			.tag-count {
-				font-size: 1rem;
-				color: rgb(var(--gray));
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+				font-size: 0.875rem;
+				color: var(--text-light);
 			}
+
 			.content-list {
 				list-style: none;
 				padding: 0;
 				margin: 0;
 			}
+
 			.content-item {
 				display: flex;
 				align-items: baseline;
 				gap: 1rem;
-				padding: 0.5rem 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
+				padding: 0.75rem 0;
+				border-bottom: 1px solid var(--border);
 			}
+
 			.content-item:last-child {
 				border-bottom: none;
 			}
+
 			.content-type {
 				flex-shrink: 0;
-				padding: 0.125rem 0.5rem;
-				background: rgb(var(--gray-light));
-				color: rgb(var(--gray-dark));
-				border-radius: 0.25rem;
-				font-size: 0.75rem;
+				padding: 0.25rem 0.5rem;
+				background: var(--accent-light);
+				color: var(--accent-dark);
+				border-radius: 3px;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+				font-size: 0.6875rem;
 				text-transform: uppercase;
-				font-weight: 500;
+				font-weight: 600;
+				letter-spacing: 0.05em;
 			}
+
 			.content-type.blog {
-				background: rgb(var(--accent));
+				background: var(--accent);
 				color: white;
 			}
+
 			.content-link {
 				flex: 1;
-				color: rgb(var(--black));
+				color: var(--text);
 				text-decoration: none;
 				font-size: 1rem;
+				border: none;
+				transition: color 0.2s ease;
 			}
+
 			.content-link:hover {
-				color: rgb(var(--accent));
+				color: var(--accent);
+				border: none;
 			}
+
 			@media (max-width: 720px) {
 				.content-item {
 					flex-direction: column;
-					gap: 0.25rem;
+					gap: 0.5rem;
 				}
 			}
 		</style>

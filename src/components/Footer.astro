@@ -36,22 +36,32 @@ const today = new Date();
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
+		padding: 4rem 1rem;
+		background: var(--bg-elevated);
+		border-top: 1px solid var(--border);
+		color: var(--text-light);
 		text-align: center;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		font-size: 0.875rem;
+		margin-top: 4rem;
 	}
+
 	.social-links {
 		display: flex;
 		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
+		gap: 1rem;
+		margin-top: 1.5rem;
 	}
+
 	.social-links a {
 		text-decoration: none;
-		color: rgb(var(--gray));
+		color: var(--text-light);
+		transition: color 0.2s ease;
+		border: none;
 	}
+
 	.social-links a:hover {
-		color: rgb(var(--gray-dark));
+		color: var(--accent);
+		border: none;
 	}
 </style>

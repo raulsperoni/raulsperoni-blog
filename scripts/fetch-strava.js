@@ -76,32 +76,55 @@ async function getAthleteStats(accessToken, athleteId) {
   return response.json();
 }
 
-async function getRecentActivities(accessToken, perPage = 20) {
-  const response = await fetch(
-    `https://www.strava.com/api/v3/athlete/activities?per_page=${perPage}`,
-    {
+async function getRecentActivities(accessToken) {
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const afterTimestamp = Math.floor(oneYearAgo.getTime() / 1000);
+
+  let allActivities = [];
+  let page = 1;
+  const perPage = 200;
+
+  while (true) {
+    const url = `https://www.strava.com/api/v3/athlete/activities?after=${afterTimestamp}&per_page=${perPage}&page=${page}`;
+    const response = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
-    }
-  );
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    console.error('Activities API error:', errorData);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Activities API error:', errorData);
 
-    if (response.status === 401) {
+      if (response.status === 401) {
+        throw new Error(
+          'Failed to fetch activities: 401 Unauthorized. ' +
+          'Your refresh token may not have the "activity:read_all" scope. ' +
+          'Run: node scripts/setup-strava-oauth.js to get a new token.'
+        );
+      }
+
       throw new Error(
-        'Failed to fetch activities: 401 Unauthorized. ' +
-        'Your refresh token may not have the "activity:read_all" scope. ' +
-        'Run: node scripts/setup-strava-oauth.js to get a new token.'
+        `Failed to fetch activities: ${response.status} ${response.statusText}`
       );
     }
 
-    throw new Error(
-      `Failed to fetch activities: ${response.status} ${response.statusText}`
-    );
+    const activities = await response.json();
+
+    if (activities.length === 0) {
+      break;
+    }
+
+    allActivities = allActivities.concat(activities);
+    console.log(`  Fetched page ${page}: ${activities.length} activities`);
+
+    if (activities.length < perPage) {
+      break;
+    }
+
+    page++;
   }
 
-  return response.json();
+  return allActivities;
 }
 
 async function main() {
@@ -114,15 +137,15 @@ async function main() {
     const athleteId = await getAthleteId(accessToken);
     console.log(`✓ Athlete ID: ${athleteId}`);
 
-    const [stats, activities] = await Promise.all([
-      getAthleteStats(accessToken, athleteId),
-      getRecentActivities(accessToken, 20),
-    ]);
-
-    console.log(`✓ Fetched ${activities.length} recent activities`);
+    const stats = await getAthleteStats(accessToken, athleteId);
     if (stats) {
       console.log('✓ Fetched athlete stats');
     }
+
+    console.log('Fetching activities from the past year...');
+    const activities = await getRecentActivities(accessToken);
+
+    console.log(`✓ Fetched ${activities.length} activities from the past year`);
 
     // Privacy filter: Strip sensitive location and time data from activities
     // Intentionally removing:

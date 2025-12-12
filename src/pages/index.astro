@@ -55,11 +55,23 @@ const TIMELINE_LIMIT = 30;
 const CONDENSE_THRESHOLD = 3;
 
 // Heatmap: Build activity calendar for the past year
+// Collect all tags and their frequencies to determine top tags for heatmap
+const tagFrequency = new Map<string, number>();
+allContent.forEach(item => {
+	item.data.tags.forEach(tag => {
+		tagFrequency.set(tag, (tagFrequency.get(tag) || 0) + 1);
+	});
+});
+
+// Get top 5 most used tags
+const topTags = Array.from(tagFrequency.entries())
+	.sort((a, b) => b[1] - a[1])
+	.slice(0, 5)
+	.map(([tag]) => tag);
+
 interface HeatmapDay {
 	date: string;
-	blog: number;
-	link: number;
-	strava: number;
+	tagCounts: Map<string, number>;
 	total: number;
 }
 
@@ -68,8 +80,8 @@ const now = new Date();
 const oneYearAgo = new Date(now);
 oneYearAgo.setFullYear(now.getFullYear() - 1);
 
-// Create map of date -> counts
-const activityMap = new Map<string, { blog: number; link: number; strava: number }>();
+// Create map of date -> tag counts
+const activityMap = new Map<string, Map<string, number>>();
 
 allContent.forEach(item => {
 	const dateKey = item.data.pubDate.toISOString().split('T')[0];
@@ -77,10 +89,12 @@ allContent.forEach(item => {
 
 	if (itemDate >= oneYearAgo && itemDate <= now) {
 		if (!activityMap.has(dateKey)) {
-			activityMap.set(dateKey, { blog: 0, link: 0, strava: 0 });
+			activityMap.set(dateKey, new Map());
 		}
-		const counts = activityMap.get(dateKey)!;
-		counts[item.type]++;
+		const tagCounts = activityMap.get(dateKey)!;
+		item.data.tags.forEach(tag => {
+			tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+		});
 	}
 });
 
@@ -93,18 +107,27 @@ for (let i = 0; i < 364; i++) {
 	date.setDate(startDate.getDate() + i);
 	const dateKey = date.toISOString().split('T')[0];
 
-	const counts = activityMap.get(dateKey) || { blog: 0, link: 0, strava: 0 };
+	const tagCounts = activityMap.get(dateKey) || new Map();
+	const total = Array.from(tagCounts.values()).reduce((sum, count) => sum + count, 0);
+
 	heatmapData.push({
 		date: dateKey,
-		blog: counts.blog,
-		link: counts.link,
-		strava: counts.strava,
-		total: counts.blog + counts.link + counts.strava,
+		tagCounts,
+		total,
 	});
 }
 
 // Calculate max for color intensity
 const maxTotal = Math.max(...heatmapData.map(d => d.total), 1);
+
+// Tag color mapping (HSL hues)
+const tagColors = new Map<string, number>([
+	[topTags[0], 210], // blue
+	[topTags[1], 20],  // orange
+	[topTags[2], 150], // green
+	[topTags[3], 280], // purple
+	[topTags[4], 45],  // yellow-orange
+]);
 
 // Group by date
 const dateGroups = new Map<string, typeof allContent>();
@@ -426,6 +449,15 @@ for (const [date, items] of sortedDates) {
 				border-radius: 2px;
 				background: var(--bg-elevated);
 				border: 1px solid var(--border);
+				cursor: pointer;
+				position: relative;
+				transition: transform 0.1s ease, border-color 0.2s ease;
+			}
+
+			.heatmap-cell:hover {
+				transform: scale(1.2);
+				border-color: var(--accent);
+				z-index: 10;
 			}
 
 			.heatmap-cell[data-intensity="0"] {
@@ -433,26 +465,53 @@ for (const [date, items] of sortedDates) {
 				opacity: 0.3;
 			}
 
-			.heatmap-cell[data-type="blog"][data-intensity="1"] { background: hsl(210, 70%, 85%); }
-			.heatmap-cell[data-type="blog"][data-intensity="2"] { background: hsl(210, 70%, 70%); }
-			.heatmap-cell[data-type="blog"][data-intensity="3"] { background: hsl(210, 70%, 55%); }
-			.heatmap-cell[data-type="blog"][data-intensity="4"] { background: hsl(210, 70%, 40%); }
+			/* Dynamic tag colors - will be colored based on dominant tag */
+			.heatmap-cell[data-intensity="1"] { opacity: 0.4; }
+			.heatmap-cell[data-intensity="2"] { opacity: 0.6; }
+			.heatmap-cell[data-intensity="3"] { opacity: 0.8; }
+			.heatmap-cell[data-intensity="4"] { opacity: 1.0; }
 
-			.heatmap-cell[data-type="strava"][data-intensity="1"] { background: hsl(20, 90%, 85%); }
-			.heatmap-cell[data-type="strava"][data-intensity="2"] { background: hsl(20, 90%, 70%); }
-			.heatmap-cell[data-type="strava"][data-intensity="3"] { background: hsl(20, 90%, 55%); }
-			.heatmap-cell[data-type="strava"][data-intensity="4"] { background: hsl(20, 90%, 40%); }
-
-			.heatmap-cell[data-type="link"][data-intensity="1"] { background: hsl(150, 60%, 85%); }
-			.heatmap-cell[data-type="link"][data-intensity="2"] { background: hsl(150, 60%, 70%); }
-			.heatmap-cell[data-type="link"][data-intensity="3"] { background: hsl(150, 60%, 55%); }
-			.heatmap-cell[data-type="link"][data-intensity="4"] { background: hsl(150, 60%, 40%); }
-
-			.heatmap-cell[data-type="mixed"] {
+			.heatmap-cell[data-tag="mixed"] {
 				background: linear-gradient(135deg,
-					hsl(210, 70%, 60%) 0%, hsl(210, 70%, 60%) 33%,
-					hsl(20, 90%, 60%) 33%, hsl(20, 90%, 60%) 66%,
-					hsl(150, 60%, 60%) 66%, hsl(150, 60%, 60%) 100%);
+					hsl(210, 70%, 60%) 0%, hsl(210, 70%, 60%) 50%,
+					hsl(150, 60%, 60%) 50%, hsl(150, 60%, 60%) 100%);
+			}
+
+			/* Custom tooltip */
+			.heatmap-tooltip {
+				position: fixed;
+				background: var(--bg-elevated);
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				padding: 0.75rem;
+				font-size: 0.875rem;
+				pointer-events: none;
+				z-index: 1000;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				display: none;
+				max-width: 200px;
+			}
+
+			.heatmap-tooltip.visible {
+				display: block;
+			}
+
+			.tooltip-date {
+				font-weight: 600;
+				color: var(--text);
+				margin-bottom: 0.25rem;
+			}
+
+			.tooltip-count {
+				color: var(--text-light);
+				font-size: 0.8125rem;
+				margin-bottom: 0.5rem;
+			}
+
+			.tooltip-tags {
+				color: var(--text);
+				font-size: 0.8125rem;
+				line-height: 1.4;
 			}
 
 			.heatmap-legend {
@@ -462,6 +521,7 @@ for (const [date, items] of sortedDates) {
 				font-size: 0.75rem;
 				color: var(--text-light);
 				flex-wrap: wrap;
+				justify-content: center;
 			}
 
 			.legend-item {
@@ -470,15 +530,21 @@ for (const [date, items] of sortedDates) {
 				gap: 0.5rem;
 			}
 
+			.legend-item a {
+				color: var(--text-light);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.legend-item a:hover {
+				color: var(--accent);
+			}
+
 			.legend-color {
 				width: 12px;
 				height: 12px;
 				border-radius: 2px;
 			}
-
-			.legend-color.blog { background: hsl(210, 70%, 55%); }
-			.legend-color.strava { background: hsl(20, 90%, 55%); }
-			.legend-color.link { background: hsl(150, 60%, 55%); }
 
 			@media (min-width: 1024px) {
 				.tags-grid {
@@ -539,38 +605,55 @@ for (const [date, items] of sortedDates) {
 							</div>
 							<div class="heatmap-grid">
 						{heatmapData.map(day => {
-							// Determine dominant type and intensity
-							let dominantType = 'blog';
+							// Determine dominant tag and intensity
+							let dominantTag = '';
 							let intensity = 0;
 
 							if (day.total === 0) {
 								intensity = 0;
-							} else if (day.blog > 0 && day.link > 0 && day.strava > 0) {
-								dominantType = 'mixed';
+							} else {
+								// Find the tag with the most items on this day
+								let maxCount = 0;
+								day.tagCounts.forEach((count, tag) => {
+									if (count > maxCount) {
+										maxCount = count;
+										dominantTag = tag;
+									}
+								});
+
+								// Check if multiple top tags (mixed)
+								const topTagCounts = Array.from(day.tagCounts.values()).sort((a, b) => b - a);
+								const hasMultipleTopTags = topTagCounts.length > 1 && topTagCounts[0] === topTagCounts[1];
+
+								if (hasMultipleTopTags) {
+									dominantTag = 'mixed';
+								}
+
 								intensity = Math.min(4, day.total);
-							} else if (day.blog > day.link && day.blog > day.strava) {
-								dominantType = 'blog';
-								intensity = Math.min(4, day.blog);
-							} else if (day.strava > day.blog && day.strava > day.link) {
-								dominantType = 'strava';
-								intensity = Math.min(4, day.strava);
-							} else if (day.link > 0) {
-								dominantType = 'link';
-								intensity = Math.min(4, day.link);
-							} else if (day.blog > 0) {
-								dominantType = 'blog';
-								intensity = Math.min(4, day.blog);
-							} else if (day.strava > 0) {
-								dominantType = 'strava';
-								intensity = Math.min(4, day.strava);
+							}
+
+							// Generate tooltip with better formatting
+							let tooltip = day.date;
+							if (day.total > 0) {
+								const tagList = Array.from(day.tagCounts.entries())
+									.sort((a, b) => b[1] - a[1])
+									.map(([tag, count]) => `#${tag} (${count})`)
+									.join(' • ');
+								tooltip = `${day.date}\n${day.total} ${day.total === 1 ? 'item' : 'items'}\n${tagList}`;
 							}
 
 							return (
 								<div
 									class="heatmap-cell"
-									data-type={dominantType}
+									data-tag={dominantTag}
 									data-intensity={intensity}
-									title={`${day.date}: ${day.total} ${day.total === 1 ? 'item' : 'items'} (Blog: ${day.blog}, Strava: ${day.strava}, Links: ${day.link})`}
+									data-date={day.date}
+									data-total={day.total}
+									data-tags={day.total > 0 ? Array.from(day.tagCounts.entries())
+										.sort((a, b) => b[1] - a[1])
+										.map(([tag, count]) => `#${tag} (${count})`)
+										.join(' • ') : ''}
+									title={tooltip}
 								></div>
 							);
 						})}
@@ -578,19 +661,21 @@ for (const [date, items] of sortedDates) {
 					</div>
 				</div>
 				<div class="heatmap-legend">
-						<div class="legend-item">
-							<div class="legend-color blog"></div>
-							<span>Blog posts</span>
-						</div>
-						<div class="legend-item">
-							<div class="legend-color strava"></div>
-							<span>Strava activities</span>
-						</div>
-						<div class="legend-item">
-							<div class="legend-color link"></div>
-							<span>Links</span>
-						</div>
+						{topTags.map((tag) => {
+							const hue = tagColors.get(tag) || 200;
+							return (
+								<div class="legend-item">
+									<div class="legend-color" style={`background: hsl(${hue}, 70%, 55%)`}></div>
+									<a href={`/tags/${tag}/`}>#{tag}</a>
+								</div>
+							);
+						})}
 					</div>
+				</div>
+				<div class="heatmap-tooltip" id="heatmap-tooltip">
+					<div class="tooltip-date"></div>
+					<div class="tooltip-count"></div>
+					<div class="tooltip-tags"></div>
 				</div>
 			</section>
 
@@ -598,42 +683,13 @@ for (const [date, items] of sortedDates) {
 				{timeline.map(dateGroup => {
 					const startDateObj = new Date(dateGroup.startDate);
 					const endDateObj = new Date(dateGroup.endDate);
-					const now = new Date();
-					const startDiffTime = now.getTime() - startDateObj.getTime();
-					const startDiffDays = Math.floor(startDiffTime / (1000 * 60 * 60 * 24));
-					const endDiffTime = now.getTime() - endDateObj.getTime();
-					const endDiffDays = Math.floor(endDiffTime / (1000 * 60 * 60 * 24));
 
 					let dateLabel: string;
-					// If date range spans multiple days, show range
+					// Use ISO format for language-agnostic dates
 					if (dateGroup.startDate !== dateGroup.endDate) {
-						const formatDayLabel = (diffDays: number) => {
-							if (diffDays === 0) return 'Today';
-							if (diffDays === 1) return 'Yesterday';
-							if (diffDays < 7) return `${diffDays} days ago`;
-							if (diffDays < 14) return '1 week ago';
-							if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-							if (diffDays < 60) return '1 month ago';
-							return `${Math.floor(diffDays / 30)} months ago`;
-						};
-						dateLabel = `${formatDayLabel(startDiffDays)} - ${formatDayLabel(endDiffDays)}`;
+						dateLabel = `${startDateObj.toISOString().split('T')[0]} — ${endDateObj.toISOString().split('T')[0]}`;
 					} else {
-						// Single day
-						if (startDiffDays === 0) {
-							dateLabel = 'Today';
-						} else if (startDiffDays === 1) {
-							dateLabel = 'Yesterday';
-						} else if (startDiffDays < 7) {
-							dateLabel = `${startDiffDays} days ago`;
-						} else if (startDiffDays < 14) {
-							dateLabel = '1 week ago';
-						} else if (startDiffDays < 30) {
-							dateLabel = `${Math.floor(startDiffDays / 7)} weeks ago`;
-						} else if (startDiffDays < 60) {
-							dateLabel = '1 month ago';
-						} else {
-							dateLabel = `${Math.floor(startDiffDays / 30)} months ago`;
-						}
+						dateLabel = startDateObj.toISOString().split('T')[0];
 					}
 
 					return (
@@ -722,5 +778,70 @@ for (const [date, items] of sortedDates) {
 			</div>
 		</main>
 		<Footer />
+		<script is:inline define:vars={{ topTags, tagColors: Array.from(tagColors.entries()) }}>
+			// Apply dynamic tag colors to heatmap cells
+			document.addEventListener('DOMContentLoaded', () => {
+				const tagColorMap = new Map(tagColors);
+				const cells = document.querySelectorAll('.heatmap-cell[data-tag]');
+				const tooltip = document.getElementById('heatmap-tooltip');
+
+				cells.forEach(cell => {
+					const tag = cell.getAttribute('data-tag');
+					const intensity = cell.getAttribute('data-intensity');
+
+					if (tag && tag !== 'mixed' && intensity !== '0') {
+						const hue = tagColorMap.get(tag) || 200;
+						cell.style.background = `hsl(${hue}, 70%, 55%)`;
+					}
+
+					// Add tooltip event listeners
+					cell.addEventListener('mouseenter', (e) => {
+						const date = cell.getAttribute('data-date');
+						const total = parseInt(cell.getAttribute('data-total'));
+						const tags = cell.getAttribute('data-tags');
+
+						if (total > 0) {
+							tooltip.querySelector('.tooltip-date').textContent = date;
+							tooltip.querySelector('.tooltip-count').textContent =
+								`${total} ${total === 1 ? 'item' : 'items'}`;
+							tooltip.querySelector('.tooltip-tags').textContent = tags;
+						} else {
+							tooltip.querySelector('.tooltip-date').textContent = date;
+							tooltip.querySelector('.tooltip-count').textContent = 'No activity';
+							tooltip.querySelector('.tooltip-tags').textContent = '';
+						}
+
+						tooltip.classList.add('visible');
+						updateTooltipPosition(e);
+					});
+
+					cell.addEventListener('mousemove', (e) => {
+						updateTooltipPosition(e);
+					});
+
+					cell.addEventListener('mouseleave', () => {
+						tooltip.classList.remove('visible');
+					});
+				});
+
+				function updateTooltipPosition(e) {
+					const offset = 10;
+					const tooltipRect = tooltip.getBoundingClientRect();
+					let x = e.clientX + offset;
+					let y = e.clientY + offset;
+
+					// Keep tooltip within viewport
+					if (x + tooltipRect.width > window.innerWidth) {
+						x = e.clientX - tooltipRect.width - offset;
+					}
+					if (y + tooltipRect.height > window.innerHeight) {
+						y = e.clientY - tooltipRect.height - offset;
+					}
+
+					tooltip.style.left = `${x}px`;
+					tooltip.style.top = `${y}px`;
+				}
+			});
+		</script>
 	</body>
 </html>

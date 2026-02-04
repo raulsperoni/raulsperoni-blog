@@ -1,6 +1,6 @@
 ---
 title: 'Colores.'
-description: ''
+description: 'Para mí, el color azul es frío, oficial y aburrido. ¿Entendés? Como el invierno iluminado, como los uniformes y los que usan uniforme.'
 pubDate: 'Aug 2 2020'
 heroImage: '../../assets/images/IMG_20201101_182453.webp'
 tags: ['escribo ✍🏻']

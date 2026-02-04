@@ -1,6 +1,6 @@
 ---
 title: 'Bacacay.'
-description: ''
+description: 'Me gusta este café, me gusta el rincón un poco escondido del resto de las mesas que siempre está libre.'
 pubDate: 'May 30 2018'
 heroImage: '../../assets/images/IMG_20191205_173346_1_.webp'
 tags: ['escribo ✍🏻']

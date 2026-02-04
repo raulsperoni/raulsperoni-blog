@@ -1,6 +1,6 @@
 ---
 title: 'El monitor.'
-description: ''
+description: 'Se ubicó en su escritorio siguiendo la coreografía habitual. Alineó su cuaderno y su taza al teclado antes de sentarse con la espalda recta frente a la pared de monitores.'
 pubDate: 'Jul 27 2019'
 heroImage: '../../assets/images/IMG_20200718_123958.webp'
 tags: ['escribo ✍🏻']

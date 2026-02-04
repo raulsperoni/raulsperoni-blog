@@ -1,6 +1,6 @@
 ---
 title: 'Ese no es mi padre'
-description: ''
+description: 'Esta es la foto de mi padre. Es además una buena foto de mi padre. Una buena foto, en un buen día.'
 pubDate: 'Aug 15 2021'
 heroImage: '../../assets/images/PXL_20210625_153828262.webp'
 tags: ['escribo ✍🏻']

@@ -1,6 +1,6 @@
 ---
 title: 'El Asco.'
-description: ''
+description: '—¿Sabés lo que va a pasar? Miró la cara que tenía enfrente con resignación e intentó negar la realidad con pequeños movimientos de cabeza.'
 pubDate: 'Sep 7 2020'
 heroImage: '../../assets/images/IMG_20201213_180955.webp'
 tags: ['escribo ✍🏻']

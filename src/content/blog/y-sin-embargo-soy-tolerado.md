@@ -1,6 +1,6 @@
 ---
 title: 'Y sin embargo soy tolerado.'
-description: ''
+description: 'Estoy harto de ser tolerado. Harto de los silencios incómodos de los demás, de las miradas que se preguntan pero que nunca preguntan.'
 pubDate: 'May 16 2019'
 heroImage: '../../assets/images/IMG_20180225_172835.webp'
 tags: ['escribo ✍🏻']

@@ -1,6 +1,6 @@
 ---
 title: 'Los apuros de la LUC, una forma de hacer política, y la opción de resistirse.'
-description: ''
+description: 'Leí en algún lado que la democracia se parecía mucho a la técnica matemática de reducción de dimensionalidad.'
 pubDate: 'Mar 19 2022'
 heroImage: '../../assets/images/1-fj0owmdak2xvou3psbcmkw.png'
 tags: ['escribo ✍🏻', 'hago 🔧']

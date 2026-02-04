@@ -1,6 +1,6 @@
 ---
 title: 'La Guardia de Azúcar'
-description: ''
+description: 'Los guardias estaban parados firmes uno a cada lado del portón del palacio. Firmes, rectos e impecables. Vestían colores vivos y trajes satinados.'
 pubDate: 'Jul 11 2021'
 heroImage: '../../assets/images/IMG_20200828_193337_1_.webp'
 tags: ['escribo ✍🏻']

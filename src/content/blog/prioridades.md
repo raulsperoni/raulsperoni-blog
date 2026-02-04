@@ -1,6 +1,6 @@
 ---
 title: 'Prioridades.'
-description: ''
+description: 'No debería estar escribiendo esto, hay urgencias y prioridades. Pero escribo esto porque evidentemente no sé distinguirlas.'
 pubDate: 'Jul 24 2019'
 heroImage: '../../assets/images/IMG_20201127_230541.webp'
 tags: ['escribo ✍🏻']

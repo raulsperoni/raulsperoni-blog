@@ -1,6 +1,6 @@
 ---
 title: 'El Complejo.'
-description: ''
+description: 'En el 214 de la calle Reconquista se ubica el complejo de viviendas "Pedro Figari". Antiguamente era una casona de la época colonial.'
 pubDate: 'Mar 30 2020'
 heroImage: '../../assets/images/IMG_20191205_173542.webp'
 tags: ['escribo ✍🏻']

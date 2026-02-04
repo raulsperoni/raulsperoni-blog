@@ -1,6 +1,6 @@
 ---
 title: 'Caballos'
-description: ''
+description: 'Catálogo de ruidos, entrada 543. Julio, 2020. Otro domingo, gris, ruidoso y miserable. El vecino de abajo es aficionado a los caballos.'
 pubDate: 'Aug 1 2020'
 heroImage: '../../assets/images/IMG_20190714_151613.webp'
 tags: ['escribo ✍🏻']

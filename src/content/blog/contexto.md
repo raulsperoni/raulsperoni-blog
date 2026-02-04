@@ -1,6 +1,6 @@
 ---
 title: 'Contexto'
-description: ''
+description: 'Estoy sentado debajo de un árbol cuyas hojas se debaten entre el verde y el marrón mientras se cantan susurros de otoño.'
 pubDate: 'May 13 2022'
 heroImage: '../../assets/images/PXL_20220501_140908725.webp'
 tags: ['escribo ✍🏻']

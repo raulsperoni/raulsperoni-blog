@@ -1,6 +1,6 @@
 ---
 title: 'Tenés nombre de viejo.'
-description: ''
+description: 'Nadando en la piscina oigo como llaman a Nico. No se muy bien quién es, debe ser la segunda vez que lo veo y la primera que escucho su nombre.'
 pubDate: 'Sep 14 2020'
 heroImage: '../../assets/images/IMG_20201130_174621_1_.webp'
 tags: ['escribo ✍🏻']

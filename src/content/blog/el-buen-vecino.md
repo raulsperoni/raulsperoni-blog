@@ -1,6 +1,6 @@
 ---
 title: 'El buen vecino.'
-description: ''
+description: 'El cadete suspiró y miró el reloj lleno de telarañas de la pared. Si el viejo llegaba dos minutos después le habría tocado a Gonzales.'
 pubDate: 'Aug 23 2020'
 heroImage: '../../assets/images/IMG_20201113_190214.webp'
 tags: ['escribo ✍🏻']

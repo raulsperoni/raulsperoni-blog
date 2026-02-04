@@ -1,6 +1,6 @@
 ---
 title: 'El Gigante.'
-description: ''
+description: 'Estoy parado frente a una puerta abierta en Libertad, en una puerta para gigantes, tan grande que cabe una multitud en el portal.'
 pubDate: 'May 15 2018'
 heroImage: '../../assets/images/IMG_20180515_172410.webp'
 tags: ['escribo ✍🏻']

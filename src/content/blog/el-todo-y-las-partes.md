@@ -1,6 +1,6 @@
 ---
 title: 'El todo es menor que la suma de las partes'
-description: ''
+description: 'Un grupo de veteranos con diferente grado de dificultad para caminar, acompañados de dos enfermeras, intenta atravesar la rambla.'
 pubDate: 'Nov 24 2025'
 heroImage: '../../assets/images/PXL_20251123_205344114.jpg'
 tags: ['escribo ✍🏻', 'hago 🔧']

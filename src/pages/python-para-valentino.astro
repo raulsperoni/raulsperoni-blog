@@ -2,6 +2,8 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/fposter,small,wall_texture,square_product,600x600.u2.jpg';
 ---
 
 <!doctype html>
@@ -17,20 +19,24 @@ import Footer from '../components/Footer.astro';
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--border);
       }
-
+      .hero-img {
+        display: block;
+        margin: 0 auto 2rem;
+        border-radius: 12px;
+        max-width: 320px;
+        width: 100%;
+      }
       .guide-intro h1 {
         font-size: 2.25rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
         letter-spacing: -0.03em;
       }
-
       .guide-intro .tagline {
         color: var(--text-light);
         font-size: 1rem;
         margin-bottom: 2rem;
       }
-
       .guide-intro p {
         line-height: 1.8;
         margin-bottom: 0.75rem;
@@ -43,102 +49,73 @@ import Footer from '../components/Footer.astro';
         margin: 2.5rem 0;
       }
 
-      /* Levels */
+      /* ── Level ───────────────────────────────────── */
       .level {
         margin-bottom: 3rem;
       }
-
       .level-header {
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
         padding-bottom: 0.75rem;
         border-bottom: 2px solid var(--border);
       }
-
-      .level-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.25rem;
-        height: 2.25rem;
-        border-radius: 50%;
-        font-size: 1rem;
-        flex-shrink: 0;
-      }
-
-      .level-badge.green  { background: #22c55e20; }
-      .level-badge.yellow { background: #eab30820; }
-      .level-badge.red    { background: #ef444420; }
-
       .level-header h2 {
         font-size: 1.5rem;
         font-weight: 700;
         margin: 0;
         letter-spacing: -0.02em;
       }
-
       .level h3 {
-        font-size: 1rem;
+        font-size: 0.875rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
         color: var(--text-light);
-        margin: 1.75rem 0 0.75rem;
+        margin: 1.5rem 0 0.6rem;
       }
-
       .level p {
         line-height: 1.8;
         margin-bottom: 0.75rem;
         color: var(--text);
       }
 
-      /* Resource list */
+      /* ── Resources ───────────────────────────────── */
       .resources {
         list-style: none;
         padding: 0;
-        margin: 0.5rem 0 1.5rem;
+        margin: 0.5rem 0 1.25rem;
       }
-
       .resources li {
-        padding: 0.6rem 0;
+        padding: 0.55rem 0;
         border-bottom: 1px solid var(--border);
         font-size: 0.9375rem;
       }
-
-      .resources li:last-child {
-        border-bottom: none;
-      }
-
+      .resources li:last-child { border-bottom: none; }
       .resources .res-name {
         display: block;
         font-weight: 600;
         color: var(--text);
         margin-bottom: 0.15rem;
       }
-
       .resources a {
         color: var(--accent);
         text-decoration: none;
         font-size: 0.875rem;
         word-break: break-all;
       }
+      .resources a:hover { text-decoration: underline; }
 
-      .resources a:hover {
-        text-decoration: underline;
-      }
-
-      /* Skills / bullets */
+      /* ── Skill pills ─────────────────────────────── */
       .skill-list {
         list-style: none;
         padding: 0;
-        margin: 0.5rem 0 1.5rem;
+        margin: 0.5rem 0 1.25rem;
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
       }
-
       .skill-list li {
         padding: 0.3rem 0.75rem;
         background: var(--bg-elevated);
@@ -148,22 +125,97 @@ import Footer from '../components/Footer.astro';
         color: var(--text);
       }
 
-      /* Projects */
-      .project-list {
-        list-style: none;
-        padding: 0;
-        margin: 0.5rem 0 1.5rem;
+      /* ── Tip box ─────────────────────────────────── */
+      .tip-box {
+        background: var(--bg-elevated);
+        border-left: 3px solid var(--accent);
+        padding: 0.9rem 1.1rem;
+        border-radius: 0 6px 6px 0;
+        margin: 1.25rem 0;
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--text);
       }
 
-      .project-list li {
-        padding: 0.5rem 0 0.5rem 1.25rem;
+      /* ── details / mission ───────────────────────── */
+      .mission {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: 1.5rem 0 0;
+        overflow: hidden;
+      }
+      .mission summary {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.9rem 1.1rem;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text);
+        background: var(--bg-elevated);
+        user-select: none;
+        list-style: none;
+        transition: background 0.15s ease;
+      }
+      .mission summary::-webkit-details-marker { display: none; }
+      .mission summary::before {
+        content: '▶';
+        font-size: 0.6rem;
+        color: var(--accent);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+      }
+      .mission[open] summary::before {
+        transform: rotate(90deg);
+      }
+      .mission summary:hover {
+        background: var(--bg);
+      }
+      .mission-body {
+        padding: 1.25rem 1.4rem 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* inside mission */
+      .mission-body h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+        margin: 1.5rem 0 0.6rem;
+      }
+      .mission-body h4:first-child { margin-top: 0; }
+      .mission-body h5 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--text);
+        margin: 1.25rem 0 0.4rem;
+      }
+      .mission-body p {
+        font-size: 0.9375rem;
+        line-height: 1.75;
+        color: var(--text);
+        margin-bottom: 0.6rem;
+      }
+
+      /* step list */
+      .step-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1rem;
+      }
+      .step-list li {
+        padding: 0.45rem 0 0.45rem 1.3rem;
         border-bottom: 1px solid var(--border);
         font-size: 0.9375rem;
         color: var(--text);
         position: relative;
+        line-height: 1.6;
       }
-
-      .project-list li::before {
+      .step-list li:last-child { border-bottom: none; }
+      .step-list li::before {
         content: '→';
         position: absolute;
         left: 0;
@@ -171,43 +223,86 @@ import Footer from '../components/Footer.astro';
         font-weight: 700;
       }
 
-      .project-list li:last-child {
-        border-bottom: none;
+      /* checkpoint */
+      .checkpoint-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1rem;
+      }
+      .checkpoint-list li {
+        padding: 0.45rem 0 0.45rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9375rem;
+        color: var(--text);
+        position: relative;
+        line-height: 1.6;
+      }
+      .checkpoint-list li:last-child { border-bottom: none; }
+      .checkpoint-list li::before {
+        content: '✔';
+        position: absolute;
+        left: 0;
+        color: #22c55e;
+        font-weight: 700;
       }
 
-      /* Tip box */
-      .tip-box {
+      /* code block */
+      .code-block {
         background: var(--bg-elevated);
-        border-left: 3px solid var(--accent);
-        padding: 1rem 1.25rem;
-        border-radius: 0 6px 6px 0;
-        margin: 1.5rem 0;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1rem 1.1rem;
+        margin: 0.75rem 0;
+        overflow-x: auto;
+      }
+      .code-block code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.8125rem;
+        line-height: 1.65;
+        color: var(--text);
+        white-space: pre;
+        display: block;
+      }
+      .code-label {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.8125rem;
+        color: var(--text-light);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.15rem 0.5rem;
+      }
+
+      /* ready banner */
+      .ready-banner {
+        margin-top: 1.25rem;
+        padding: 0.8rem 1.1rem;
+        background: #22c55e15;
+        border: 1px solid #22c55e40;
+        border-radius: 6px;
         font-size: 0.9375rem;
-        line-height: 1.7;
+        font-weight: 600;
         color: var(--text);
       }
 
-      /* Apps grid */
+      /* ── Apps grid ───────────────────────────────── */
       .apps-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1rem;
         margin: 1rem 0 2rem;
       }
-
       .app-card {
-        padding: 1rem 1.25rem;
+        padding: 1rem 1.1rem;
         background: var(--bg-elevated);
         border: 1px solid var(--border);
         border-radius: 8px;
       }
-
       .app-card .app-title {
         font-weight: 700;
         margin-bottom: 0.5rem;
-        font-size: 1rem;
+        font-size: 0.9375rem;
       }
-
       .app-card ul {
         list-style: none;
         padding: 0;
@@ -216,47 +311,33 @@ import Footer from '../components/Footer.astro';
         color: var(--text-light);
         line-height: 1.7;
       }
+      .app-card a { color: var(--accent); text-decoration: none; }
+      .app-card a:hover { text-decoration: underline; }
 
-      .app-card a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .app-card a:hover {
-        text-decoration: underline;
-      }
-
-      /* Progress indicators */
+      /* ── Progress indicators ─────────────────────── */
       .indicators {
         list-style: none;
         padding: 0;
-        margin: 1rem 0 2rem;
-        counter-reset: ind;
+        margin: 1rem 0 1.5rem;
       }
-
       .indicators li {
-        counter-increment: ind;
         display: flex;
         gap: 0.75rem;
-        padding: 0.6rem 0;
+        padding: 0.55rem 0;
         border-bottom: 1px solid var(--border);
-        align-items: flex-start;
         font-size: 0.9375rem;
         color: var(--text);
+        align-items: flex-start;
       }
-
-      .indicators li:last-child {
-        border-bottom: none;
-      }
-
+      .indicators li:last-child { border-bottom: none; }
       .indicators li::before {
         content: '✓';
         color: #22c55e;
         font-weight: 700;
         flex-shrink: 0;
-        margin-top: 0.1rem;
       }
 
+      /* ── Signature ───────────────────────────────── */
       .signature {
         margin-top: 4rem;
         padding-top: 2rem;
@@ -268,9 +349,7 @@ import Footer from '../components/Footer.astro';
       }
 
       @media (max-width: 720px) {
-        .guide-intro h1 {
-          font-size: 1.75rem;
-        }
+        .guide-intro h1 { font-size: 1.75rem; }
       }
     </style>
   </head>
@@ -278,10 +357,16 @@ import Footer from '../components/Footer.astro';
     <Header />
     <main>
 
+      <!-- INTRO -->
       <div class="guide-intro">
+        <Image
+          src={heroImage}
+          alt="El Viaje del Héroe Python"
+          width={400}
+          class="hero-img"
+        />
         <h1>🐍 El Viaje del Héroe Python</h1>
         <p class="tagline">De la curiosidad a la comprensión real de los sistemas</p>
-
         <p>Toda aventura técnica empieza igual: curiosidad.</p>
         <p>
           A veces la chispa es la seguridad.<br />
@@ -292,30 +377,32 @@ import Footer from '../components/Footer.astro';
           Python es una de las mejores puertas de entrada al mundo real de la tecnología.
           No porque sea "fácil". Sino porque te permite construir cosas reales desde el primer día.
         </p>
-
         <hr />
-
         <p>
           Este no es un curso.<br />
           Es un camino progresivo.<br />
-          Cada etapa tiene objetivos claros y una forma de saber si estás listo para avanzar.
+          Cada nivel tiene objetivos claros y una forma de saber si estás listo para avanzar.
         </p>
       </div>
 
-      <!-- NIVEL 1 -->
+      <!-- ══════════════════════════════════════════ -->
+      <!-- NIVEL 1                                    -->
+      <!-- ══════════════════════════════════════════ -->
       <section class="level">
         <div class="level-header">
-          <span class="level-badge green">🟢</span>
+          <span style="font-size:1.4rem;">🟢</span>
           <h2>Nivel 1 — Dominar el lenguaje</h2>
         </div>
 
-        <p><strong>Objetivo:</strong> pensar en lógica y escribir programas sin depender de copiar código.</p>
+        <p>
+          <strong>Objetivo:</strong> pensar en lógica y escribir programas sin depender de copiar código.
+        </p>
 
         <h3>Recursos</h3>
         <ul class="resources">
           <li>
             <span class="res-name">Python oficial</span>
-            <a href="https://www.python.org" target="_blank">https://www.python.org</a>
+            <a href="https://www.python.org" target="_blank">python.org</a>
           </li>
           <li>
             <span class="res-name">Curso completo gratuito (video largo y claro)</span>
@@ -340,23 +427,69 @@ import Footer from '../components/Footer.astro';
           <li>Listas y diccionarios</li>
         </ul>
 
-        <h3>Proyecto mínimo</h3>
-        <ul class="project-list">
-          <li>Crear un juego simple de consola.</li>
-          <li>Crear un generador de contraseñas.</li>
-          <li>Procesar una lista de datos.</li>
-        </ul>
-        <div class="tip-box">
-          Si podés escribir un programa completo sin mirar soluciones, pasás al siguiente nivel.
-        </div>
+        <details class="mission">
+          <summary>🛠 Misión 1 — Generador de contraseñas</summary>
+          <div class="mission-body">
+
+            <h4>🎯 Objetivo</h4>
+            <p>Aprender a pensar en lógica y escribir programas sin copiar.</p>
+
+            <h4>🧠 Vas a entender</h4>
+            <ul class="skill-list">
+              <li>Variables</li>
+              <li>Loops</li>
+              <li>Funciones de la librería estándar</li>
+              <li>Input del usuario</li>
+            </ul>
+
+            <h4>🛠 Pasos</h4>
+
+            <h5>Paso 1 — Crear archivo</h5>
+            <p>Creá un archivo llamado <code class="code-label">password_generator.py</code></p>
+
+            <h5>Paso 2 — Código base</h5>
+            <div class="code-block"><code>import random
+import string
+
+longitud = 12
+caracteres = string.ascii_letters + string.digits
+
+password = ""
+
+for i in range(longitud):
+    password += random.choice(caracteres)
+
+print("Tu contraseña es:", password)</code></div>
+
+            <h5>Paso 3 — Mejoras obligatorias</h5>
+            <ul class="step-list">
+              <li>Permitir que el usuario elija la longitud.</li>
+              <li>Agregar símbolos opcionales.</li>
+              <li>Generar múltiples contraseñas.</li>
+            </ul>
+
+            <h4>🧪 Checkpoints</h4>
+            <ul class="checkpoint-list">
+              <li>¿Podés explicar qué hace <code class="code-label">random.choice</code>?</li>
+              <li>¿Podés cambiar el programa sin romperlo?</li>
+              <li>¿Podés escribir otro programa simple solo?</li>
+            </ul>
+
+            <div class="ready-banner">
+              🏁 Si respondés sí a todo → subís de nivel.
+            </div>
+          </div>
+        </details>
       </section>
 
       <hr />
 
-      <!-- NIVEL 2 -->
+      <!-- ══════════════════════════════════════════ -->
+      <!-- NIVEL 2                                    -->
+      <!-- ══════════════════════════════════════════ -->
       <section class="level">
         <div class="level-header">
-          <span class="level-badge yellow">🟡</span>
+          <span style="font-size:1.4rem;">🟡</span>
           <h2>Nivel 2 — Entender cómo funciona Internet</h2>
         </div>
 
@@ -388,59 +521,238 @@ import Footer from '../components/Footer.astro';
           </li>
         </ul>
 
-        <h3>Proyecto de nivel 2</h3>
-        <p>Escribir un script que:</p>
-        <ul class="project-list">
-          <li>Haga una request a una API pública.</li>
-          <li>Reciba JSON.</li>
-          <li>Procese los datos.</li>
-          <li>Muestre un resultado claro.</li>
-        </ul>
+        <details class="mission">
+          <summary>🛠 Misión 2 — Consumir una API</summary>
+          <div class="mission-body">
 
-        <div class="tip-box">
-          Cuando entendés cómo viajan los datos por Internet, empezás a comprender cómo funcionan
-          las cuentas, los logins y los sistemas distribuidos.
-        </div>
+            <h4>🎯 Objetivo</h4>
+            <p>Entender cómo viajan los datos en la web y escribir un script que los consuma.</p>
+
+            <h4>🧠 Vas a entender</h4>
+            <ul class="skill-list">
+              <li>HTTP</li>
+              <li>APIs</li>
+              <li>JSON</li>
+              <li>Librería requests</li>
+            </ul>
+
+            <h4>📚 Antes de programar</h4>
+            <ul class="step-list">
+              <li>
+                Leer:
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" target="_blank">
+                  MDN — HTTP Overview
+                </a>
+              </li>
+              <li>
+                Revisar docs:
+                <a href="https://requests.readthedocs.io" target="_blank">requests.readthedocs.io</a>
+              </li>
+            </ul>
+
+            <h4>🛠 Pasos</h4>
+
+            <h5>Paso 1 — Instalar requests</h5>
+            <div class="code-block"><code>pip install requests</code></div>
+
+            <h5>Paso 2 — Código base</h5>
+            <div class="code-block"><code>import requests
+
+url = "https://pokeapi.co/api/v2/pokemon/pikachu"
+respuesta = requests.get(url)
+
+datos = respuesta.json()
+
+print("Nombre:", datos["name"])
+print("Altura:", datos["height"])</code></div>
+
+            <h5>Paso 3 — Mejoras obligatorias</h5>
+            <ul class="step-list">
+              <li>Pedir el nombre del Pokémon por <code class="code-label">input()</code>.</li>
+              <li>Manejar el error si el Pokémon no existe.</li>
+              <li>Mostrar más datos: tipo, peso, habilidades.</li>
+            </ul>
+
+            <h4>🧪 Checkpoints</h4>
+            <ul class="checkpoint-list">
+              <li>¿Podés explicar qué es una API?</li>
+              <li>¿Entendés qué es JSON y por qué se usa?</li>
+              <li>¿Podés conectarte a otra API pública sin copiar un tutorial?</li>
+            </ul>
+
+            <div class="tip-box">
+              Cuando entendés cómo viajan los datos por Internet, empezás a comprender
+              cómo funcionan los logins, las cuentas y los sistemas distribuidos.
+            </div>
+
+            <div class="ready-banner">
+              🏁 Si respondés sí a todo → subís de nivel.
+            </div>
+          </div>
+        </details>
       </section>
 
       <hr />
 
-      <!-- NIVEL 3 -->
+      <!-- ══════════════════════════════════════════ -->
+      <!-- NIVEL 3                                    -->
+      <!-- ══════════════════════════════════════════ -->
       <section class="level">
         <div class="level-header">
-          <span class="level-badge red">🔴</span>
+          <span style="font-size:1.4rem;">🔴</span>
           <h2>Nivel 3 — Construir un sistema real</h2>
         </div>
 
         <p>Acá empieza la parte interesante.</p>
 
-        <h3>Aprender Flask</h3>
+        <h3>Conceptos clave</h3>
+        <ul class="skill-list">
+          <li>Hashing</li>
+          <li>Estructura de un programa</li>
+          <li>Seguridad básica</li>
+          <li>Control de intentos</li>
+        </ul>
+
+        <details class="mission">
+          <summary>🛠 Misión 3 — Mini sistema de login</summary>
+          <div class="mission-body">
+
+            <h4>🎯 Objetivo</h4>
+            <p>Construir tu propio sistema de usuarios con registro, login y bloqueo.</p>
+
+            <h4>🧠 Vas a entender</h4>
+            <ul class="skill-list">
+              <li>Qué es un hash</li>
+              <li>Por qué no se guardan contraseñas en texto plano</li>
+              <li>Qué es rate limiting</li>
+              <li>Cómo se diseñan sistemas seguros</li>
+            </ul>
+
+            <h4>🛠 Pasos</h4>
+
+            <h5>Paso 1 — Base de datos simulada</h5>
+            <div class="code-block"><code>usuarios = {}</code></div>
+
+            <h5>Paso 2 — Crear usuario</h5>
+            <div class="code-block"><code>import hashlib
+
+def crear_usuario(nombre, password):
+    hash_password = hashlib.sha256(password.encode()).hexdigest()
+    usuarios[nombre] = hash_password</code></div>
+
+            <h5>Paso 3 — Login</h5>
+            <div class="code-block"><code>def login(nombre, password):
+    hash_password = hashlib.sha256(password.encode()).hexdigest()
+
+    if nombre in usuarios and usuarios[nombre] == hash_password:
+        print("Acceso concedido")
+    else:
+        print("Acceso denegado")</code></div>
+
+            <h5>Paso 4 — Probarlo</h5>
+            <div class="code-block"><code>crear_usuario("admin", "1234")
+login("admin", "1234")   # → Acceso concedido
+login("admin", "wrong")  # → Acceso denegado</code></div>
+
+            <h5>Paso 5 — Mejoras obligatorias</h5>
+            <ul class="step-list">
+              <li>Bloquear tras 3 intentos fallidos.</li>
+              <li>Guardar un log de intentos fallidos con timestamp.</li>
+              <li>Crear un menú interactivo (registrar / iniciar sesión / salir).</li>
+            </ul>
+
+            <h4>🧪 Checkpoints</h4>
+            <ul class="checkpoint-list">
+              <li>¿Podés explicar qué es un hash y por qué es útil?</li>
+              <li>¿Sabés por qué no guardamos la contraseña original?</li>
+              <li>¿Podés agregar una regla nueva al sistema sin romper las anteriores?</li>
+            </ul>
+
+            <div class="ready-banner">
+              🏁 Si respondés sí a todo → ya estás pensando como programador.
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <hr />
+
+      <!-- ══════════════════════════════════════════ -->
+      <!-- NIVEL 4                                    -->
+      <!-- ══════════════════════════════════════════ -->
+      <section class="level">
+        <div class="level-header">
+          <span style="font-size:1.4rem;">⚫</span>
+          <h2>Nivel 4 — Servidor web (modo pro)</h2>
+        </div>
+
+        <p>
+          Hasta acá tus programas vivían en tu computadora. Ahora vas a construir algo
+          accesible desde cualquier navegador.
+        </p>
+
+        <h3>Recursos</h3>
         <ul class="resources">
           <li>
+            <span class="res-name">Flask</span>
             <a href="https://flask.palletsprojects.com/" target="_blank">flask.palletsprojects.com</a>
           </li>
         </ul>
-        <ul class="skill-list">
-          <li>Crear un servidor web</li>
-          <li>Crear rutas</li>
-          <li>Manejar requests</li>
-          <li>Responder datos</li>
-        </ul>
 
-        <h3>Proyecto central</h3>
-        <p>Construir un sistema simple de autenticación:</p>
-        <ul class="project-list">
-          <li>Registro de usuario.</li>
-          <li>Guardado de contraseña usando hash.</li>
-          <li>Validación de login.</li>
-          <li>Bloqueo tras múltiples intentos.</li>
-          <li>Registro de eventos (logs).</li>
-        </ul>
+        <details class="mission">
+          <summary>🛠 Misión 4 — Crear tu primer servidor</summary>
+          <div class="mission-body">
 
-        <div class="tip-box">
-          Al construir esto entendés por qué no se guardan contraseñas en texto plano, qué es un
-          hash, qué es rate limiting y cómo se diseñan sistemas seguros.
-        </div>
+            <h4>🎯 Objetivo</h4>
+            <p>
+              Convertir el sistema del Nivel 3 en algo que funciona en el navegador,
+              con rutas, requests y respuestas reales.
+            </p>
+
+            <h4>🧠 Vas a entender</h4>
+            <ul class="skill-list">
+              <li>Qué es un servidor web</li>
+              <li>Qué es una ruta (route)</li>
+              <li>Cómo viaja un login desde el navegador al servidor</li>
+              <li>Qué son los métodos GET y POST</li>
+            </ul>
+
+            <h4>🛠 Pasos</h4>
+
+            <h5>Paso 1 — Instalar Flask</h5>
+            <div class="code-block"><code>pip install flask</code></div>
+
+            <h5>Paso 2 — Servidor mínimo</h5>
+            <div class="code-block"><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Servidor funcionando"
+
+app.run(debug=True)</code></div>
+            <p>Abrir en el navegador: <code class="code-label">http://127.0.0.1:5000</code></p>
+
+            <h5>Paso 3 — Mejoras obligatorias</h5>
+            <ul class="step-list">
+              <li>Crear una ruta <code class="code-label">/login</code> que reciba datos por POST.</li>
+              <li>Integrar el sistema de usuarios del Nivel 3.</li>
+              <li>Devolver una respuesta JSON en vez de texto plano.</li>
+            </ul>
+
+            <h4>🧪 Checkpoints</h4>
+            <ul class="checkpoint-list">
+              <li>¿Entendés qué es un servidor y cómo escucha peticiones?</li>
+              <li>¿Sabés la diferencia entre GET y POST?</li>
+              <li>¿Podés explicar cómo viaja un login desde el navegador hasta tu código?</li>
+            </ul>
+
+            <div class="ready-banner">
+              🏁 Si respondés sí a todo → ya estás construyendo sistemas reales.
+            </div>
+          </div>
+        </details>
       </section>
 
       <hr />
@@ -448,11 +760,15 @@ import Footer from '../components/Footer.astro';
       <!-- SEGURIDAD -->
       <section class="level">
         <div class="level-header">
-          <span style="font-size: 1.5rem;">🔐</span>
+          <span style="font-size:1.4rem;">🔐</span>
           <h2>Seguridad: el siguiente paso</h2>
         </div>
 
-        <p>Una vez que sabés construir, podés estudiar seguridad con criterio.</p>
+        <p>
+          Una vez que sabés construir, podés estudiar seguridad con criterio real.
+          La diferencia entre usar herramientas y entender seguridad es enorme.
+          La comprensión viene primero.
+        </p>
 
         <ul class="resources">
           <li>
@@ -460,19 +776,14 @@ import Footer from '../components/Footer.astro';
             <a href="https://owasp.org/www-project-top-ten/" target="_blank">owasp.org/www-project-top-ten</a>
           </li>
           <li>
-            <span class="res-name">OverTheWire (entrenamiento práctico)</span>
+            <span class="res-name">OverTheWire — entrenamiento práctico</span>
             <a href="https://overthewire.org/wargames/" target="_blank">overthewire.org/wargames</a>
           </li>
           <li>
-            <span class="res-name">HackTheBox (más adelante)</span>
+            <span class="res-name">HackTheBox — más adelante</span>
             <a href="https://www.hackthebox.com" target="_blank">hackthebox.com</a>
           </li>
         </ul>
-
-        <div class="tip-box">
-          La diferencia entre usar herramientas y entender seguridad es enorme.
-          La comprensión viene primero.
-        </div>
       </section>
 
       <hr />
@@ -480,7 +791,7 @@ import Footer from '../components/Footer.astro';
       <!-- APLICACIONES -->
       <section class="level">
         <div class="level-header">
-          <span style="font-size: 1.5rem;">🚀</span>
+          <span style="font-size:1.4rem;">🚀</span>
           <h2>Aplicaciones interesantes de Python</h2>
         </div>
 
@@ -525,6 +836,42 @@ import Footer from '../components/Footer.astro';
               <li>Modelos simples de ML.</li>
             </ul>
           </div>
+          <div class="app-card">
+            <div class="app-title">🕹 Automatizar videojuegos</div>
+            <ul>
+              <li><a href="https://pyautogui.readthedocs.io" target="_blank">PyAutoGUI</a></li>
+              <li>Mover el mouse y hacer clicks automáticamente.</li>
+              <li>Leer la pantalla pixel a pixel.</li>
+              <li>Farmear recursos mientras dormís.</li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">⚡ Fortnite API</div>
+            <ul>
+              <li><a href="https://fortnite-api.com" target="_blank">fortnite-api.com</a></li>
+              <li>Ver el shop diario con código.</li>
+              <li>Recibir un mensaje cuando aparece una skin que querés.</li>
+              <li>Comparar stats propios con los de amigos.</li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">🖼 Arte e imágenes</div>
+            <ul>
+              <li><a href="https://pillow.readthedocs.io" target="_blank">Pillow</a></li>
+              <li>Generar memes automáticamente.</li>
+              <li>Aplicar filtros a fotos.</li>
+              <li>Crear imágenes desde cero con código.</li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">💰 Alertas de precio</div>
+            <ul>
+              <li><a href="https://www.crummy.com/software/BeautifulSoup/" target="_blank">BeautifulSoup</a></li>
+              <li>Scrapear MercadoLibre o cualquier tienda.</li>
+              <li>Recibir una notificación cuando baja el precio de algo.</li>
+              <li>Monitorear sneakers, consolas, lo que quieras.</li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -533,7 +880,7 @@ import Footer from '../components/Footer.astro';
       <!-- INDICADORES -->
       <section class="level">
         <div class="level-header">
-          <span style="font-size: 1.5rem;">🏁</span>
+          <span style="font-size:1.4rem;">🏁</span>
           <h2>Indicadores de progreso real</h2>
         </div>
 
@@ -554,7 +901,7 @@ import Footer from '../components/Footer.astro';
       </section>
 
       <p class="signature">
-        Con cariño y muchas ganas de que le pegues al código,<br />
+        Dale, metéle,<br />
         Tu tío Raúl — Marzo 2026
       </p>
 

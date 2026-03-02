@@ -1,0 +1,564 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead
+      title="El Viaje del Héroe Python"
+      description="De la curiosidad a la comprensión real de los sistemas."
+    />
+    <style>
+      .guide-intro {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .guide-intro h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .guide-intro .tagline {
+        color: var(--text-light);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .guide-intro p {
+        line-height: 1.8;
+        margin-bottom: 0.75rem;
+        color: var(--text);
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 2.5rem 0;
+      }
+
+      /* Levels */
+      .level {
+        margin-bottom: 3rem;
+      }
+
+      .level-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .level-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+
+      .level-badge.green  { background: #22c55e20; }
+      .level-badge.yellow { background: #eab30820; }
+      .level-badge.red    { background: #ef444420; }
+
+      .level-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+
+      .level h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-light);
+        margin: 1.75rem 0 0.75rem;
+      }
+
+      .level p {
+        line-height: 1.8;
+        margin-bottom: 0.75rem;
+        color: var(--text);
+      }
+
+      /* Resource list */
+      .resources {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1.5rem;
+      }
+
+      .resources li {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9375rem;
+      }
+
+      .resources li:last-child {
+        border-bottom: none;
+      }
+
+      .resources .res-name {
+        display: block;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 0.15rem;
+      }
+
+      .resources a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.875rem;
+        word-break: break-all;
+      }
+
+      .resources a:hover {
+        text-decoration: underline;
+      }
+
+      /* Skills / bullets */
+      .skill-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .skill-list li {
+        padding: 0.3rem 0.75rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        font-size: 0.875rem;
+        color: var(--text);
+      }
+
+      /* Projects */
+      .project-list {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1.5rem;
+      }
+
+      .project-list li {
+        padding: 0.5rem 0 0.5rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9375rem;
+        color: var(--text);
+        position: relative;
+      }
+
+      .project-list li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .project-list li:last-child {
+        border-bottom: none;
+      }
+
+      /* Tip box */
+      .tip-box {
+        background: var(--bg-elevated);
+        border-left: 3px solid var(--accent);
+        padding: 1rem 1.25rem;
+        border-radius: 0 6px 6px 0;
+        margin: 1.5rem 0;
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      /* Apps grid */
+      .apps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 2rem;
+      }
+
+      .app-card {
+        padding: 1rem 1.25rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+
+      .app-card .app-title {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .app-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--text-light);
+        line-height: 1.7;
+      }
+
+      .app-card a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .app-card a:hover {
+        text-decoration: underline;
+      }
+
+      /* Progress indicators */
+      .indicators {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 2rem;
+        counter-reset: ind;
+      }
+
+      .indicators li {
+        counter-increment: ind;
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--border);
+        align-items: flex-start;
+        font-size: 0.9375rem;
+        color: var(--text);
+      }
+
+      .indicators li:last-child {
+        border-bottom: none;
+      }
+
+      .indicators li::before {
+        content: '✓';
+        color: #22c55e;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+
+      .signature {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        color: var(--text-light);
+        font-style: italic;
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 720px) {
+        .guide-intro h1 {
+          font-size: 1.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+
+      <div class="guide-intro">
+        <h1>🐍 El Viaje del Héroe Python</h1>
+        <p class="tagline">De la curiosidad a la comprensión real de los sistemas</p>
+
+        <p>Toda aventura técnica empieza igual: curiosidad.</p>
+        <p>
+          A veces la chispa es la seguridad.<br />
+          A veces es un juego.<br />
+          A veces es simplemente querer entender cómo funcionan las cosas.
+        </p>
+        <p>
+          Python es una de las mejores puertas de entrada al mundo real de la tecnología.
+          No porque sea "fácil". Sino porque te permite construir cosas reales desde el primer día.
+        </p>
+
+        <hr />
+
+        <p>
+          Este no es un curso.<br />
+          Es un camino progresivo.<br />
+          Cada etapa tiene objetivos claros y una forma de saber si estás listo para avanzar.
+        </p>
+      </div>
+
+      <!-- NIVEL 1 -->
+      <section class="level">
+        <div class="level-header">
+          <span class="level-badge green">🟢</span>
+          <h2>Nivel 1 — Dominar el lenguaje</h2>
+        </div>
+
+        <p><strong>Objetivo:</strong> pensar en lógica y escribir programas sin depender de copiar código.</p>
+
+        <h3>Recursos</h3>
+        <ul class="resources">
+          <li>
+            <span class="res-name">Python oficial</span>
+            <a href="https://www.python.org" target="_blank">https://www.python.org</a>
+          </li>
+          <li>
+            <span class="res-name">Curso completo gratuito (video largo y claro)</span>
+            <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank">
+              youtube.com/watch?v=rfscVS0vtbw
+            </a>
+          </li>
+          <li>
+            <span class="res-name">Práctica diaria</span>
+            <a href="https://www.codewars.com" target="_blank">codewars.com</a>
+            &nbsp;·&nbsp;
+            <a href="https://leetcode.com" target="_blank">leetcode.com</a>
+          </li>
+        </ul>
+
+        <h3>Habilidades a dominar</h3>
+        <ul class="skill-list">
+          <li>Variables</li>
+          <li>Condicionales</li>
+          <li>Loops</li>
+          <li>Funciones</li>
+          <li>Listas y diccionarios</li>
+        </ul>
+
+        <h3>Proyecto mínimo</h3>
+        <ul class="project-list">
+          <li>Crear un juego simple de consola.</li>
+          <li>Crear un generador de contraseñas.</li>
+          <li>Procesar una lista de datos.</li>
+        </ul>
+        <div class="tip-box">
+          Si podés escribir un programa completo sin mirar soluciones, pasás al siguiente nivel.
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- NIVEL 2 -->
+      <section class="level">
+        <div class="level-header">
+          <span class="level-badge yellow">🟡</span>
+          <h2>Nivel 2 — Entender cómo funciona Internet</h2>
+        </div>
+
+        <p>Ahora dejamos el programa aislado. Entramos en el mundo real.</p>
+
+        <h3>Conceptos clave</h3>
+        <ul class="skill-list">
+          <li>¿Qué es HTTP?</li>
+          <li>¿Qué es una API?</li>
+          <li>¿Qué es JSON?</li>
+          <li>¿Qué es un servidor?</li>
+        </ul>
+
+        <h3>Recursos</h3>
+        <ul class="resources">
+          <li>
+            <span class="res-name">HTTP explicado</span>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" target="_blank">
+              developer.mozilla.org — HTTP Overview
+            </a>
+          </li>
+          <li>
+            <span class="res-name">Librería requests</span>
+            <a href="https://requests.readthedocs.io" target="_blank">requests.readthedocs.io</a>
+          </li>
+          <li>
+            <span class="res-name">API pública para practicar</span>
+            <a href="https://pokeapi.co" target="_blank">pokeapi.co</a>
+          </li>
+        </ul>
+
+        <h3>Proyecto de nivel 2</h3>
+        <p>Escribir un script que:</p>
+        <ul class="project-list">
+          <li>Haga una request a una API pública.</li>
+          <li>Reciba JSON.</li>
+          <li>Procese los datos.</li>
+          <li>Muestre un resultado claro.</li>
+        </ul>
+
+        <div class="tip-box">
+          Cuando entendés cómo viajan los datos por Internet, empezás a comprender cómo funcionan
+          las cuentas, los logins y los sistemas distribuidos.
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- NIVEL 3 -->
+      <section class="level">
+        <div class="level-header">
+          <span class="level-badge red">🔴</span>
+          <h2>Nivel 3 — Construir un sistema real</h2>
+        </div>
+
+        <p>Acá empieza la parte interesante.</p>
+
+        <h3>Aprender Flask</h3>
+        <ul class="resources">
+          <li>
+            <a href="https://flask.palletsprojects.com/" target="_blank">flask.palletsprojects.com</a>
+          </li>
+        </ul>
+        <ul class="skill-list">
+          <li>Crear un servidor web</li>
+          <li>Crear rutas</li>
+          <li>Manejar requests</li>
+          <li>Responder datos</li>
+        </ul>
+
+        <h3>Proyecto central</h3>
+        <p>Construir un sistema simple de autenticación:</p>
+        <ul class="project-list">
+          <li>Registro de usuario.</li>
+          <li>Guardado de contraseña usando hash.</li>
+          <li>Validación de login.</li>
+          <li>Bloqueo tras múltiples intentos.</li>
+          <li>Registro de eventos (logs).</li>
+        </ul>
+
+        <div class="tip-box">
+          Al construir esto entendés por qué no se guardan contraseñas en texto plano, qué es un
+          hash, qué es rate limiting y cómo se diseñan sistemas seguros.
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- SEGURIDAD -->
+      <section class="level">
+        <div class="level-header">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <h2>Seguridad: el siguiente paso</h2>
+        </div>
+
+        <p>Una vez que sabés construir, podés estudiar seguridad con criterio.</p>
+
+        <ul class="resources">
+          <li>
+            <span class="res-name">OWASP Top 10</span>
+            <a href="https://owasp.org/www-project-top-ten/" target="_blank">owasp.org/www-project-top-ten</a>
+          </li>
+          <li>
+            <span class="res-name">OverTheWire (entrenamiento práctico)</span>
+            <a href="https://overthewire.org/wargames/" target="_blank">overthewire.org/wargames</a>
+          </li>
+          <li>
+            <span class="res-name">HackTheBox (más adelante)</span>
+            <a href="https://www.hackthebox.com" target="_blank">hackthebox.com</a>
+          </li>
+        </ul>
+
+        <div class="tip-box">
+          La diferencia entre usar herramientas y entender seguridad es enorme.
+          La comprensión viene primero.
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- APLICACIONES -->
+      <section class="level">
+        <div class="level-header">
+          <span style="font-size: 1.5rem;">🚀</span>
+          <h2>Aplicaciones interesantes de Python</h2>
+        </div>
+
+        <p>La seguridad es solo una puerta. Python sirve para mucho más.</p>
+
+        <div class="apps-grid">
+          <div class="app-card">
+            <div class="app-title">🎮 Juegos</div>
+            <ul>
+              <li><a href="https://www.pygame.org" target="_blank">pygame</a></li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">🤖 Automatización</div>
+            <ul>
+              <li>Renombrar miles de archivos.</li>
+              <li>Automatizar tareas repetitivas.</li>
+              <li>Crear bots.</li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">📊 Análisis de datos</div>
+            <ul>
+              <li><a href="https://pandas.pydata.org" target="_blank">pandas</a></li>
+              <li><a href="https://matplotlib.org" target="_blank">matplotlib</a></li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">🌐 Bots y servicios</div>
+            <ul>
+              <li>Bot de Discord.</li>
+              <li>Bot de Telegram.</li>
+              <li>API propia.</li>
+              <li>Backend de aplicación.</li>
+            </ul>
+          </div>
+          <div class="app-card">
+            <div class="app-title">🧠 Inteligencia Artificial</div>
+            <ul>
+              <li><a href="https://scikit-learn.org" target="_blank">scikit-learn</a></li>
+              <li>Procesamiento de texto.</li>
+              <li>Modelos simples de ML.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- INDICADORES -->
+      <section class="level">
+        <div class="level-header">
+          <span style="font-size: 1.5rem;">🏁</span>
+          <h2>Indicadores de progreso real</h2>
+        </div>
+
+        <p>Estás avanzando cuando podés explicar:</p>
+        <ul class="indicators">
+          <li>Qué es un hash.</li>
+          <li>Cómo funciona HTTP.</li>
+          <li>Qué es una API.</li>
+          <li>Cómo se guarda una contraseña correctamente.</li>
+          <li>Por qué los sistemas modernos no dependen de "adivinar".</li>
+        </ul>
+
+        <div class="tip-box">
+          Cuando llegás ahí, ya no estás intentando entrar en sistemas.<br />
+          Estás entendiendo cómo se construyen.<br />
+          Y eso es el comienzo de algo mucho más interesante.
+        </div>
+      </section>
+
+      <p class="signature">
+        Con cariño y muchas ganas de que le pegues al código,<br />
+        Tu tío Raúl — Marzo 2026
+      </p>
+
+    </main>
+    <Footer />
+  </body>
+</html>

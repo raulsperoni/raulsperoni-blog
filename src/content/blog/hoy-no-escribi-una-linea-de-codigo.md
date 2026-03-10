@@ -42,7 +42,7 @@ Mientras tanto, en Uruguay empiezan a aparecer algunos debates —todavía tími
 
 ¿Qué garantías tendrán los trabajadores cuando una estrategia de uso de IA finalmente se defina? ¿Cómo se repartirán la culpa y las responsabilidades cuando las cosas salgan mal? ¿Iniciaremos sumarios e investigaciones internas sobre la IA, los usuarios o los proveedores?
 
-Si se confirma la tendencia de que el problema no es solo la pérdida de puestos de trabajo, sino su transformación, ¿cuáles serán los reclamos sindicales? ¿Menos IA? ¿Más IA?
+Si se confirma la tendencia de que el problema no es solo la pérdida de puestos de trabajo, sino su transformación, ¿cuáles serán los reclamos sindicales? ¿Menos IA? ¿Más IA? Mejor IA?
 
 ¿Dónde queda la discusión de soberanía que ya no es solo de infraestructura ni solo de datos? ¿Quién participa en esa discusión? ¿Y dónde se da?
 

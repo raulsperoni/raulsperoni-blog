@@ -2,6 +2,7 @@
 title: 'Hoy no escribí una línea de código'
 description: 'Crónica de trabajo en tiempos de agentes de IA'
 pubDate: 'Mar 10 2026'
+ogImage: '../../assets/images/antrophicChart.jpeg'
 tags: ['escribo ✍🏻']
 ---
 

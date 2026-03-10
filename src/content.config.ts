@@ -15,6 +15,8 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: image().optional(),
+			// SEO/social image (Open Graph, Twitter). If omitted, heroImage is used.
+			ogImage: image().optional(),
 			tags: z.array(z.string()).default([]),
 		}),
 });

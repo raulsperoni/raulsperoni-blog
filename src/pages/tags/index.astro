@@ -15,7 +15,7 @@ const tags = [...new Set(allPosts.flatMap(post => post.data.tags))].sort();
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main">
 			<h1>Tags</h1>
 			<div class="tags">
 				{tags.map((tag) => (

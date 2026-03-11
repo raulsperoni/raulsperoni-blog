@@ -91,14 +91,10 @@ function slugify(text) {
 }
 
 function createMarkdown(url, metadata, tags = []) {
-	const today = new Date().toLocaleDateString('en-US', {
-		month: 'short',
-		day: 'numeric',
-		year: 'numeric'
-	});
+	const today = new Date().toISOString().split('T')[0]; // ISO (YYYY-MM-DD) para que el schema lo parsee bien
 
 	const frontmatter = {
-		title: metadata.title || 'Untitled Link',
+		title: metadata.title || 'Enlace sin título',
 		url: url,
 		description: metadata.description || '',
 		pubDate: today,
@@ -117,7 +113,7 @@ function createMarkdown(url, metadata, tags = []) {
 		})
 		.join('\n');
 
-	return `---\n${yaml}\n---\n\nAdd your notes about this link here.\n`;
+	return `---\n${yaml}\n---\n\nAñade aquí tus notas sobre este enlace.\n`;
 }
 
 function resolveUrl(baseUrl, path) {
@@ -132,8 +128,8 @@ async function main() {
 	const args = process.argv.slice(2);
 
 	if (args.length === 0) {
-		console.error('Usage: node scripts/fetch-link-seo.js <url> [slug] [tags...]');
-		console.error('Example: node scripts/fetch-link-seo.js https://example.com my-link web development');
+		console.error('Uso: node scripts/fetch-link-seo.js <url> [slug] [etiquetas...]');
+		console.error('Ejemplo: node scripts/fetch-link-seo.js https://ejemplo.com mi-enlace desarrollo web');
 		process.exit(1);
 	}
 
@@ -141,7 +137,7 @@ async function main() {
 	let slug = args[1];
 	const tags = args.slice(2);
 
-	console.log(`Fetching metadata from: ${url}`);
+	console.log(`Obteniendo metadatos de: ${url}`);
 
 	try {
 		const html = await fetchHTML(url);
@@ -156,15 +152,15 @@ async function main() {
 
 		await writeFile(filePath, markdown, 'utf-8');
 
-		console.log('\nLink created successfully!');
-		console.log(`File: src/content/links/${slug}.md`);
-		console.log(`\nMetadata found:`);
-		console.log(`  Title: ${metadata.title}`);
-		console.log(`  Description: ${metadata.description.slice(0, 100)}${metadata.description.length > 100 ? '...' : ''}`);
-		if (metadata.siteName) console.log(`  Site: ${metadata.siteName}`);
-		if (metadata.ogImage) console.log(`  Image: ${metadata.ogImage}`);
+		console.log('\n¡Enlace creado correctamente!');
+		console.log(`Archivo: src/content/links/${slug}.md`);
+		console.log(`\nMetadatos encontrados:`);
+		console.log(`  Título: ${metadata.title}`);
+		console.log(`  Descripción: ${metadata.description.slice(0, 100)}${metadata.description.length > 100 ? '...' : ''}`);
+		if (metadata.siteName) console.log(`  Sitio: ${metadata.siteName}`);
+		if (metadata.ogImage) console.log(`  Imagen: ${metadata.ogImage}`);
 		if (metadata.favicon) console.log(`  Favicon: ${resolveUrl(url, metadata.favicon)}`);
-		if (tags.length > 0) console.log(`  Tags: ${tags.join(', ')}`);
+		if (tags.length > 0) console.log(`  Etiquetas: ${tags.join(', ')}`);
 
 	} catch (error) {
 		console.error('Error:', error.message);

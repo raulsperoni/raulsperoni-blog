@@ -38,8 +38,16 @@ allContent.forEach(item => {
 	});
 });
 
+// Sort tags for the grid: prefer blog+link count so "escribo"/"hago" etc. rank above Strava-heavy tags
 const sortedTags = Array.from(tagMap.entries())
-	.sort((a, b) => b[1].length - a[1].length);
+	.sort((a, b) => {
+		const nonStravaCount = (items: typeof allContent) =>
+			items.filter((item) => item.type === 'blog' || item.type === 'link').length;
+		const aNonStrava = nonStravaCount(a[1]);
+		const bNonStrava = nonStravaCount(b[1]);
+		if (bNonStrava !== aNonStrava) return bNonStrava - aNonStrava;
+		return b[1].length - a[1].length; // tiebreaker: total count
+	});
 
 // Timeline: Group by date first, then merge consecutive same-type dates
 interface TimelineGroup {

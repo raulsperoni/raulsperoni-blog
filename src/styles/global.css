@@ -1,40 +1,65 @@
 :root {
-	--accent: #c2410c;
-	--accent-dark: #9a3412;
-	--accent-light: #ffedd5;
-	--text: #1c1917;
-	--text-light: #57534e;
-	--border: #e7e5e4;
-	--bg: #fafaf9;
-	--bg-elevated: #ffffff;
-	--shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.06);
-	--shadow-md: 0 4px 6px -1px rgba(28, 25, 23, 0.08), 0 2px 4px -2px rgba(28, 25, 23, 0.06);
-	--radius: 6px;
-	--radius-sm: 4px;
+	/* Warm gray-green palette */
+	--bg: #f1f0eb;
+	--bg-elevated: #f8f7f3;
+	--text: #1c1410;
+	--text-light: #7a6b5a;
+	--border: #d5d2c8;
+
+	/* Editorial crimson */
+	--accent: #c2160a;
+	--accent-dark: #8b0c05;
+	--accent-light: #fde8e6;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px rgba(28, 20, 16, 0.06);
+	--shadow-md: 0 4px 12px rgba(28, 20, 16, 0.1);
+
+	/* Minimal radius — literary, not bubbly */
+	--radius: 3px;
+	--radius-sm: 2px;
+
+	/* Fonts */
+	--font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+	--font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+	--font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Grain texture overlay for paper feel */
+body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9998;
+	opacity: 0.04;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+	background-repeat: repeat;
+	background-size: 200px;
 }
 
 body {
-	font-family: "Georgia", "Times New Roman", serif;
+	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
 	background: var(--bg);
 	color: var(--text);
-	font-size: 18px;
-	line-height: 1.7;
+	font-size: 19px;
+	line-height: 1.75;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-	background: var(--accent-light);
-	color: var(--accent-dark);
+	background: var(--accent);
+	color: var(--bg-elevated);
 }
 
 main {
 	width: 960px;
 	max-width: calc(100% - 3rem);
 	margin: 0 auto;
-	padding: 4rem 1.5rem;
+	padding: 3rem 1.5rem 5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -46,34 +71,35 @@ main {
 	}
 }
 
+/* Headings — literary display serif */
 h1, h2, h3, h4, h5, h6 {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	margin: 2em 0 0.75em 0;
+	font-family: var(--font-display);
+	margin: 2em 0 0.6em 0;
 	color: var(--text);
-	line-height: 1.25;
-	font-weight: 600;
-	letter-spacing: -0.025em;
+	line-height: 1.15;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 }
 
 h1 {
-	font-size: 2.5rem;
+	font-size: 2.75rem;
 	margin-top: 0;
 }
 
 h2 {
-	font-size: 1.875rem;
+	font-size: 2rem;
 }
 
 h3 {
-	font-size: 1.5rem;
+	font-size: 1.625rem;
 }
 
 h4 {
-	font-size: 1.25rem;
+	font-size: 1.375rem;
 }
 
 h5, h6 {
-	font-size: 1rem;
+	font-size: 1.125rem;
 }
 
 strong, b {
@@ -82,39 +108,39 @@ strong, b {
 }
 
 a {
-	color: var(--accent);
+	color: var(--text);
 	text-decoration: none;
-	border-bottom: 1px solid transparent;
-	transition: border-color 0.2s ease, color 0.2s ease;
+	border-bottom: 1px solid var(--border);
+	transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 a:hover {
+	color: var(--accent);
 	border-bottom-color: var(--accent);
-	color: var(--accent-dark);
 }
 
-/* Keyboard focus for accessibility */
 :focus-visible {
 	outline: 2px solid var(--accent);
-	outline-offset: 2px;
+	outline-offset: 3px;
 }
 
-/* Skip link for screen readers and keyboard users */
 .skip-link {
 	position: absolute;
 	top: -100%;
 	left: 1rem;
 	padding: 0.75rem 1rem;
 	background: var(--accent);
-	color: white;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	font-size: 0.875rem;
-	font-weight: 600;
+	color: var(--bg-elevated);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
 	text-decoration: none;
-	border-radius: 4px;
+	border: none;
 	z-index: 100;
 	transition: top 0.2s ease;
 }
+
 .skip-link:focus {
 	top: 1rem;
 	outline: 2px solid var(--text);
@@ -132,6 +158,21 @@ p {
 .prose a {
 	overflow-wrap: break-word;
 	word-break: break-word;
+	color: var(--accent-dark);
+	border-bottom-color: var(--accent-light);
+}
+
+.prose a:hover {
+	color: var(--accent);
+	border-bottom-color: var(--accent);
+}
+
+/* Links inside prose that are NOT nav/UI */
+.prose h1 a,
+.prose h2 a,
+.prose h3 a {
+	border-bottom: none;
+	color: inherit;
 }
 
 textarea, input {
@@ -143,9 +184,22 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	margin: 2em 0;
+	font-size: 0.9em;
 }
 
-table th, table td {
+table th {
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--text-light);
+	padding: 0.75rem;
+	border-bottom: 2px solid var(--border);
+	text-align: left;
+	font-weight: 500;
+}
+
+table td {
 	padding: 0.75rem;
 	border-bottom: 1px solid var(--border);
 	text-align: left;
@@ -154,18 +208,19 @@ table th, table td {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius);
 	margin: 2em 0;
 }
 
+/* Inline code — the engineer's fingerprint */
 code {
-	font-family: "SF Mono", "Monaco", "Inconsolata", monospace;
-	font-size: 0.9em;
-	padding: 0.2em 0.4em;
+	font-family: var(--font-mono);
+	font-size: 0.8em;
+	padding: 0.15em 0.4em;
 	background: var(--bg-elevated);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-sm);
-	box-shadow: var(--shadow-sm);
+	color: var(--accent-dark);
 }
 
 pre {
@@ -180,51 +235,66 @@ pre {
 
 pre > code {
 	all: unset;
-	font-family: "SF Mono", "Monaco", "Inconsolata", monospace;
-	font-size: 0.875rem;
+	font-family: var(--font-mono);
+	font-size: 0.825rem;
+	line-height: 1.6;
 	color: var(--bg);
 }
 
+/* Blockquote — like a protest placard excerpt */
 blockquote {
 	border-left: 3px solid var(--accent);
-	padding: 0 0 0 1.5rem;
-	margin: 2em 0;
+	padding: 0.75rem 0 0.75rem 1.75rem;
+	margin: 2.5em 0;
 	font-style: italic;
 	color: var(--text-light);
-	background: var(--accent-light);
-	margin-left: 0;
-	margin-right: 0;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 1rem;
-	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	background: transparent;
+	font-size: 1.1em;
+	line-height: 1.6;
+}
+
+blockquote p:last-child {
+	margin-bottom: 0;
 }
 
 hr {
 	border: none;
 	border-top: 1px solid var(--border);
-	margin: 3rem 0;
+	margin: 3.5rem 0;
+}
+
+/* Footnotes */
+.footnotes {
+	font-size: 0.875em;
+	color: var(--text-light);
+	margin-top: 3rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--border);
+}
+
+.footnotes ol {
+	padding-left: 1.5em;
 }
 
 @media (max-width: 720px) {
 	body {
-		font-size: 17px;
+		font-size: 18px;
 	}
 
 	main {
-		padding: 2rem 1rem;
+		padding: 2rem 1.25rem 4rem;
 	}
 
 	h1 {
-		font-size: 2rem;
+		font-size: 2.25rem;
 	}
 
 	h2 {
-		font-size: 1.5rem;
+		font-size: 1.75rem;
 	}
 
 	h3 {
-		font-size: 1.25rem;
+		font-size: 1.375rem;
 	}
 }
 
@@ -236,12 +306,8 @@ hr {
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
 	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
 	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
 	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }

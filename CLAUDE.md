@@ -104,9 +104,10 @@ linkImage: '../../assets/images/screenshot.webp'  # Optional custom image
 - `src/layouts/BlogPost.astro` - Main blog post layout (used by all posts)
 
 **Pages**:
-- `src/pages/index.astro` - Homepage
+- `src/pages/index.astro` - Homepage (intro → recent posts → reciente timeline → tags grid → heatmap)
 - `src/pages/blog/index.astro` - Blog listing page
-- `src/pages/blog/[...slug].astro` - Dynamic blog post pages
+- `src/pages/blog/[...slug].astro` - Dynamic blog post pages (prev/next nav + related posts)
+- `src/pages/hago.astro` - Projects/activism page (items tagged `hago 🔧` from blog + links)
 - `src/pages/links/index.astro` - Links listing page
 - `src/pages/links/[...slug].astro` - Individual link pages
 - `src/pages/tags/[tag].astro` - Tag filtering (works for both blog posts and links)
@@ -114,8 +115,19 @@ linkImage: '../../assets/images/screenshot.webp'  # Optional custom image
 
 **Components**:
 - `src/components/BaseHead.astro` - SEO meta tags (uses ImageMetadata.src for OG images)
-- `src/components/Header.astro` - Site header with navigation
+- `src/components/Header.astro` - Site header; nav: `inicio · escribo · hago · entreno`
 - `src/components/Footer.astro` - Site footer
+
+## Navigation & Design Conventions
+
+- **Nav labels are verbs/nouns in Spanish**: `inicio`, `escribo`, `hago`, `entreno` — no "links" in nav (links are discoverable via tags/homepage)
+- **Horizontal lines**: used only as item separators, not as section wrappers. No `border-bottom` on section containers or labels — the small `——` accent decoration on `.section-label::before` is enough.
+- **Intro text** on homepage is upright (not italic) display font
+- **Blog post layout** (`BlogPost.astro`): prev/next navigation + related posts (by shared tag, max 3) at bottom
+- **Share button**: always shows icon panel (Bluesky, X, LinkedIn, WhatsApp SVG icons) — no Web Share API
+- **Blog listing thumbnail**: falls back to `ogImage` when no `heroImage`
+- **Inline prose images**: `max-width: min(100%, 560px)` — square/portrait images don't stretch full-width
+- **`hago 🔧` tag**: marks content shown on `/hago/` page (blog posts + links combined)
 
 **Config**:
 - `astro.config.mjs` - Site URL: `https://raulsperoni.me`, MDX + Sitemap integrations

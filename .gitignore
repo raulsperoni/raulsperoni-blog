@@ -28,3 +28,6 @@ scripts/ghost-export.json
 
 #Obsidian
 .obsidian/
+# Playwright screenshots
+.playwright-mcp/
+*.png

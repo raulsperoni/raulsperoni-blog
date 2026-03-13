@@ -8,4 +8,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://raulsperoni.me',
 	integrations: [mdx(), sitemap()],
+	server: { host: true },
 });

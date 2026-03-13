@@ -1,0 +1,169 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const allPosts = await getCollection('blog');
+const allLinks = await getCollection('links');
+
+const hagoItems = [
+	...allPosts
+		.filter(p => p.data.tags?.includes('hago 🔧'))
+		.map(p => ({ ...p, type: 'blog' as const, url: `/blog/${p.id}/` })),
+	...allLinks
+		.filter(l => l.data.tags?.includes('hago 🔧'))
+		.map(l => ({ ...l, type: 'link' as const, url: `/links/${l.id}/` })),
+].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={`Hago — ${SITE_TITLE}`} description="Proyectos, activismo, trabajo." />
+		<style>
+			.page-header {
+				margin-bottom: 3rem;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.page-header h1 {
+				font-size: 2.5rem;
+				margin: 0 0 0.5rem;
+				font-style: italic;
+			}
+
+			.page-desc {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				color: var(--text-light);
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				opacity: 0.7;
+				margin: 0;
+			}
+
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.item-entry {
+				display: grid;
+				grid-template-columns: 6rem 1fr;
+				gap: 0 2rem;
+				padding: 1.875rem 0;
+				border-bottom: 1px solid var(--border);
+				align-items: start;
+			}
+
+			ul li:last-child .item-entry {
+				border-bottom: none;
+			}
+
+			.item-date {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				color: var(--text-light);
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				padding-top: 0.45rem;
+				opacity: 0.7;
+				line-height: 1.4;
+			}
+
+			.item-content {
+				display: flex;
+				flex-direction: column;
+				gap: 0.4rem;
+			}
+
+			.item-type {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				opacity: 0.6;
+			}
+
+			.item-type.blog {
+				color: var(--accent);
+				opacity: 1;
+			}
+
+			.item-title {
+				font-family: var(--font-display);
+				font-size: 1.375rem;
+				font-weight: 700;
+				line-height: 1.2;
+				letter-spacing: -0.01em;
+				color: var(--text);
+				text-decoration: none;
+				border: none;
+				transition: color 0.15s ease;
+				display: block;
+			}
+
+			.item-title:hover {
+				color: var(--accent);
+			}
+
+			.item-desc {
+				font-family: var(--font-body);
+				font-size: 0.9375rem;
+				color: var(--text-light);
+				line-height: 1.6;
+				margin: 0;
+			}
+
+			@media (max-width: 720px) {
+				.item-entry {
+					grid-template-columns: 1fr;
+					gap: 0.5rem;
+					padding: 1.5rem 0;
+				}
+
+				.item-date {
+					padding-top: 0;
+				}
+
+				.item-title {
+					font-size: 1.25rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main id="main">
+			<div class="page-header">
+				<h1>Hago</h1>
+				<p class="page-desc">Proyectos · activismo · trabajo</p>
+			</div>
+			<ul>
+				{hagoItems.map(item => (
+					<li>
+						<div class="item-entry">
+							<div class="item-date">
+								<FormattedDate date={item.data.pubDate} />
+							</div>
+							<div class="item-content">
+								<span class={`item-type ${item.type}`}>{item.type}</span>
+								<a href={item.url} class="item-title">{item.data.title}</a>
+								{item.data.description && (
+									<p class="item-desc">{item.data.description}</p>
+								)}
+							</div>
+						</div>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

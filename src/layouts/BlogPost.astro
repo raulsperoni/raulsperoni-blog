@@ -6,12 +6,16 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	prevPost?: CollectionEntry<'blog'> | null;
+	nextPost?: CollectionEntry<'blog'> | null;
+	relatedPosts?: CollectionEntry<'blog'>[];
+};
 
-const { title, description, pubDate, updatedDate, heroImage, ogImage, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prevPost, nextPost, relatedPosts } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
 		<BaseHead title={title} description={description} image={ogImage ?? heroImage} />
 		<style>
@@ -25,79 +29,394 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags } = A
 			.hero-image {
 				width: 100%;
 				margin: 0;
+				overflow: hidden;
+				max-height: 520px;
 			}
 
 			.hero-image img {
 				display: block;
 				width: 100%;
+				height: 100%;
+				object-fit: cover;
 				margin: 0;
 				border-radius: 0;
+				max-height: 520px;
 			}
 
 			.prose {
 				width: 680px;
 				max-width: calc(100% - 3rem);
 				margin: 0 auto;
-				padding: 3rem 1.5rem 4rem;
+				padding: 3.5rem 1.5rem 5rem;
 			}
 
 			.title {
-				margin-bottom: 2rem;
+				margin-bottom: 3rem;
 				padding-bottom: 2rem;
 				border-bottom: 1px solid var(--border);
 			}
 
-			.title h1 {
-				margin: 0 0 1rem 0;
-				font-size: 2.5rem;
-			}
-
-			.date {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-				font-size: 0.875rem;
+			.dateline {
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
 				color: var(--text-light);
-				margin-bottom: 1rem;
+				margin-bottom: 1.25rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
 			}
 
-			.last-updated-on {
+			.dateline::before {
+				content: '';
+				display: inline-block;
+				width: 1.5rem;
+				height: 1px;
+				background: var(--accent);
+				flex-shrink: 0;
+			}
+
+			.title h1 {
+				margin: 0 0 1.25rem 0;
+				font-size: 3rem;
+				line-height: 1.1;
+				letter-spacing: -0.02em;
+			}
+
+			.title h1 em {
 				font-style: italic;
-				margin-top: 0.5rem;
+				color: var(--accent-dark);
 			}
 
-			.tags {
+			.updated {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				color: var(--text-light);
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				margin-top: 0.5rem;
+				opacity: 0.7;
+			}
+
+			/* Tags + share on one row */
+			.meta-row {
 				display: flex;
 				flex-wrap: wrap;
+				align-items: center;
 				gap: 0.5rem;
-				margin-top: 1rem;
+				margin-top: 1.25rem;
 			}
 
 			.tag {
-				padding: 0.375rem 0.75rem;
-				background: var(--accent-light);
-				color: var(--accent-dark);
+				padding: 0.25rem 0.625rem;
+				background: transparent;
+				color: var(--text-light);
+				border: 1px solid var(--border);
 				border-radius: var(--radius-sm);
 				text-decoration: none;
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-				font-size: 0.8125rem;
-				font-weight: 500;
-				transition: all 0.2s ease;
-				border: none;
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: lowercase;
+				letter-spacing: 0.04em;
+				transition: all 0.15s ease;
 			}
 
 			.tag:hover {
 				background: var(--accent);
-				color: white;
-				border: none;
+				color: var(--bg-elevated);
+				border-color: var(--accent);
 			}
 
 			.tag::before {
 				content: '#';
-				opacity: 0.7;
+				opacity: 0.5;
+			}
+
+			/* Share inline */
+			.share {
+				display: contents;
+			}
+
+			.share-btn {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				background: transparent;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				padding: 0.3rem 0.75rem;
+				cursor: pointer;
+				transition: all 0.15s ease;
+				line-height: 1;
+			}
+
+			.share-btn:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+			}
+
+			.share-links {
+				display: none;
+				gap: 0.75rem;
+				align-items: center;
+			}
+
+			.share-links.visible {
+				display: flex;
+			}
+
+			.share-links a {
+				color: var(--text-light);
+				text-decoration: none;
+				opacity: 0.6;
+				transition: opacity 0.15s ease, color 0.15s ease;
+				display: flex;
+				align-items: center;
+			}
+
+			.share-links a:hover {
+				opacity: 1;
+				color: var(--accent);
+			}
+
+			/* Prose typography */
+			.prose :global(p) {
+				font-family: var(--font-body);
+				font-size: 1.0625rem;
+				line-height: 1.8;
+			}
+
+			.prose :global(h2) {
+				margin-top: 2.5em;
+				font-size: 1.75rem;
+			}
+
+			.prose :global(h3) {
+				margin-top: 2em;
+				font-size: 1.375rem;
+			}
+
+			.prose :global(blockquote) {
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			/* Inline images — don't stretch square/portrait images full width */
+			.prose :global(img) {
+				display: block;
+				max-width: min(100%, 560px);
+				height: auto;
+				margin: 2rem auto;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+			}
+
+			/* Full-bleed images: add class="full" in markdown via HTML if needed */
+			.prose :global(img.full) {
+				max-width: 100%;
+				border: none;
+			}
+
+			/* Footnote URL overflow */
+			.prose :global(a) {
+				overflow-wrap: break-word;
+			}
+
+			/* Post navigation */
+			.post-nav {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 0 1.5rem 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				border-top: 1px solid var(--border);
+				padding-top: 2rem;
+			}
+
+			.post-nav-link {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				transition: color 0.15s ease;
+				max-width: 45%;
+			}
+
+			.post-nav-link:hover {
+				color: var(--accent);
+			}
+
+			.post-nav-link.prev {
+				flex-direction: row;
+			}
+
+			.post-nav-link.next {
+				flex-direction: row-reverse;
+				text-align: right;
+			}
+
+			.post-nav-arrow {
+				flex-shrink: 0;
+				opacity: 0.5;
+			}
+
+			.post-nav-label {
+				display: block;
+				opacity: 0.5;
+				font-size: 0.6rem;
+				margin-bottom: 0.2rem;
+			}
+
+			.post-nav-title {
+				font-family: var(--font-display);
+				font-size: 0.875rem;
+				font-weight: 700;
+				font-style: italic;
+				text-transform: none;
+				letter-spacing: 0;
+				color: var(--text);
+				line-height: 1.3;
+				display: block;
+				transition: color 0.15s ease;
+			}
+
+			.post-nav-link:hover .post-nav-title {
+				color: var(--accent);
+			}
+
+			.post-nav-back {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--text-light);
+				text-decoration: none;
+				opacity: 0.5;
+				transition: opacity 0.15s ease, color 0.15s ease;
+			}
+
+			.post-nav-back:hover {
+				opacity: 1;
+				color: var(--accent);
+			}
+
+			/* Related posts */
+			.related {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 2.5rem 1.5rem 5rem;
+				border-top: 1px solid var(--border);
+			}
+
+			.related-label {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--text-light);
+				opacity: 0.6;
+				margin-bottom: 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+
+			.related-label::before {
+				content: '';
+				display: inline-block;
+				width: 1.5rem;
+				height: 1px;
+				background: var(--accent);
+				flex-shrink: 0;
+			}
+
+			.related-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+			}
+
+			.related-item {
+				display: grid;
+				grid-template-columns: 5rem 1fr;
+				gap: 0 1.5rem;
+				padding: 1.25rem 0;
+				border-bottom: 1px solid var(--border);
+				align-items: start;
+			}
+
+			.related-item:last-child {
+				border-bottom: none;
+			}
+
+			.related-date {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				color: var(--text-light);
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				padding-top: 0.3rem;
+				opacity: 0.6;
+			}
+
+			.related-title {
+				font-family: var(--font-display);
+				font-size: 1.125rem;
+				font-weight: 700;
+				font-style: italic;
+				line-height: 1.25;
+				color: var(--text);
+				text-decoration: none;
+				transition: color 0.15s ease;
+			}
+
+			.related-title:hover {
+				color: var(--accent);
 			}
 
 			@media (max-width: 720px) {
+				.prose {
+					padding: 2.5rem 1.25rem 4rem;
+				}
+
 				.title h1 {
-					font-size: 2rem;
+					font-size: 2.25rem;
+				}
+
+				.post-nav {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 1.5rem;
+				}
+
+				.post-nav-link {
+					max-width: 100%;
+				}
+
+				.post-nav-link.next {
+					flex-direction: row;
+					text-align: left;
+					align-self: flex-end;
+				}
+
+				.related-item {
+					grid-template-columns: 1fr;
+					gap: 0.25rem;
 				}
 			}
 		</style>
@@ -107,34 +426,108 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags } = A
 		<Header />
 		<main id="main">
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image src={heroImage} alt="" width={1020} height={510} />}
-				</div>
+				{heroImage && (
+					<div class="hero-image">
+						<Image src={heroImage} alt="" width={1200} height={520} />
+					</div>
+				)}
 				<div class="prose">
 					<div class="title">
-						<div class="date">
+						<div class="dateline">
 							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
+							{updatedDate && (
+								<span class="updated">actualizado: <FormattedDate date={updatedDate} /></span>
+							)}
 						</div>
 						<h1>{title}</h1>
-						{tags && tags.length > 0 && (
-							<div class="tags">
-								{tags.map((tag) => (
-									<a href={`/tags/${tag}/`} class="tag">{tag}</a>
-								))}
+						<div class="meta-row">
+							{tags && tags.map((tag) => (
+								<a href={`/tags/${tag}/`} class="tag">{tag}</a>
+							))}
+							<button class="share-btn" id="share-btn" aria-label="Compartir">
+								compartir ↗
+							</button>
+							<div class="share-links" id="share-links" aria-label="Compartir en redes">
+								<a href="#" id="share-bluesky" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Bluesky">
+									<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/></svg>
+								</a>
+								<a href="#" id="share-x" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X">
+									<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+								</a>
+								<a href="#" id="share-linkedin" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">
+									<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+								</a>
+								<a href="#" id="share-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Compartir en WhatsApp">
+									<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+								</a>
 							</div>
-						)}
+						</div>
 					</div>
 					<slot />
 				</div>
 			</article>
+
+			<nav class="post-nav" aria-label="Navegación entre entradas">
+				{prevPost ? (
+					<a href={`/blog/${prevPost.id}/`} class="post-nav-link prev">
+						<span class="post-nav-arrow">←</span>
+						<span>
+							<span class="post-nav-label">anterior</span>
+							<span class="post-nav-title">{prevPost.data.title}</span>
+						</span>
+					</a>
+				) : (
+					<span />
+				)}
+				<a href="/blog/" class="post-nav-back">todas las entradas</a>
+				{nextPost ? (
+					<a href={`/blog/${nextPost.id}/`} class="post-nav-link next">
+						<span class="post-nav-arrow">→</span>
+						<span>
+							<span class="post-nav-label">siguiente</span>
+							<span class="post-nav-title">{nextPost.data.title}</span>
+						</span>
+					</a>
+				) : (
+					<span />
+				)}
+			</nav>
+
+			{relatedPosts && relatedPosts.length > 0 && (
+				<section class="related" aria-label="Seguir leyendo">
+					<p class="related-label">seguir leyendo</p>
+					<ul class="related-list">
+						{relatedPosts.map((p) => (
+							<li class="related-item">
+								<span class="related-date"><FormattedDate date={p.data.pubDate} /></span>
+								<a href={`/blog/${p.id}/`} class="related-title">{p.data.title}</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<script>
+	const btn = document.getElementById('share-btn');
+	const links = document.getElementById('share-links');
+	const url = window.location.href;
+	const title = document.title;
+
+	const bskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(title + '\n' + url)}`;
+	const xUrl = `https://x.com/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+	const liUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+	const waUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`;
+
+	document.getElementById('share-bluesky')!.setAttribute('href', bskyUrl);
+	document.getElementById('share-x')!.setAttribute('href', xUrl);
+	document.getElementById('share-linkedin')!.setAttribute('href', liUrl);
+	document.getElementById('share-whatsapp')!.setAttribute('href', waUrl);
+
+	btn?.addEventListener('click', () => {
+		links?.classList.toggle('visible');
+	});
+</script>

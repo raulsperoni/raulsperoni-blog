@@ -2,18 +2,18 @@
 title: 'Hoy no escribí una línea de código'
 description: 'Crónica de trabajo en tiempos de agentes de IA'
 pubDate: 'Mar 10 2026'
-ogImage: '../../assets/images/antrophicChart.jpeg'
+heroImage: '../../assets/images/antrophicChart.jpeg'
 tags: ['escribo ✍🏻']
 ---
-
-![Gráfica de Anthropic sobre impacto de la IA en el mercado laboral](../../assets/images/antrophicChart.jpeg)
-
 
 > \> enter. Mando el prompt largo y detallado que explica lo que quiero y cómo lo quiero. La máquina que tengo enfrente lee todos los archivos de mi proyecto y me propone el modo “plan”. Esto puede demorar un poco, así que cambio de ventana y voy a perder un rato en algún scroll infinito mientras la IA ve cómo resolverá la tarea.
 
 Veo pasar en las diferentes redes sociales cientos de publicaciones sobre el presente y el futuro de los trabajos afectados por la IA, acompañadas de una gráfica impactante. Hace dos días, la empresa detrás de Claude, Anthropic, publicó un reporte[^1] del impacto observado y esperado de la IA en los diferentes tipos de trabajo. El reporte plantea lo que hace rato es intuición: corre más riesgo el trabajador de cuello blanco que realiza tareas repetitivas —incluidos, especialmente, los programadores— que el trabajador que maneja oficios. Y aparentemente en este tipo de tareas, lo que más peligra es la contratación de perfiles junior, es decir, los más jóvenes.
 
 > \> aguante la UTU. En momentos así me acuerdo de las palabras sagradas de los viejos: lo más importante es aprender un oficio; después ves. Y acá estamos.
+
+![Gráfica de Anthropic sobre impacto de la IA en el mercado laboral](../../assets/images/antrophicChart.jpeg)
+
 
 Hace unas semanas el tipo que acuñó la expresión “vibe coding” comentó lo difícil que es explicar el cambio cualitativo que se vivió en las tareas de programación entre diciembre del 2025 y hoy: delegar tareas complejas de programación a agentes de IA no funcionaba tan bien hasta diciembre, y ahora simplemente funciona[^2] . Él tiene un montón de peros a su propia afirmación, pero algo de razón tiene: cada vez más de mis horas de trabajo son sobre dar buenas instrucciones y prompts, coordinar a varios agentes haciendo cosas distintas al mismo tiempo y gestionar las dependencias entre el trabajo de uno y de otro mucho más que escribir código. Me encuentro trabajando más horas que antes, no menos, porque ahora el espacio de lo posible se ensancha: y si me quedo un ratito más, puedo lograr mucho más. El lenguaje de programación más popular es el inglés, dice Karpathy[^3] , y de nuevo tiene razón.
 

@@ -10,8 +10,9 @@ export const getStaticPaths = (async () => {
 	const allPosts = await getCollection('blog');
 	const allLinks = await getCollection('links');
 	const allStrava = await getCollection('strava');
+	const allGoodreads = await getCollection('goodreads');
 
-	const allContent = [...allPosts, ...allLinks, ...allStrava];
+	const allContent = [...allPosts, ...allLinks, ...allStrava, ...allGoodreads];
 	const uniqueTags = [...new Set(allContent.flatMap(item => item.data.tags))];
 
 	return uniqueTags.map((tag) => {
@@ -27,9 +28,13 @@ export const getStaticPaths = (async () => {
 			activity.data.tags.includes(tag)
 		).map(activity => ({ ...activity, type: 'strava' as const, url: null }));
 
+		const filteredGoodreads = allGoodreads.filter(book =>
+			book.data.tags.includes(tag)
+		).map(book => ({ ...book, type: 'goodreads' as const, url: book.data.goodreadsUrl }));
+
 		return {
 			params: { tag },
-			props: { content: [...filteredPosts, ...filteredLinks, ...filteredStrava] },
+			props: { content: [...filteredPosts, ...filteredLinks, ...filteredStrava, ...filteredGoodreads] },
 		};
 	});
 }) satisfies GetStaticPaths;
@@ -56,6 +61,7 @@ const sortedContent = content.sort(
 					{
 						sortedContent.map((item) => {
 							const isStrava = item.type === 'strava';
+							const isGoodreads = item.type === 'goodreads';
 							let stravaDetails = '';
 							if (isStrava) {
 								const distanceKm = (item.data.distance / 1000).toFixed(1);
@@ -67,6 +73,7 @@ const sortedContent = content.sort(
 									: '';
 								stravaDetails = ` — ${distanceKm} km${paceFormatted ? ` @ ${paceFormatted}/km` : ''}`;
 							}
+							const badge = isGoodreads ? (item.data as any).action : item.type;
 
 							const content = (
 								<>
@@ -79,7 +86,7 @@ const sortedContent = content.sort(
 
 							return (
 								<li>
-									<span class={`content-type ${item.type}`}>{item.type}</span>
+									<span class={`content-type ${item.type}`}>{badge}</span>
 									{item.url ? (
 										<a href={item.url}>
 											{content}
@@ -143,6 +150,11 @@ const sortedContent = content.sort(
 
 	.content-type.strava {
 		background: #fc4c02;
+		color: white;
+	}
+
+	.content-type.goodreads {
+		background: #553b08;
 		color: white;
 	}
 

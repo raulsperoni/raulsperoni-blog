@@ -9,6 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const allPosts = await getCollection('blog');
 const allLinks = await getCollection('links');
 const allStrava = await getCollection('strava');
+const allGoodreads = await getCollection('goodreads');
 
 const recentPosts = allPosts
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -29,6 +30,11 @@ const allContent = [
 		...activity,
 		type: 'strava' as const,
 		url: activity.data.stravaUrl
+	})),
+	...allGoodreads.map(book => ({
+		...book,
+		type: 'goodreads' as const,
+		url: book.data.goodreadsUrl
 	}))
 ].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -357,6 +363,11 @@ for (const [date, items] of sortedDates) {
 
 			.content-type.strava {
 				color: #b84a04;
+				opacity: 1;
+			}
+
+			.content-type.goodreads {
+				color: #553b08;
 				opacity: 1;
 			}
 
@@ -795,6 +806,8 @@ for (const [date, items] of sortedDates) {
 										<ul class="timeline-items">
 											{visibleItems.map((item: typeof allContent[0]) => {
 												const isStrava = item.type === 'strava';
+										const isGoodreads = item.type === 'goodreads';
+										const goodreadsLabel = isGoodreads ? (item.data as any).action : '';
 												let stravaDetails = '';
 												if (isStrava) {
 													const distanceKm = (item.data.distance / 1000).toFixed(1);
@@ -808,7 +821,7 @@ for (const [date, items] of sortedDates) {
 												}
 												return (
 													<li class="content-item">
-														<span class={`content-type ${item.type}`}>{item.type}</span>
+														<span class={`content-type ${item.type}`}>{isGoodreads ? goodreadsLabel : item.type}</span>
 														<a href={item.url} class="content-link">
 															{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
 														</a>
@@ -844,6 +857,8 @@ for (const [date, items] of sortedDates) {
 						<ul class="content-list">
 							{items.slice(0, 5).map(item => {
 								const isStrava = item.type === 'strava';
+										const isGoodreads = item.type === 'goodreads';
+										const goodreadsLabel = isGoodreads ? (item.data as any).action : '';
 								let stravaDetails = '';
 								if (isStrava) {
 									const distanceKm = (item.data.distance / 1000).toFixed(1);
@@ -857,7 +872,7 @@ for (const [date, items] of sortedDates) {
 								}
 								return (
 									<li class="content-item">
-										<span class={`content-type ${item.type}`}>{item.type}</span>
+										<span class={`content-type ${item.type}`}>{isGoodreads ? goodreadsLabel : item.type}</span>
 										<a href={item.url} class="content-link">
 											{item.data.title}{isStrava && <span class="strava-details">{stravaDetails}</span>}
 										</a>

@@ -172,17 +172,35 @@ async function main() {
       };
     });
 
+    const dataDir = path.join(__dirname, '../src/data');
+    const outputPath = path.join(dataDir, 'strava.json');
+
+    // Load existing data and merge by ID so old activities are preserved
+    let existingActivities = [];
+    try {
+      const existing = JSON.parse(await fs.readFile(outputPath, 'utf-8'));
+      existingActivities = existing.recentActivities || [];
+    } catch {
+      // file doesn't exist yet, start fresh
+    }
+
+    const byId = new Map(existingActivities.map(a => [a.id, a]));
+    for (const a of sanitizedActivities) {
+      byId.set(a.id, a);
+    }
+    const mergedActivities = [...byId.values()].sort(
+      (a, b) => new Date(b.start_date_local) - new Date(a.start_date_local)
+    );
+
+    console.log(`✓ Merged: ${sanitizedActivities.length} new + ${existingActivities.length} existing = ${mergedActivities.length} total`);
+
     const data = {
       lastUpdated: new Date().toISOString(),
       stats,
-      recentActivities: sanitizedActivities,
+      recentActivities: mergedActivities,
       athleteId,
-      // Privacy notice for transparency
       _privacy_note: 'GPS coordinates, exact activity times, and location names have been removed for privacy',
     };
-
-    const dataDir = path.join(__dirname, '../src/data');
-    const outputPath = path.join(dataDir, 'strava.json');
 
     await fs.mkdir(dataDir, { recursive: true });
     await fs.writeFile(outputPath, JSON.stringify(data, null, 2));

@@ -96,14 +96,33 @@ async function main() {
     goodreadsUrl: item.link,
   }));
 
+  // Load existing data and merge by ID so old entries are preserved
+  const outPath = path.join(__dirname, '../src/data/goodreads.json');
+  let existingActivities = [];
+  try {
+    const existing = JSON.parse(await fs.readFile(outPath, 'utf-8'));
+    existingActivities = existing.activities || [];
+  } catch {
+    // file doesn't exist yet, start fresh
+  }
+
+  const byId = new Map(existingActivities.map(a => [a.id, a]));
+  for (const a of activities) {
+    byId.set(a.id, a);
+  }
+  const mergedActivities = [...byId.values()].sort(
+    (a, b) => new Date(b.pubDate) - new Date(a.pubDate)
+  );
+
+  console.log(`Merged: ${activities.length} new + ${existingActivities.length} existing = ${mergedActivities.length} total`);
+
   const output = {
     lastUpdated: new Date().toISOString(),
-    activities,
+    activities: mergedActivities,
   };
 
-  const outPath = path.join(__dirname, '../src/data/goodreads.json');
   await fs.writeFile(outPath, JSON.stringify(output, null, 2));
-  console.log(`Saved ${activities.length} Goodreads activities to src/data/goodreads.json`);
+  console.log(`Saved ${mergedActivities.length} Goodreads activities to src/data/goodreads.json`);
   activities.slice(0, 3).forEach(a =>
     console.log(`  [${a.action}] "${a.bookTitle}" by ${a.author} (${a.pubDate.slice(0, 10)})`)
   );

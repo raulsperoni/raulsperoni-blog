@@ -86,4 +86,44 @@ const strava = defineCollection({
 	}),
 });
 
-export const collections = { blog, links, strava };
+const goodreads = defineCollection({
+	loader: async () => {
+		try {
+			const dataPath = path.join(process.cwd(), 'src/data/goodreads.json');
+			const fileContent = fs.readFileSync(dataPath, 'utf-8');
+			const data = JSON.parse(fileContent);
+			const activities = data.activities || [];
+
+			return activities.map((item: any) => ({
+				id: item.id,
+				title: item.bookTitle,
+				description: item.author ? `by ${item.author}` : '',
+				pubDate: new Date(item.pubDate),
+				tags: ['leo 📚'],
+				bookTitle: item.bookTitle,
+				author: item.author,
+				action: item.action,
+				rating: item.rating,
+				coverImage: item.coverImage,
+				goodreadsUrl: item.goodreadsUrl,
+			}));
+		} catch (error) {
+			console.warn('Failed to load Goodreads data:', error);
+			return [];
+		}
+	},
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.date(),
+		tags: z.array(z.string()).default([]),
+		bookTitle: z.string(),
+		author: z.string().nullable(),
+		action: z.string(),
+		rating: z.number().nullable(),
+		coverImage: z.string().nullable(),
+		goodreadsUrl: z.string().url(),
+	}),
+});
+
+export const collections = { blog, links, strava, goodreads };

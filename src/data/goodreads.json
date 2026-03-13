@@ -1,0 +1,105 @@
+{
+  "lastUpdated": "2026-03-13T20:05:58.311Z",
+  "activities": [
+    {
+      "id": "ReadStatus10574453786",
+      "bookTitle": "The Sunlit Man",
+      "author": "Brandon Sanderson",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1696162814l/68320219._SY75_.jpg",
+      "pubDate": "2026-02-22T16:49:09.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8311758202"
+    },
+    {
+      "id": "ReadStatus10571580667",
+      "bookTitle": "Dungeon Crawler Carl",
+      "author": "Matt Dinniman",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1734203042l/56791389._SY75_.jpg",
+      "pubDate": "2026-02-21T22:40:43.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8379382134"
+    },
+    {
+      "id": "ReadStatus10548789587",
+      "bookTitle": "The Reality Dysfunction",
+      "author": "Peter F. Hamilton",
+      "action": "abandoned",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1461087183l/29959051._SY75_.jpg",
+      "pubDate": "2026-02-16T12:59:30.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305204116"
+    },
+    {
+      "id": "ReadStatus10474975203",
+      "bookTitle": "The Sunlit Man",
+      "author": "Brandon Sanderson",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1696162814l/68320219._SY75_.jpg",
+      "pubDate": "2026-01-29T16:19:15.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8311758202"
+    },
+    {
+      "id": "ReadStatus10470534292",
+      "bookTitle": "The Reality Dysfunction",
+      "author": "Peter F. Hamilton",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1461087183l/29959051._SY75_.jpg",
+      "pubDate": "2026-01-28T16:20:16.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305204116"
+    },
+    {
+      "id": "Review8302270571",
+      "bookTitle": "Shroud",
+      "author": "Adrian Tchaikovsky",
+      "action": "read",
+      "rating": 5,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1744959667l/220247049._SX50_.jpg",
+      "pubDate": "2026-01-28T16:03:01.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8302270571"
+    },
+    {
+      "id": "ReadStatus10465703509",
+      "bookTitle": "The Tainted Cup",
+      "author": "Robert Jackson Bennett",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1735662086l/150247395._SY75_.jpg",
+      "pubDate": "2026-01-27T15:31:29.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305218062"
+    },
+    {
+      "id": "ReadStatus10465687211",
+      "bookTitle": "The Dreaming Void",
+      "author": "Peter F. Hamilton",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1440047585l/866136._SY75_.jpg",
+      "pubDate": "2026-01-27T15:27:01.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305206076"
+    },
+    {
+      "id": "ReadStatus10465684552",
+      "bookTitle": "The Reality Dysfunction",
+      "author": "Peter F. Hamilton",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1461087183l/29959051._SY75_.jpg",
+      "pubDate": "2026-01-27T15:26:16.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305204116"
+    },
+    {
+      "id": "ReadStatus10465681495",
+      "bookTitle": "Exodus",
+      "author": "Peter F. Hamilton",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1729967825l/205670068._SY75_.jpg",
+      "pubDate": "2026-01-27T15:25:24.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305201822"
+    }
+  ]
+}

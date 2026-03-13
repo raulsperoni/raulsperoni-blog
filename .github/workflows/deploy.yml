@@ -39,6 +39,9 @@ jobs:
           STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
           STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
 
+      - name: Fetch Goodreads data
+        run: node scripts/fetch-goodreads.js
+
       - name: Build with Astro
         run: npm run build
 

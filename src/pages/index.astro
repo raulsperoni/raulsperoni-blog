@@ -1020,6 +1020,14 @@ for (const [date, items] of sortedDates) {
 					cell.addEventListener('mouseleave', () => {
 						tooltip.classList.remove('visible');
 					});
+
+					cell.addEventListener('click', () => {
+						const date = cell.getAttribute('data-date');
+						const total = parseInt(cell.getAttribute('data-total') || '0');
+						if (total > 0 && window.umami) {
+							window.umami.track('heatmap-click', { date });
+						}
+					});
 				});
 
 				function updateTooltipPosition(e) {

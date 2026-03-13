@@ -442,7 +442,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prev
 						<h1>{title}</h1>
 						<div class="meta-row">
 							{tags && tags.map((tag) => (
-								<a href={`/tags/${tag}/`} class="tag">{tag}</a>
+								<a href={`/tags/${tag}/`} class="tag" data-umami-event="tag-click" data-umami-event-tag={tag}>{tag}</a>
 							))}
 							<button class="share-btn" id="share-btn" aria-label="Compartir">
 								compartir ↗
@@ -469,7 +469,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prev
 
 			<nav class="post-nav" aria-label="Navegación entre entradas">
 				{prevPost ? (
-					<a href={`/blog/${prevPost.id}/`} class="post-nav-link prev">
+					<a href={`/blog/${prevPost.id}/`} class="post-nav-link prev" data-umami-event="post-nav" data-umami-event-direction="prev">
 						<span class="post-nav-arrow">←</span>
 						<span>
 							<span class="post-nav-label">anterior</span>
@@ -479,9 +479,9 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prev
 				) : (
 					<span />
 				)}
-				<a href="/blog/" class="post-nav-back">todas las entradas</a>
+				<a href="/blog/" class="post-nav-back" data-umami-event="todas-entradas">todas las entradas</a>
 				{nextPost ? (
-					<a href={`/blog/${nextPost.id}/`} class="post-nav-link next">
+					<a href={`/blog/${nextPost.id}/`} class="post-nav-link next" data-umami-event="post-nav" data-umami-event-direction="next">
 						<span class="post-nav-arrow">→</span>
 						<span>
 							<span class="post-nav-label">siguiente</span>
@@ -500,7 +500,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prev
 						{relatedPosts.map((p) => (
 							<li class="related-item">
 								<span class="related-date"><FormattedDate date={p.data.pubDate} /></span>
-								<a href={`/blog/${p.id}/`} class="related-title">{p.data.title}</a>
+								<a href={`/blog/${p.id}/`} class="related-title" data-umami-event="related-post">{p.data.title}</a>
 							</li>
 						))}
 					</ul>

@@ -1,0 +1,142 @@
+media:
+  input: src/assets/images
+  output: src/assets/images
+
+content:
+  - name: blog
+    label: Blog Posts
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    extension: md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: description
+        label: Description
+        type: text
+        required: true
+
+      - name: pubDate
+        label: Publication Date
+        type: date
+        required: true
+        options:
+          format: "MMM dd yyyy"
+
+      - name: updatedDate
+        label: Updated Date
+        type: date
+        required: false
+        options:
+          format: "MMM dd yyyy"
+
+      - name: heroImage
+        label: Hero Image
+        type: image
+        required: false
+        description: Hero image for the post
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        required: false
+
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+
+    view:
+      fields:
+        - title
+        - pubDate
+        - tags
+      primary: title
+      default:
+        sort:
+          field: pubDate
+          direction: desc
+
+    filename: "{{slug title}}"
+
+  - name: links
+    label: Links
+    type: collection
+    path: src/content/links
+    format: yaml-frontmatter
+    extension: md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: url
+        label: URL
+        type: string
+        required: true
+        description: The link URL
+
+      - name: description
+        label: Description
+        type: text
+        required: true
+
+      - name: pubDate
+        label: Publication Date
+        type: date
+        required: true
+        options:
+          format: "MMM dd yyyy"
+
+      - name: ogImage
+        label: OG Image URL
+        type: string
+        required: false
+        description: Open Graph image URL
+
+      - name: favicon
+        label: Favicon URL
+        type: string
+        required: false
+
+      - name: siteName
+        label: Site Name
+        type: string
+        required: false
+
+      - name: linkImage
+        label: Custom Image
+        type: image
+        required: false
+        description: Optional screenshot or custom image
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        required: false
+
+      - name: body
+        label: Notes
+        type: rich-text
+        required: false
+
+    view:
+      fields:
+        - title
+        - url
+        - pubDate
+        - tags
+      primary: title
+      default:
+        sort:
+          field: pubDate
+          direction: desc
+
+    filename: "{{slug title}}"

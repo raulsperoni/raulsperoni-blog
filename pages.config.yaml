@@ -1,6 +1,6 @@
 media:
   input: src/assets/images
-  output: src/assets/images
+  output: ../../assets/images
 
 content:
   - name: blog
@@ -25,14 +25,14 @@ content:
         type: date
         required: true
         options:
-          format: "MMM dd yyyy"
+          format: "MMM d yyyy"
 
       - name: updatedDate
         label: Updated Date
         type: date
         required: false
         options:
-          format: "MMM dd yyyy"
+          format: "MMM d yyyy"
 
       - name: heroImage
         label: Hero Image
@@ -92,7 +92,7 @@ content:
         type: date
         required: true
         options:
-          format: "MMM dd yyyy"
+          format: "MMM d yyyy"
 
       - name: ogImage
         label: OG Image URL

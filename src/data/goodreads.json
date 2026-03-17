@@ -1,6 +1,16 @@
 {
-  "lastUpdated": "2026-03-17T04:52:08.007Z",
+  "lastUpdated": "2026-03-17T16:53:57.409Z",
   "activities": [
+    {
+      "id": "ReadStatus10670176699",
+      "bookTitle": "Children of Strife",
+      "author": "Adrian Tchaikovsky",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1762866145l/231953328._SY75_.jpg",
+      "pubDate": "2026-03-17T12:17:05.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8444647570"
+    },
     {
       "id": "ReadStatus10574453786",
       "bookTitle": "The Sunlit Man",

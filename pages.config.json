@@ -9,17 +9,15 @@
       "fields": [
         { "name": "title", "label": "Title", "type": "string", "required": true },
         { "name": "description", "label": "Description", "type": "string", "required": true },
-        { "name": "pubDate", "label": "Published Date", "type": "date", "required": true },
-        { "name": "updatedDate", "label": "Updated Date", "type": "date" },
+        { "name": "pubDate", "label": "Published Date", "type": "date", "required": true, "options": { "format": "MMM DD YYYY" } },
+        { "name": "updatedDate", "label": "Updated Date", "type": "date", "options": { "format": "MMM DD YYYY" } },
         { "name": "heroImage", "label": "Hero Image", "type": "image" },
         {
           "name": "tags",
           "label": "Tags",
           "type": "select",
           "multiple": true,
-          "options": {
-            "values": ["hago 🔧", "corro 🏃", "leo 📚", "web", "política", "tecnología", "personal"]
-          }
+          "options": ["hago 🔧", "corro 🏃", "leo 📚", "escribo ✍️", "web", "política", "tecnología", "personal"]
         }
       ]
     },
@@ -32,7 +30,7 @@
         { "name": "title", "label": "Title", "type": "string", "required": true },
         { "name": "url", "label": "URL", "type": "string", "required": true },
         { "name": "description", "label": "Description", "type": "string", "required": true },
-        { "name": "pubDate", "label": "Published Date", "type": "date", "required": true },
+        { "name": "pubDate", "label": "Published Date", "type": "date", "required": true, "options": { "format": "MMM DD YYYY" } },
         { "name": "ogImage", "label": "OG Image URL", "type": "string" },
         { "name": "favicon", "label": "Favicon URL", "type": "string" },
         { "name": "siteName", "label": "Site Name", "type": "string" },
@@ -41,9 +39,7 @@
           "label": "Tags",
           "type": "select",
           "multiple": true,
-          "options": {
-            "values": ["hago 🔧", "web", "política", "tecnología", "personal", "herramientas"]
-          }
+          "options": ["hago 🔧", "escribo ✍️", "web", "política", "tecnología", "personal", "herramientas"]
         }
       ]
     }

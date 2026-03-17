@@ -1,6 +1,6 @@
 media:
   input: src/assets/images
-  output: src/assets/images
+  output: ../../assets/images
 
 content:
   - name: blog
@@ -24,17 +24,27 @@ content:
         label: Publication Date
         type: date
         required: true
+        options:
+          format: "MMM d yyyy"
 
       - name: updatedDate
         label: Updated Date
         type: date
         required: false
+        options:
+          format: "MMM d yyyy"
 
       - name: heroImage
         label: Hero Image
         type: image
         required: false
         description: Hero image for the post
+
+      - name: ogImage
+        label: OG Image
+        type: image
+        required: false
+        description: Optional social sharing image. Falls back to hero image.
 
       - name: tags
         label: Tags
@@ -89,6 +99,8 @@ content:
         label: Publication Date
         type: date
         required: true
+        options:
+          format: "MMM d, yyyy"
 
       - name: ogImage
         label: OG Image URL

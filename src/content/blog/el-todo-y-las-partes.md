@@ -1,11 +1,12 @@
 ---
-title: 'El todo es menor que la suma de las partes'
-description: 'Un grupo de veteranos con diferente grado de dificultad para caminar, acompañados de dos enfermeras, intenta atravesar la rambla.'
-pubDate: 'Nov 24 2025'
-heroImage: '../../assets/images/PXL_20251123_205344114.jpg'
-tags: ['escribo ✍🏻', 'hago 🔧']
+title: El todo es menor que la suma de las partes
+description: Un grupo de veteranos con diferente grado de dificultad para
+  caminar, acompañados de dos enfermeras, intenta atravesar la rambla.
+pubDate: Nov 24 2025
+heroImage: ../../assets/images/PXL_20251123_205344114.jpg
+tags:
+  - escribo ✍🏻
 ---
-
 **Domingo 26 de octubre, 17:08**
 
 Un grupo de veteranos con diferente grado de dificultad para caminar, acompañados de dos enfermeras, intenta atravesar la rambla llegando por calle Maciel. Decido discretamente filmar el intento; sé que no les resultará fácil. Dudan un poco y eligen una de las veredas para cruzar, miran a los autos que vienen hacia el oeste y esperan. Los autos vienen rápido. Miran también los autos que vienen detrás de ellos por Maciel, ansiosos; los autos tampoco tienen claro cuándo podrán cruzar.

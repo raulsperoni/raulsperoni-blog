@@ -16,7 +16,7 @@ La idea es simple: votás si una noticia te parece buena o mala, de forma anóni
 
 No es un producto comercial. Es un experimento académico y de interés social, construido con Django, HTMX, y bastante matemática de clustering encima.
 
-**El código es abierto** y estoy genuinamente abierto a colaborar. Si te interesa el problema — periodismo, opinión pública, burbujas informativas, visualización de datos, clustering — me encantaría hablar. También estoy dispuesto a adaptar el proyecto: si hay una organización, medio, o iniciativa que quiera algo parecido para su contexto, podemos pensarlo juntos.
+**El código es abierto** y estoy abierto a colaborar. Si te interesa el problema — periodismo, opinión pública, burbujas informativas, visualización de datos, clustering — podemos hablar. También se puede adaptar el proyecto: si hay una organización, medio, o iniciativa que quiera algo parecido para su contexto, podemos pensarlo juntos.
 
 El repo está en [github.com/raulsperoni/memoria.uy](https://github.com/raulsperoni/memoria.uy).
 

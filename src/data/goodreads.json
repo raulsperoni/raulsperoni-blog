@@ -1,13 +1,33 @@
 {
-  "lastUpdated": "2026-03-21T04:26:25.517Z",
+  "lastUpdated": "2026-03-22T04:52:46.699Z",
   "activities": [
+    {
+      "id": "ReadStatus10688384019",
+      "bookTitle": "Children of Strife",
+      "author": "Adrian Tchaikovsky",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1752072295l/238359324._SY75_.jpg",
+      "pubDate": "2026-03-21T23:02:30.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8444647570"
+    },
+    {
+      "id": "Review8311758202",
+      "bookTitle": "The Sunlit Man",
+      "author": "Brandon Sanderson",
+      "action": "read",
+      "rating": 5,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1696162814l/68320219._SY75_.jpg",
+      "pubDate": "2026-03-21T22:58:53.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8311758202"
+    },
     {
       "id": "ReadStatus10670176699",
       "bookTitle": "Children of Strife",
       "author": "Adrian Tchaikovsky",
       "action": "want",
       "rating": null,
-      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1762866145l/231953328._SY75_.jpg",
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1752072295l/238359324._SY75_.jpg",
       "pubDate": "2026-03-17T12:17:05.000Z",
       "goodreadsUrl": "https://www.goodreads.com/review/show/8444647570"
     },

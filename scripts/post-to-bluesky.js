@@ -14,8 +14,9 @@ if (!HANDLE || !PASSWORD) {
 
 function getNewContentFiles() {
 	try {
+		const base = process.env.PUSH_BEFORE_SHA || 'HEAD~1';
 		const diff = execSync(
-			'git diff HEAD~1 --diff-filter=A --name-only',
+			`git diff ${base} --diff-filter=A --name-only`,
 			{ encoding: 'utf-8' },
 		).trim();
 		if (!diff) return [];

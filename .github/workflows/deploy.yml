@@ -55,14 +55,6 @@ jobs:
       - name: Build with Astro
         run: npm run build
 
-      - name: Post new content to Bluesky
-        if: github.event_name == 'push'
-        run: node scripts/post-to-bluesky.js
-        env:
-          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
-          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-          SITE_URL: https://raulsperoni.me
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -78,3 +70,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Checkout
+        if: github.event_name == 'push'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        if: github.event_name == 'push'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Post new content to Bluesky
+        if: github.event_name == 'push'
+        run: node scripts/post-to-bluesky.js
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          SITE_URL: https://raulsperoni.me
+          PUSH_BEFORE_SHA: ${{ github.event.before }}

@@ -15,7 +15,7 @@ export async function GET(context) {
 				link: `/blog/${post.id}/`,
 			})),
 			...tils.map((til) => ({
-				title: `TIL: ${til.data.title} / ${til.data.title_en}`,
+				title: `TIL: ${til.data.title}`,
 				description: til.data.description,
 				pubDate: til.data.pubDate,
 				link: `/til/${til.id}/`,

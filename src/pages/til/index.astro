@@ -16,7 +16,7 @@ const posts = (await getCollection('til')).sort(
 	<head>
 		<BaseHead
 			title={`TIL — ${SITE_TITLE}`}
-			description="Notas técnicas cortas bilingües sobre cosas aprendidas — programación, herramientas, infraestructura."
+			description="Short technical notes about things I learned — programming, tools, infrastructure."
 		/>
 		<style>
 			.page-header {
@@ -97,17 +97,6 @@ const posts = (await getCollection('til')).sort(
 			.post-title:hover {
 				color: var(--accent);
 				border: none;
-			}
-
-			.title-en {
-				display: block;
-				font-family: var(--font-body);
-				font-size: 0.9375rem;
-				font-weight: 400;
-				color: var(--text-light);
-				font-style: italic;
-				opacity: 0.7;
-				margin-top: 0.25rem;
 			}
 
 			.post-description {
@@ -193,9 +182,6 @@ const posts = (await getCollection('til')).sort(
 										class="post-title"
 									>
 										{post.data.title}
-										<span class="title-en">
-											{post.data.title_en}
-										</span>
 									</a>
 									{post.data.description && (
 										<p class="post-description">

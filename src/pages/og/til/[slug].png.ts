@@ -24,16 +24,14 @@ export const getStaticPaths = (async () => {
 		params: { slug: post.id },
 		props: {
 			title: post.data.title,
-			titleEn: post.data.title_en,
 			tags: post.data.tags,
 		},
 	}));
 }) satisfies GetStaticPaths;
 
 export const GET: APIRoute = async ({ props }) => {
-	const { title, titleEn, tags } = props as {
+	const { title, tags } = props as {
 		title: string;
-		titleEn: string;
 		tags: string[];
 	};
 
@@ -97,22 +95,8 @@ export const GET: APIRoute = async ({ props }) => {
 											lineHeight: 1.15,
 											color: '#1c1410',
 											letterSpacing: '-0.01em',
-											marginBottom: '20px',
 										},
 										children: title,
-									},
-								},
-								{
-									type: 'div',
-									props: {
-										style: {
-											display: 'flex',
-											fontSize: '36px',
-											fontStyle: 'italic',
-											lineHeight: 1.2,
-											color: '#7a6b5a',
-										},
-										children: titleEn,
 									},
 								},
 							],

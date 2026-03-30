@@ -46,8 +46,7 @@ function parseFrontmatter(content) {
 
 function buildPostText(fm, url, collection) {
 	if (collection === 'til') {
-		const title = `${fm.title} / ${fm.title_en}`;
-		return `${title}\n\n${url}`;
+		return `${fm.title}\n\n${url}`;
 	}
 	return `${fm.title}\n\n${fm.description || ''}\n\n${url}`;
 }
@@ -161,12 +160,8 @@ async function main() {
 		const url = `${SITE_URL}/${collection}/${slug}/`;
 
 		const text = buildPostText(fm, url, collection);
-		const title = isTil
-			? `${fm.title} / ${fm.title_en}`
-			: fm.title;
-		const description = isTil
-			? fm.description_en || fm.description
-			: fm.description;
+		const title = fm.title;
+		const description = fm.description;
 
 		try {
 			const result = await createPost(

@@ -7,7 +7,7 @@ Este sitio es el blog personal de Raul Speroni, desarrollador de software radica
 ## Secciones
 
 - Blog (/blog/): Ensayos y cronicas sobre tecnologia, politica, trabajo y vida cotidiana. En espanol.
-- TIL (/til/): Notas tecnicas cortas bilingues (espanol + ingles) sobre cosas aprendidas — programacion, herramientas, infraestructura.
+- TIL (/til/): Short technical notes about things learned — programming, tools, infrastructure.
 - Links (/links/): Enlaces comentados a proyectos, articulos y recursos externos.
 - Hago (/hago/): Proyectos y activismo en los que participa el autor.
 - Entreno (/fitness/): Actividad deportiva (datos de Strava).
@@ -27,7 +27,7 @@ Raul Speroni
 
 ## Idioma
 
-El contenido del blog esta escrito en espanol. Los TIL son bilingues (espanol + ingles).
+El contenido del blog esta escrito en espanol. Los TIL estan escritos en ingles.
 
 ## Licencia
 

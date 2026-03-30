@@ -29,18 +29,18 @@ const nextPost = allPosts[currentIndex - 1] ?? null;
 <html lang="es">
 	<head>
 		<BaseHead
-			title={`${post.data.title} / ${post.data.title_en}`}
+			title={post.data.title}
 			description={post.data.description}
 			ogImageUrl={`/og/til/${post.id}.png`}
 		/>
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "BlogPosting",
-			"headline": `${post.data.title} / ${post.data.title_en}`,
+			"headline": post.data.title,
 			"description": post.data.description,
 			"datePublished": post.data.pubDate.toISOString(),
 			"url": Astro.url,
-			"inLanguage": ["es", "en"],
+			"inLanguage": "en",
 			"author": {
 				"@type": "Person",
 				"name": SITE_AUTHOR.name,
@@ -102,15 +102,6 @@ const nextPost = allPosts[currentIndex - 1] ?? null;
 			.title h1 em {
 				font-style: italic;
 				color: var(--accent-dark);
-			}
-
-			.title-en {
-				font-family: var(--font-body);
-				font-size: 1.25rem;
-				color: var(--text-light);
-				margin: 0;
-				font-style: italic;
-				opacity: 0.7;
 			}
 
 			.tags {
@@ -304,7 +295,6 @@ const nextPost = allPosts[currentIndex - 1] ?? null;
 							<FormattedDate date={post.data.pubDate} />
 						</div>
 						<h1>{post.data.title}</h1>
-						<p class="title-en">{post.data.title_en}</p>
 						{
 							post.data.tags &&
 								post.data.tags.length > 0 && (

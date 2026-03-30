@@ -1,0 +1,370 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_AUTHOR } from '../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('til');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'til'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = (await getCollection('til')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const currentIndex = allPosts.findIndex((p) => p.id === post.id);
+const prevPost = allPosts[currentIndex + 1] ?? null;
+const nextPost = allPosts[currentIndex - 1] ?? null;
+---
+
+<html lang="es">
+	<head>
+		<BaseHead
+			title={`${post.data.title} / ${post.data.title_en}`}
+			description={post.data.description}
+			ogImageUrl={`/og/til/${post.id}.png`}
+		/>
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BlogPosting",
+			"headline": `${post.data.title} / ${post.data.title_en}`,
+			"description": post.data.description,
+			"datePublished": post.data.pubDate.toISOString(),
+			"url": Astro.url,
+			"inLanguage": ["es", "en"],
+			"author": {
+				"@type": "Person",
+				"name": SITE_AUTHOR.name,
+				"url": SITE_AUTHOR.url,
+			},
+			...(post.data.tags.length > 0 && {
+				"keywords": post.data.tags.join(", ")
+			})
+		})} />
+		<style>
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			.prose {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 3.5rem 1.5rem 5rem;
+			}
+
+			.title {
+				margin-bottom: 3rem;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.dateline {
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--text-light);
+				margin-bottom: 1.25rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+
+			.dateline::before {
+				content: '';
+				display: inline-block;
+				width: 1.5rem;
+				height: 1px;
+				background: var(--accent);
+				flex-shrink: 0;
+			}
+
+			.title h1 {
+				margin: 0 0 1.25rem 0;
+				font-size: 3rem;
+				line-height: 1.1;
+				letter-spacing: -0.02em;
+			}
+
+			.title h1 em {
+				font-style: italic;
+				color: var(--accent-dark);
+			}
+
+			.title-en {
+				font-family: var(--font-body);
+				font-size: 1.25rem;
+				color: var(--text-light);
+				margin: 0;
+				font-style: italic;
+				opacity: 0.7;
+			}
+
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-top: 1.25rem;
+			}
+
+			.tag {
+				padding: 0.25rem 0.625rem;
+				background: transparent;
+				color: var(--text-light);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				text-decoration: none;
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: lowercase;
+				letter-spacing: 0.04em;
+				transition: all 0.15s ease;
+			}
+
+			.tag:hover {
+				background: var(--accent);
+				color: var(--bg-elevated);
+				border-color: var(--accent);
+			}
+
+			.tag::before {
+				content: '#';
+				opacity: 0.5;
+			}
+
+			.prose :global(p) {
+				font-family: var(--font-body);
+				font-size: 1.0625rem;
+				line-height: 1.8;
+			}
+
+			.prose :global(h2) {
+				margin-top: 2.5em;
+				font-size: 1.75rem;
+			}
+
+			.prose :global(h3) {
+				margin-top: 2em;
+				font-size: 1.375rem;
+			}
+
+			.prose :global(blockquote) {
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			.prose :global(img) {
+				display: block;
+				max-width: min(100%, 560px);
+				height: auto;
+				margin: 2rem auto;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+			}
+
+			.prose :global(a) {
+				overflow-wrap: break-word;
+			}
+
+			.post-nav {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 0 1.5rem 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				border-top: 1px solid var(--border);
+				padding-top: 2rem;
+			}
+
+			.post-nav-link {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				transition: color 0.15s ease;
+				max-width: 45%;
+			}
+
+			.post-nav-link:hover {
+				color: var(--accent);
+			}
+
+			.post-nav-link.prev {
+				flex-direction: row;
+			}
+
+			.post-nav-link.next {
+				flex-direction: row-reverse;
+				text-align: right;
+			}
+
+			.post-nav-arrow {
+				flex-shrink: 0;
+				opacity: 0.5;
+			}
+
+			.post-nav-label {
+				display: block;
+				opacity: 0.5;
+				font-size: 0.6rem;
+				margin-bottom: 0.2rem;
+			}
+
+			.post-nav-title {
+				font-family: var(--font-display);
+				font-size: 0.875rem;
+				font-weight: 700;
+				font-style: italic;
+				text-transform: none;
+				letter-spacing: 0;
+				color: var(--text);
+				line-height: 1.3;
+				display: block;
+				transition: color 0.15s ease;
+			}
+
+			.post-nav-link:hover .post-nav-title {
+				color: var(--accent);
+			}
+
+			.post-nav-back {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--text-light);
+				text-decoration: none;
+				opacity: 0.5;
+				transition:
+					opacity 0.15s ease,
+					color 0.15s ease;
+			}
+
+			.post-nav-back:hover {
+				opacity: 1;
+				color: var(--accent);
+			}
+
+			@media (max-width: 720px) {
+				.prose {
+					padding: 2.5rem 1.25rem 4rem;
+				}
+
+				.title h1 {
+					font-size: 2.25rem;
+				}
+
+				.post-nav {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 1.5rem;
+				}
+
+				.post-nav-link {
+					max-width: 100%;
+				}
+
+				.post-nav-link.next {
+					flex-direction: row;
+					text-align: left;
+					align-self: flex-end;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main id="main">
+			<article>
+				<div class="prose">
+					<div class="title">
+						<div class="dateline">
+							<FormattedDate date={post.data.pubDate} />
+						</div>
+						<h1>{post.data.title}</h1>
+						<p class="title-en">{post.data.title_en}</p>
+						{
+							post.data.tags &&
+								post.data.tags.length > 0 && (
+									<div class="tags">
+										{post.data.tags.map((tag) => (
+											<a
+												href={`/tags/${tag}/`}
+												class="tag"
+											>
+												{tag}
+											</a>
+										))}
+									</div>
+								)
+						}
+					</div>
+					<Content />
+				</div>
+			</article>
+
+			<nav class="post-nav" aria-label="Navegación entre TILs">
+				{
+					prevPost ? (
+						<a
+							href={`/til/${prevPost.id}/`}
+							class="post-nav-link prev"
+						>
+							<span class="post-nav-arrow">&larr;</span>
+							<span>
+								<span class="post-nav-label">anterior</span>
+								<span class="post-nav-title">
+									{prevPost.data.title}
+								</span>
+							</span>
+						</a>
+					) : (
+						<span />
+					)
+				}
+				<a href="/til/" class="post-nav-back">todas las til</a>
+				{
+					nextPost ? (
+						<a
+							href={`/til/${nextPost.id}/`}
+							class="post-nav-link next"
+						>
+							<span class="post-nav-arrow">&rarr;</span>
+							<span>
+								<span class="post-nav-label">siguiente</span>
+								<span class="post-nav-title">
+									{nextPost.data.title}
+								</span>
+							</span>
+						</a>
+					) : (
+						<span />
+					)
+				}
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>

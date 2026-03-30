@@ -11,8 +11,9 @@ export const getStaticPaths = (async () => {
 	const allLinks = await getCollection('links');
 	const allStrava = await getCollection('strava');
 	const allGoodreads = await getCollection('goodreads');
+	const allTil = await getCollection('til');
 
-	const allContent = [...allPosts, ...allLinks, ...allStrava, ...allGoodreads];
+	const allContent = [...allPosts, ...allLinks, ...allStrava, ...allGoodreads, ...allTil];
 	const uniqueTags = [...new Set(allContent.flatMap(item => item.data.tags))];
 
 	return uniqueTags.map((tag) => {
@@ -32,9 +33,13 @@ export const getStaticPaths = (async () => {
 			book.data.tags.includes(tag)
 		).map(book => ({ ...book, type: 'goodreads' as const, url: book.data.goodreadsUrl }));
 
+		const filteredTil = allTil.filter(til =>
+			til.data.tags.includes(tag)
+		).map(til => ({ ...til, type: 'til' as const, url: `/til/${til.id}/` }));
+
 		return {
 			params: { tag },
-			props: { content: [...filteredPosts, ...filteredLinks, ...filteredStrava, ...filteredGoodreads] },
+			props: { content: [...filteredPosts, ...filteredLinks, ...filteredStrava, ...filteredGoodreads, ...filteredTil] },
 		};
 	});
 }) satisfies GetStaticPaths;
@@ -48,7 +53,7 @@ const sortedContent = content.sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<BaseHead title={`Content tagged "${tag}"`} description={`All content tagged with ${tag}`} />
 	</head>

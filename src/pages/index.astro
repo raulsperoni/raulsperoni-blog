@@ -10,6 +10,7 @@ const allPosts = await getCollection('blog');
 const allLinks = await getCollection('links');
 const allStrava = await getCollection('strava');
 const allGoodreads = await getCollection('goodreads');
+const allTil = await getCollection('til');
 
 const recentPosts = allPosts
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -35,6 +36,11 @@ const allContent = [
 		...book,
 		type: 'goodreads' as const,
 		url: book.data.goodreadsUrl
+	})),
+	...allTil.map(til => ({
+		...til,
+		type: 'til' as const,
+		url: `/til/${til.id}/`
 	}))
 ].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -368,6 +374,11 @@ for (const [date, items] of sortedDates) {
 
 			.content-type.goodreads {
 				color: #553b08;
+				opacity: 1;
+			}
+
+			.content-type.til {
+				color: var(--accent-dark);
 				opacity: 1;
 			}
 

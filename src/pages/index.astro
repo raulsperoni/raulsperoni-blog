@@ -46,7 +46,7 @@ const allContent = [
 
 const tagMap = new Map<string, typeof allContent>();
 
-allContent.forEach(item => {
+allContent.filter(item => item.type !== 'til').forEach(item => {
 	item.data.tags.forEach(tag => {
 		if (!tagMap.has(tag)) {
 			tagMap.set(tag, []);
@@ -82,9 +82,13 @@ const CONDENSE_THRESHOLD = 3;
 // Heatmap
 const tagFrequency = new Map<string, number>();
 allContent.forEach(item => {
-	item.data.tags.forEach(tag => {
-		tagFrequency.set(tag, (tagFrequency.get(tag) || 0) + 1);
-	});
+	if (item.type === 'til') {
+		tagFrequency.set('til', (tagFrequency.get('til') || 0) + 1);
+	} else {
+		item.data.tags.forEach(tag => {
+			tagFrequency.set(tag, (tagFrequency.get(tag) || 0) + 1);
+		});
+	}
 });
 
 const topTags = Array.from(tagFrequency.entries())
@@ -114,9 +118,13 @@ allContent.forEach(item => {
 			activityMap.set(dateKey, new Map());
 		}
 		const tagCounts = activityMap.get(dateKey)!;
-		item.data.tags.forEach(tag => {
-			tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-		});
+		if (item.type === 'til') {
+			tagCounts.set('til', (tagCounts.get('til') || 0) + 1);
+		} else {
+			item.data.tags.forEach(tag => {
+				tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+			});
+		}
 	}
 });
 

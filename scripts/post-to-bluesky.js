@@ -47,7 +47,7 @@ function parseFrontmatter(content) {
 
 function buildPostText(fm, url, collection) {
 	if (collection === 'til') {
-		return `${fm.title}\n\n${url}`;
+		return `TIL: ${fm.title}\n\n${url}\n\n#TIL`;
 	}
 	return `${fm.title}\n\n${fm.description || ''}\n\n${url}`;
 }
@@ -82,19 +82,50 @@ async function authenticate() {
 	return res.json();
 }
 
-async function createPost(session, text, url, title, description) {
+async function uploadOgImage(session, ogUrl) {
+	try {
+		const imgRes = await fetch(ogUrl);
+		if (!imgRes.ok) return null;
+		const imgBuf = await imgRes.arrayBuffer();
+		const contentType =
+			imgRes.headers.get('content-type') || 'image/png';
+		const uploadRes = await fetch(
+			`${BSKY_API}/com.atproto.repo.uploadBlob`,
+			{
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${session.accessJwt}`,
+					'Content-Type': contentType,
+				},
+				body: Buffer.from(imgBuf),
+			},
+		);
+		if (!uploadRes.ok) return null;
+		const data = await uploadRes.json();
+		return data.blob;
+	} catch {
+		return null;
+	}
+}
+
+async function createPost(session, text, url, title, description, ogImageUrl) {
 	const offsets = getByteOffsets(text, url);
+	const thumb = ogImageUrl
+		? await uploadOgImage(session, ogImageUrl)
+		: null;
+	const external = {
+		uri: url,
+		title,
+		description: description || '',
+	};
+	if (thumb) external.thumb = thumb;
 	const record = {
 		$type: 'app.bsky.feed.post',
 		text,
 		createdAt: new Date().toISOString(),
 		embed: {
 			$type: 'app.bsky.embed.external',
-			external: {
-				uri: url,
-				title,
-				description: description || '',
-			},
+			external,
 		},
 	};
 
@@ -163,6 +194,7 @@ async function main() {
 		const text = buildPostText(fm, url, collection);
 		const title = fm.title;
 		const description = fm.description;
+		const ogImageUrl = `${SITE_URL}/og/${collection}/${slug}.png`;
 
 		try {
 			const result = await createPost(
@@ -171,6 +203,7 @@ async function main() {
 				url,
 				title,
 				description,
+				ogImageUrl,
 			);
 			console.log(`Posted to Bluesky: ${file} → ${result.uri}`);
 		} catch (err) {

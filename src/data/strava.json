@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-04-01T16:04:50.065Z",
+  "lastUpdated": "2026-04-02T05:03:51.475Z",
   "stats": {
     "biggest_ride_distance": 147540,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
       "count": 12,
-      "distance": 584178.3999999999,
-      "moving_time": 71518,
-      "elapsed_time": 78473,
+      "distance": 593706.1,
+      "moving_time": 72049,
+      "elapsed_time": 79004,
       "elevation_gain": 1580,
       "achievement_count": 0
     },
@@ -20,18 +20,18 @@
     },
     "recent_run_totals": {
       "count": 14,
-      "distance": 151073.8,
-      "moving_time": 44860,
-      "elapsed_time": 44899,
-      "elevation_gain": 779,
+      "distance": 151065.9,
+      "moving_time": 44722,
+      "elapsed_time": 44761,
+      "elevation_gain": 769,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1087,
-      "distance": 8268755.599999998,
-      "moving_time": 2619931,
-      "elapsed_time": 2691647,
-      "elevation_gain": 677858.1000000001
+      "count": 1088,
+      "distance": 8276762.599999998,
+      "moving_time": 2622166,
+      "elapsed_time": 2693882,
+      "elevation_gain": 677878.1000000001
     },
     "recent_swim_totals": {
       "count": 11,
@@ -56,11 +56,11 @@
       "elevation_gain": 5440
     },
     "ytd_run_totals": {
-      "count": 45,
-      "distance": 520338,
-      "moving_time": 160845,
-      "elapsed_time": 162216,
-      "elevation_gain": 2646
+      "count": 46,
+      "distance": 528345,
+      "moving_time": 163080,
+      "elapsed_time": 164451,
+      "elevation_gain": 2666
     },
     "ytd_swim_totals": {
       "count": 28,
@@ -80,6 +80,17 @@
       "total_elevation_gain": 0,
       "type": "Ride",
       "sport_type": "Ride",
+      "start_date_local": "2026-04-01T00:00:00Z"
+    },
+    {
+      "id": 17942940725,
+      "name": "Afternoon Run",
+      "distance": 8007,
+      "moving_time": 2235,
+      "elapsed_time": 2235,
+      "total_elevation_gain": 20,
+      "type": "Run",
+      "sport_type": "Run",
       "start_date_local": "2026-04-01T00:00:00Z"
     },
     {

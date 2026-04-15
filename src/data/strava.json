@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-14T05:24:39.709Z",
+  "lastUpdated": "2026-04-15T05:24:55.501Z",
   "stats": {
     "biggest_ride_distance": 147540,
     "biggest_climb_elevation_gain": 12656.2,
@@ -34,10 +34,10 @@
       "elevation_gain": 678150.1000000001
     },
     "recent_swim_totals": {
-      "count": 10,
-      "distance": 21958.1,
-      "moving_time": 23978,
-      "elapsed_time": 29970,
+      "count": 9,
+      "distance": 19458.1,
+      "moving_time": 21250,
+      "elapsed_time": 26483,
       "elevation_gain": 5.3,
       "achievement_count": 0
     },

@@ -1,6 +1,26 @@
 {
-  "lastUpdated": "2026-04-18T05:07:37.513Z",
+  "lastUpdated": "2026-04-19T05:29:58.146Z",
   "activities": [
+    {
+      "id": "ReadStatus10798029397",
+      "bookTitle": "Slow Gods",
+      "author": "Claire North",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1740714031l/223296158._SY75_.jpg",
+      "pubDate": "2026-04-18T20:50:55.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8532560600"
+    },
+    {
+      "id": "Review8444647570",
+      "bookTitle": "Children of Strife",
+      "author": "Adrian Tchaikovsky",
+      "action": "read",
+      "rating": 5,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1774266098l/238359324._SY75_.jpg",
+      "pubDate": "2026-04-18T20:39:44.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8444647570"
+    },
     {
       "id": "ReadStatus10688384019",
       "bookTitle": "Children of Strife",

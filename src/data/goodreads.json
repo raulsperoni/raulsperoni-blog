@@ -1,6 +1,16 @@
 {
-  "lastUpdated": "2026-04-19T05:29:58.146Z",
+  "lastUpdated": "2026-04-20T05:42:42.070Z",
   "activities": [
+    {
+      "id": "ReadStatus10801467805",
+      "bookTitle": "Slow Gods",
+      "author": "Claire North",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1740714039l/223386724._SY75_.jpg",
+      "pubDate": "2026-04-19T18:55:25.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8532560600"
+    },
     {
       "id": "ReadStatus10798029397",
       "bookTitle": "Slow Gods",

@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-04-27T05:55:29.893Z",
+  "lastUpdated": "2026-04-28T06:07:54.769Z",
   "stats": {
     "biggest_ride_distance": 147540,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 11,
-      "distance": 567787,
-      "moving_time": 66428,
-      "elapsed_time": 69516,
+      "count": 10,
+      "distance": 546060.2,
+      "moving_time": 63702,
+      "elapsed_time": 66790,
       "elevation_gain": 2215,
       "achievement_count": 0
     },
@@ -20,18 +20,18 @@
     },
     "recent_run_totals": {
       "count": 9,
-      "distance": 121158.9,
-      "moving_time": 35887,
-      "elapsed_time": 35975,
-      "elevation_gain": 488,
+      "distance": 125227.8,
+      "moving_time": 36928,
+      "elapsed_time": 37083,
+      "elevation_gain": 511,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1095,
-      "distance": 8382182.699999997,
-      "moving_time": 2653426,
-      "elapsed_time": 2725227,
-      "elevation_gain": 678306.1000000001
+      "count": 1096,
+      "distance": 8393983.399999999,
+      "moving_time": 2656859,
+      "elapsed_time": 2728730,
+      "elevation_gain": 678369.1000000001
     },
     "recent_swim_totals": {
       "count": 9,
@@ -56,11 +56,11 @@
       "elevation_gain": 7655
     },
     "ytd_run_totals": {
-      "count": 53,
-      "distance": 633765,
-      "moving_time": 194340,
-      "elapsed_time": 195796,
-      "elevation_gain": 3094
+      "count": 54,
+      "distance": 645566,
+      "moving_time": 197773,
+      "elapsed_time": 199299,
+      "elevation_gain": 3157
     },
     "ytd_swim_totals": {
       "count": 36,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 18282977679,
+      "name": "Afternoon Run",
+      "distance": 11800.7,
+      "moving_time": 3433,
+      "elapsed_time": 3503,
+      "total_elevation_gain": 63,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-04-27T00:00:00Z"
+    },
     {
       "id": 18267350828,
       "name": "Morning Ride",

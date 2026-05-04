@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2026-05-03T06:05:47.253Z",
+  "lastUpdated": "2026-05-04T06:14:32.233Z",
   "stats": {
     "biggest_ride_distance": 147540,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
       "count": 10,
-      "distance": 542926.3,
-      "moving_time": 62819,
-      "elapsed_time": 65907,
-      "elevation_gain": 2215,
+      "distance": 656502.8,
+      "moving_time": 76329,
+      "elapsed_time": 80659,
+      "elevation_gain": 2907,
       "achievement_count": 0
     },
     "all_ride_totals": {
-      "count": 556,
-      "distance": 17205212.799999993,
-      "moving_time": 2164495,
-      "elapsed_time": 2309372,
-      "elevation_gain": 555930.8
+      "count": 557,
+      "distance": 17348993.799999997,
+      "moving_time": 2181440,
+      "elapsed_time": 2327559,
+      "elevation_gain": 556713.8
     },
     "recent_run_totals": {
-      "count": 9,
-      "distance": 130331.89999999998,
-      "moving_time": 38469,
-      "elapsed_time": 38712,
-      "elevation_gain": 595,
+      "count": 8,
+      "distance": 124538.4,
+      "moving_time": 36861,
+      "elapsed_time": 37094,
+      "elevation_gain": 568,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -49,11 +49,11 @@
       "elevation_gain": 439.50000000000006
     },
     "ytd_ride_totals": {
-      "count": 41,
-      "distance": 2136480,
-      "moving_time": 251638,
-      "elapsed_time": 272685,
-      "elevation_gain": 7655
+      "count": 42,
+      "distance": 2280261,
+      "moving_time": 268583,
+      "elapsed_time": 290872,
+      "elevation_gain": 8438
     },
     "ytd_run_totals": {
       "count": 56,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 18361099080,
+      "name": "Morning Ride",
+      "distance": 143781,
+      "moving_time": 16945,
+      "elapsed_time": 18187,
+      "total_elevation_gain": 783,
+      "type": "Ride",
+      "sport_type": "Ride",
+      "start_date_local": "2026-05-03T00:00:00Z"
+    },
     {
       "id": 18332752864,
       "name": "Morning Run",

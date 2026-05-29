@@ -3,7 +3,7 @@ title: 'El ejercicio de despolarizar la discusión pública'
 url: 'https://informatio.fic.edu.uy/index.php/informatio/article/view/563'
 description: 'Artículo publicado en Informatio (Vol. 31, Núm. 1, 2026) sobre un ejercicio de debate digital durante la campaña electoral uruguaya de 2024, y el potencial de la IA para favorecer procesos de despolarización.'
 pubDate: 'May 27 2026'
-ogImage: 'https://informatio.fic.edu.uy/public/journals/2/cover_issue_35_es_ES.jpg'
+linkImage: '../../assets/images/informatio-31-1-2026.jpg'
 siteName: 'Informatio — Revista del Instituto de Información'
 tags: ['hago 🔧']
 ---

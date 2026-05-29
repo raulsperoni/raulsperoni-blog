@@ -21,7 +21,7 @@ const { Content } = await render(link);
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={link.data.title} description={link.data.description} />
+		<BaseHead title={link.data.title} description={link.data.description} image={link.data.linkImage} ogImageUrl={link.data.ogImage} />
 		<style>
 			main {
 				width: 960px;

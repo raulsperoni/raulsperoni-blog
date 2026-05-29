@@ -29,6 +29,6 @@ const relatedPosts = allPosts
 	.slice(0, 3);
 ---
 
-<BlogPost {...post.data} prevPost={prevPost} nextPost={nextPost} relatedPosts={relatedPosts}>
+<BlogPost {...post.data} slug={post.id} prevPost={prevPost} nextPost={nextPost} relatedPosts={relatedPosts}>
 	<Content />
 </BlogPost>

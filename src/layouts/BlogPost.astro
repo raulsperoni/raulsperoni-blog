@@ -8,17 +8,18 @@ import Header from '../components/Header.astro';
 import { SITE_AUTHOR } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
+	slug?: string;
 	prevPost?: CollectionEntry<'blog'> | null;
 	nextPost?: CollectionEntry<'blog'> | null;
 	relatedPosts?: CollectionEntry<'blog'>[];
 };
 
-const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, prevPost, nextPost, relatedPosts } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, slug, prevPost, nextPost, relatedPosts } = Astro.props;
 ---
 
 <html lang="es">
 	<head>
-		<BaseHead title={title} description={description} image={ogImage ?? heroImage} />
+		<BaseHead title={title} description={description} image={ogImage ?? heroImage} ogImageUrl={!ogImage && !heroImage && slug ? `/og/blog/${slug}.png` : undefined} />
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "BlogPosting",

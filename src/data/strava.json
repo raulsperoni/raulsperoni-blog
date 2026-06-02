@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-02T07:24:51.409Z",
+  "lastUpdated": "2026-06-02T21:01:58.476Z",
   "stats": {
     "biggest_ride_distance": 156465,
     "biggest_climb_elevation_gain": 12656.2,
@@ -42,10 +42,10 @@
       "achievement_count": 0
     },
     "all_swim_totals": {
-      "count": 653,
-      "distance": 1161707.2000000002,
-      "moving_time": 1375216,
-      "elapsed_time": 1751074,
+      "count": 654,
+      "distance": 1165282.2000000002,
+      "moving_time": 1378895,
+      "elapsed_time": 1755852,
       "elevation_gain": 439.50000000000006
     },
     "ytd_ride_totals": {
@@ -63,14 +63,25 @@
       "elevation_gain": 3989
     },
     "ytd_swim_totals": {
-      "count": 48,
-      "distance": 129243,
-      "moving_time": 140507,
-      "elapsed_time": 167894,
+      "count": 49,
+      "distance": 132818,
+      "moving_time": 144186,
+      "elapsed_time": 172672,
       "elevation_gain": 44
     }
   },
   "recentActivities": [
+    {
+      "id": 18754245825,
+      "name": "Morning Swim",
+      "distance": 3575,
+      "moving_time": 3679,
+      "elapsed_time": 4778,
+      "total_elevation_gain": 0,
+      "type": "Swim",
+      "sport_type": "Swim",
+      "start_date_local": "2026-06-02T00:00:00Z"
+    },
     {
       "id": 18746867826,
       "name": "Afternoon Ride",

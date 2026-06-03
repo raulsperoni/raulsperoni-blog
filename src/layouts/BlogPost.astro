@@ -19,7 +19,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, slug
 
 <html lang="es">
 	<head>
-		<BaseHead title={title} description={description} image={ogImage ?? heroImage} ogImageUrl={!ogImage && !heroImage && slug ? `/og/blog/${slug}.png` : undefined} />
+		<BaseHead title={title} description={description} image={ogImage ?? heroImage} ogImageUrl={!ogImage && !heroImage && slug ? `/og/blog/${slug}.png` : undefined} ogType="article" />
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "BlogPosting",

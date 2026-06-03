@@ -14,11 +14,12 @@ interface Props {
 	description: string;
 	image?: ImageMetadata;
 	ogImageUrl?: string;
+	ogType?: 'website' | 'article';
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = fallbackImage, ogImageUrl } = Astro.props;
+const { title, description, image = fallbackImage, ogImageUrl, ogType = 'website' } = Astro.props;
 const resolvedOgImage = ogImageUrl
 	? new URL(ogImageUrl, Astro.site)
 	: new URL(image.src, Astro.url);
@@ -54,7 +55,7 @@ const resolvedOgImage = ogImageUrl
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

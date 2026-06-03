@@ -26,12 +26,13 @@ const prevPost = allPosts[currentIndex + 1] ?? null;
 const nextPost = allPosts[currentIndex - 1] ?? null;
 ---
 
-<html lang="es">
+<html lang="en">
 	<head>
 		<BaseHead
 			title={post.data.title}
 			description={post.data.description}
 			ogImageUrl={`/og/til/${post.id}.png`}
+			ogType="article"
 		/>
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",

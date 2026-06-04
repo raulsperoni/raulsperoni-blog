@@ -1,37 +1,37 @@
 {
-  "lastUpdated": "2026-06-03T12:55:06.106Z",
+  "lastUpdated": "2026-06-04T12:31:03.022Z",
   "stats": {
     "biggest_ride_distance": 156465,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
       "count": 12,
-      "distance": 805939.9999999999,
-      "moving_time": 95059,
-      "elapsed_time": 102283,
+      "distance": 804934.0999999999,
+      "moving_time": 95506,
+      "elapsed_time": 102730,
       "elevation_gain": 2101,
       "achievement_count": 0
     },
     "all_ride_totals": {
-      "count": 570,
-      "distance": 18182545.800000004,
-      "moving_time": 2279201,
-      "elapsed_time": 2432544,
+      "count": 571,
+      "distance": 18210491.400000006,
+      "moving_time": 2283364,
+      "elapsed_time": 2436707,
       "elevation_gain": 558814.8
     },
     "recent_run_totals": {
       "count": 14,
-      "distance": 173978.6,
-      "moving_time": 52162,
-      "elapsed_time": 52492,
-      "elevation_gain": 595,
+      "distance": 177028.7,
+      "moving_time": 53237,
+      "elapsed_time": 53557,
+      "elevation_gain": 591,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1113,
-      "distance": 8613735.299999993,
-      "moving_time": 2722471,
-      "elapsed_time": 2794827,
-      "elevation_gain": 679201.1000000001
+      "count": 1114,
+      "distance": 8622582.299999993,
+      "moving_time": 2725159,
+      "elapsed_time": 2797515,
+      "elevation_gain": 679224.1000000001
     },
     "recent_swim_totals": {
       "count": 10,
@@ -42,35 +42,68 @@
       "achievement_count": 0
     },
     "all_swim_totals": {
-      "count": 654,
-      "distance": 1165282.2000000002,
-      "moving_time": 1378895,
-      "elapsed_time": 1755852,
+      "count": 655,
+      "distance": 1169307.2000000002,
+      "moving_time": 1382968,
+      "elapsed_time": 1760708,
       "elevation_gain": 439.50000000000006
     },
     "ytd_ride_totals": {
-      "count": 55,
-      "distance": 3113813,
-      "moving_time": 366344,
-      "elapsed_time": 395857,
+      "count": 56,
+      "distance": 3141758,
+      "moving_time": 370507,
+      "elapsed_time": 400020,
       "elevation_gain": 10539
     },
     "ytd_run_totals": {
-      "count": 71,
-      "distance": 865318,
-      "moving_time": 263385,
-      "elapsed_time": 265396,
-      "elevation_gain": 3989
+      "count": 72,
+      "distance": 874165,
+      "moving_time": 266073,
+      "elapsed_time": 268084,
+      "elevation_gain": 4012
     },
     "ytd_swim_totals": {
-      "count": 49,
-      "distance": 132818,
-      "moving_time": 144186,
-      "elapsed_time": 172672,
+      "count": 50,
+      "distance": 136843,
+      "moving_time": 148259,
+      "elapsed_time": 177528,
       "elevation_gain": 44
     }
   },
   "recentActivities": [
+    {
+      "id": 18782009751,
+      "name": "Morning Swim",
+      "distance": 4025,
+      "moving_time": 4073,
+      "elapsed_time": 4856,
+      "total_elevation_gain": 0,
+      "type": "Swim",
+      "sport_type": "Swim",
+      "start_date_local": "2026-06-04T00:00:00Z"
+    },
+    {
+      "id": 18774372543,
+      "name": "Afternoon Ride",
+      "distance": 27945.6,
+      "moving_time": 4163,
+      "elapsed_time": 4163,
+      "total_elevation_gain": 0,
+      "type": "Ride",
+      "sport_type": "Ride",
+      "start_date_local": "2026-06-03T00:00:00Z"
+    },
+    {
+      "id": 18775061319,
+      "name": "Afternoon Run",
+      "distance": 8847,
+      "moving_time": 2688,
+      "elapsed_time": 2688,
+      "total_elevation_gain": 23,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-06-03T00:00:00Z"
+    },
     {
       "id": 18754245825,
       "name": "Morning Swim",

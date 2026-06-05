@@ -83,7 +83,7 @@ Senior Data Engineer · Los Angeles, CA / Remote · 2021 - 2022
 
 ### Municipality of Montevideo
 
-Technical Project Management, Data Pipelines, Research, and Development · Montevideo, Uruguay · 2017 - 2022
+Technical Project Management, Data Pipelines, Research, and Development · Montevideo, Uruguay · 2017 - 2021
 
 <details>
 <summary>Selected impact and responsibilities</summary>

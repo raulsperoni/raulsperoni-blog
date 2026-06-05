@@ -295,62 +295,6 @@ for (const [date, items] of sortedDates) {
 				color: var(--accent);
 			}
 
-			/* — CV — */
-			.cv-note {
-				display: grid;
-				grid-template-columns: 6rem 1fr auto;
-				gap: 0 2rem;
-				align-items: start;
-				padding: 1.35rem 0;
-				border-top: 1px solid var(--border);
-				border-bottom: 1px solid var(--border);
-				margin: -0.5rem 0 3rem;
-			}
-
-			.cv-note-label,
-			.cv-note-link {
-				font-family: var(--font-mono);
-				font-size: 0.65rem;
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-			}
-
-			.cv-note-label {
-				color: var(--text-light);
-				opacity: 0.65;
-				padding-top: 0.25rem;
-			}
-
-			.cv-note-title {
-				font-family: var(--font-display);
-				font-size: 1.25rem;
-				font-weight: 700;
-				line-height: 1.25;
-				margin: 0 0 0.35rem;
-			}
-
-			.cv-note-desc {
-				color: var(--text-light);
-				font-size: 0.9rem;
-				line-height: 1.55;
-				margin: 0;
-				overflow-wrap: break-word;
-			}
-
-			.cv-note-link {
-				border: none;
-				color: var(--text-light);
-				opacity: 0.7;
-				padding-top: 0.25rem;
-				white-space: nowrap;
-			}
-
-			.cv-note-link:hover {
-				border: none;
-				color: var(--accent);
-				opacity: 1;
-			}
-
 			/* — Tags grid — */
 			.tags-grid {
 				display: grid;
@@ -854,18 +798,6 @@ for (const [date, items] of sortedDates) {
 				<p class="intro-line">Ya fui de todo.</p>
 				<p class="intro-sub">palabras, código, y kilómetros desde Uruguay.</p>
 			</div>
-
-			<section class="cv-note" aria-labelledby="cv-note-title">
-				<div class="cv-note-label">cv</div>
-				<div>
-					<h2 class="cv-note-title" id="cv-note-title">Trabajo, proyectos y oficio.</h2>
-					<p class="cv-note-desc">
-						Una versión más seria y compartible de lo que hago: software,
-						participación digital, escritura pública e IA aplicada.
-					</p>
-				</div>
-				<a class="cv-note-link" href="/cv/">abrir →</a>
-			</section>
 
 			<!-- Recent writing -->
 			<section class="recent-posts" aria-labelledby="recent-heading">

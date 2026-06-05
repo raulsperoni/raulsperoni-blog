@@ -139,4 +139,29 @@ const til = defineCollection({
 	}),
 });
 
-export const collections = { blog, links, strava, goodreads, til };
+const cv = defineCollection({
+	loader: glob({
+		base: './src/content/cv',
+		pattern: '**/*.{md,mdx}',
+	}),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		lang: z.string(),
+		name: z.string(),
+		role: z.string(),
+		location: z.string(),
+		updated: z.string(),
+		contact: z.array(
+			z.object({
+				label: z.string(),
+				value: z.string(),
+				url: z.string().url().optional(),
+			}),
+		),
+		focus: z.array(z.string()).default([]),
+		languages: z.array(z.string()).default([]),
+	}),
+});
+
+export const collections = { blog, links, strava, goodreads, til, cv };

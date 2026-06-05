@@ -1,0 +1,507 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_AUTHOR } from '../consts';
+
+const cv = await getEntry('cv', 'en');
+
+if (!cv) {
+	throw new Error('Missing English CV content at src/content/cv/en.md');
+}
+
+const { Content } = await render(cv);
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	name: `CV — ${cv.data.name}`,
+	url: new URL('/cv/', Astro.site).toString(),
+	mainEntity: {
+		'@type': 'Person',
+		...SITE_AUTHOR,
+		name: cv.data.name,
+		jobTitle: cv.data.role,
+		address: {
+			'@type': 'PostalAddress',
+			addressLocality: cv.data.location,
+		},
+		knowsAbout: cv.data.focus,
+		knowsLanguage: cv.data.languages,
+	},
+};
+---
+
+<!doctype html>
+<html lang={cv.data.lang}>
+	<head>
+			<BaseHead title={`${cv.data.name} CV`} description={cv.data.description} />
+		<link rel="alternate" hreflang="en" href={new URL('/cv/', Astro.site)} />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+			<style>
+				main {
+					--cv-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+					--cv-rule: rgba(213, 210, 200, 0.55);
+					--cv-muted: #62584e;
+					box-sizing: border-box;
+					width: 880px;
+					max-width: 880px;
+					font-family: var(--cv-sans);
+					line-height: 1.5;
+				}
+
+				.cv-hero {
+					display: grid;
+					grid-template-columns: minmax(0, 1fr) 14rem;
+					gap: 2.5rem;
+					align-items: start;
+					margin-bottom: 2.2rem;
+				}
+
+			.eyebrow,
+				.meta,
+				.section-kicker,
+				.action-button,
+				.language-link {
+					font-family: var(--font-mono);
+				}
+
+				.eyebrow {
+					display: block;
+					color: var(--cv-muted);
+					font-size: 0.65rem;
+					letter-spacing: 0.12em;
+					text-transform: uppercase;
+					margin-bottom: 0.5rem;
+					opacity: 0.75;
+				}
+
+				h1 {
+					font-family: var(--font-display);
+					font-size: clamp(2.3rem, 5vw, 3.15rem);
+					font-style: italic;
+					margin: 0 0 0.45rem;
+					letter-spacing: 0;
+				}
+
+				.role {
+					font-family: var(--cv-sans);
+					font-size: clamp(1rem, 1.8vw, 1.15rem);
+					font-weight: 500;
+					line-height: 1.35;
+					margin: 0 0 0.6rem;
+					color: var(--text);
+				}
+
+				.summary {
+					max-width: 35rem;
+					color: var(--cv-muted);
+					font-size: 0.9rem;
+					line-height: 1.55;
+					margin: 0;
+				}
+
+				.meta-panel {
+					border-left: 2px solid var(--cv-rule);
+					padding-left: 1.1rem;
+				}
+
+				.meta {
+					display: grid;
+					gap: 0.28rem;
+					color: var(--cv-muted);
+					font-size: 0.62rem;
+					letter-spacing: 0.05em;
+					line-height: 1.35;
+					text-transform: uppercase;
+			}
+
+				.meta a {
+					color: var(--text);
+					border-bottom-color: transparent;
+					text-transform: none;
+					letter-spacing: 0;
+				}
+
+				.meta a:hover {
+					border-bottom-color: var(--accent);
+				}
+
+			.actions,
+			.language-switch {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.65rem;
+				margin-top: 0.8rem;
+			}
+
+			.action-button,
+			.language-link {
+					display: inline-flex;
+					align-items: center;
+					min-height: 2rem;
+					padding: 0.15rem 0;
+					background: transparent;
+					border: none;
+					color: var(--cv-muted);
+					cursor: pointer;
+					font-size: 0.62rem;
+					letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+				.action-button {
+					font-family: var(--font-mono);
+				}
+
+			.action-button:hover,
+			.language-link:hover {
+				color: var(--accent);
+			}
+
+				.cv-section {
+					display: grid;
+					grid-template-columns: 8.25rem minmax(0, 1fr);
+					gap: 1.25rem;
+					padding: 0.2rem 0 1.1rem;
+				}
+
+				.section-kicker {
+					color: var(--cv-muted);
+					font-size: 0.65rem;
+					letter-spacing: 0.12em;
+					text-transform: uppercase;
+				opacity: 0.7;
+				padding-top: 0.12rem;
+			}
+
+			.focus-list {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr);
+				gap: 0.35rem;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				max-width: 34rem;
+			}
+
+				.tag {
+					color: var(--cv-muted);
+					font-family: var(--cv-sans);
+					font-size: 0.78rem;
+					letter-spacing: 0;
+					line-height: 1.45;
+					padding: 0;
+				background: transparent;
+				max-width: 100%;
+				box-sizing: border-box;
+				overflow-wrap: anywhere;
+				white-space: normal;
+			}
+
+			.tag::before {
+				content: '·';
+				color: var(--accent);
+				margin-right: 0.4rem;
+			}
+
+				.cv-content {
+					padding-top: 0.65rem;
+				}
+
+				.cv-content :global(h2) {
+					font-family: var(--cv-sans);
+					font-size: 0.72rem;
+					font-weight: 650;
+					letter-spacing: 0.12em;
+					text-transform: uppercase;
+					color: var(--cv-muted);
+					margin: 2.1rem 0 0.85rem;
+				}
+
+				.cv-content :global(h2:first-child) {
+					margin-top: 0;
+				}
+
+				.cv-content :global(h3) {
+					font-family: var(--cv-sans);
+					font-size: 1rem;
+					font-weight: 650;
+					line-height: 1.2;
+					margin: 1.35rem 0 0.12rem;
+					letter-spacing: 0;
+				}
+
+				.cv-content :global(h3 + p) {
+					margin-top: 0;
+					color: var(--cv-muted);
+					font-family: var(--cv-sans);
+					font-size: 0.76rem;
+					line-height: 1.4;
+				}
+
+				.cv-content :global(details) {
+					margin: 0.35rem 0 1.15rem;
+				}
+
+				.cv-content :global(summary) {
+					cursor: pointer;
+					display: inline-flex;
+					align-items: center;
+					gap: 0.45rem;
+					color: var(--cv-muted);
+					font-family: var(--cv-sans);
+					font-size: 0.74rem;
+					letter-spacing: 0;
+					text-transform: none;
+					list-style: none;
+					user-select: none;
+				}
+
+			.cv-content :global(summary::-webkit-details-marker) {
+				display: none;
+			}
+
+				.cv-content :global(summary::before) {
+					content: '+';
+					color: var(--accent);
+					font-family: var(--font-mono);
+					font-size: 0.65rem;
+				}
+
+			.cv-content :global(details[open] summary::before) {
+				content: '-';
+			}
+
+				.cv-content :global(details ul) {
+					margin-top: 0.7rem;
+				}
+
+				.cv-content :global(p),
+				.cv-content :global(li) {
+					color: var(--cv-muted);
+					font-family: var(--cv-sans);
+					font-size: 0.86rem;
+					line-height: 1.55;
+				}
+
+			.cv-content :global(p) {
+				margin-bottom: 0.75rem;
+			}
+
+				.cv-content :global(ul) {
+					margin: 0 0 1rem;
+					padding-left: 1rem;
+				}
+
+				.cv-content :global(li) {
+					margin-bottom: 0.32rem;
+				}
+
+				.cv-content :global(strong) {
+					color: var(--text);
+					font-weight: 550;
+				}
+
+			.cv-content :global(a) {
+				color: var(--accent-dark);
+				border-bottom-color: var(--accent-light);
+			}
+
+			@media (max-width: 720px) {
+				main {
+					width: auto;
+					max-width: 100%;
+					padding-left: 1.25rem;
+					padding-right: 1.75rem;
+				}
+
+				.cv-hero,
+				.cv-section {
+					grid-template-columns: 1fr;
+				}
+
+				.cv-hero {
+					gap: 1rem;
+					padding-bottom: 1rem;
+					margin-bottom: 1rem;
+				}
+
+				.role {
+					max-width: 18rem;
+				}
+
+				.summary,
+				.cv-content :global(p),
+				.cv-content :global(li) {
+					max-width: 19rem;
+				}
+
+					.meta-panel {
+						border-left: none;
+						border-top: none;
+						padding: 0;
+					}
+
+				.cv-section {
+					gap: 0.55rem;
+				}
+
+				.focus-list {
+					display: grid;
+					grid-template-columns: minmax(0, 1fr);
+					gap: 0.3rem;
+				}
+
+				.tag {
+					display: block;
+					width: 100%;
+				}
+
+				.cv-content :global(h2) {
+					margin-top: 1.55rem;
+					padding-top: 1rem;
+				}
+
+				.cv-content :global(h3) {
+					font-size: 1.05rem;
+				}
+
+				.cv-content :global(details) {
+					margin-bottom: 0.65rem;
+				}
+			}
+
+			@media print {
+				@page {
+					margin: 0.6in;
+				}
+
+				:global(header),
+				:global(footer),
+				.actions,
+				.language-switch,
+				body::after {
+					display: none !important;
+				}
+
+				:global(body) {
+					background: #fff;
+					color: #111;
+					font-size: 11pt;
+					line-height: 1.35;
+				}
+
+				main {
+					width: auto;
+					max-width: none;
+					padding: 0;
+				}
+
+				.cv-hero,
+				.cv-section,
+				.cv-content :global(h2),
+				.cv-content :global(h3) {
+					page-break-inside: avoid;
+				}
+
+				.cv-content :global(h2) {
+					margin-top: 1.7rem;
+					padding-top: 1.2rem;
+				}
+
+				.cv-content :global(details) {
+					border-bottom: none;
+				}
+
+				.cv-content :global(summary) {
+					display: none;
+				}
+
+				a {
+					color: #111;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main id="main">
+			<section class="cv-hero" aria-labelledby="cv-title">
+				<div>
+					<span class="eyebrow">curriculum vitae</span>
+					<h1 id="cv-title">{cv.data.name}</h1>
+					<p class="role">{cv.data.role}</p>
+					<p class="summary">{cv.data.description}</p>
+				</div>
+				<aside class="meta-panel" aria-label="Contact details">
+					<div class="meta">
+						<span>{cv.data.location}</span>
+						{cv.data.contact.map((item) => (
+							item.url ? (
+								<a href={item.url}>{item.value}</a>
+							) : (
+								<span>{item.value}</span>
+							)
+						))}
+						<span>Updated: {cv.data.updated}</span>
+					</div>
+					<div class="actions" aria-label="CV actions">
+						<button class="action-button" type="button" data-print>print</button>
+						<button class="action-button" type="button" data-copy>copy link</button>
+					</div>
+					<div class="language-switch" aria-label="CV language">
+						<span class="language-link" aria-current="true">English</span>
+					</div>
+				</aside>
+			</section>
+
+			<section class="cv-section" aria-labelledby="focus-title">
+				<div class="section-kicker" id="focus-title">focus</div>
+				<ul class="focus-list">
+					{cv.data.focus.map((item) => <li class="tag">{item}</li>)}
+				</ul>
+			</section>
+
+			<section class="cv-section" aria-labelledby="languages-title">
+				<div class="section-kicker" id="languages-title">languages</div>
+				<ul class="focus-list">
+					{cv.data.languages.map((item) => <li class="tag">{item}</li>)}
+				</ul>
+			</section>
+
+			<div class="cv-content">
+				<Content />
+			</div>
+		</main>
+		<Footer />
+		<script>
+			const printButton = document.querySelector('[data-print]');
+			const copyButton = document.querySelector('[data-copy]');
+
+			printButton?.addEventListener('click', () => window.print());
+			window.addEventListener('beforeprint', () => {
+				document.querySelectorAll('.cv-content details').forEach((details) => {
+					details.setAttribute('open', '');
+				});
+			});
+
+			copyButton?.addEventListener('click', async () => {
+				const button = copyButton as HTMLButtonElement;
+				try {
+					await navigator.clipboard.writeText(window.location.href);
+					button.textContent = 'link copied';
+					setTimeout(() => {
+						button.textContent = 'copy link';
+					}, 1800);
+				} catch {
+					button.textContent = 'copy failed';
+					setTimeout(() => {
+						button.textContent = 'copy link';
+					}, 1800);
+				}
+			});
+		</script>
+	</body>
+</html>

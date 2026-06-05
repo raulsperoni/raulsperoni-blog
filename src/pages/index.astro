@@ -259,6 +259,7 @@ for (const [date, items] of sortedDates) {
 				text-decoration: none;
 				border: none;
 				display: block;
+				overflow-wrap: break-word;
 				transition: color 0.15s ease;
 			}
 
@@ -272,6 +273,7 @@ for (const [date, items] of sortedDates) {
 				color: var(--text-light);
 				line-height: 1.55;
 				margin: 0.35rem 0 0;
+				overflow-wrap: break-word;
 			}
 
 			.view-all {
@@ -291,6 +293,62 @@ for (const [date, items] of sortedDates) {
 			.view-all:hover {
 				opacity: 1;
 				color: var(--accent);
+			}
+
+			/* — CV — */
+			.cv-note {
+				display: grid;
+				grid-template-columns: 6rem 1fr auto;
+				gap: 0 2rem;
+				align-items: start;
+				padding: 1.35rem 0;
+				border-top: 1px solid var(--border);
+				border-bottom: 1px solid var(--border);
+				margin: -0.5rem 0 3rem;
+			}
+
+			.cv-note-label,
+			.cv-note-link {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			.cv-note-label {
+				color: var(--text-light);
+				opacity: 0.65;
+				padding-top: 0.25rem;
+			}
+
+			.cv-note-title {
+				font-family: var(--font-display);
+				font-size: 1.25rem;
+				font-weight: 700;
+				line-height: 1.25;
+				margin: 0 0 0.35rem;
+			}
+
+			.cv-note-desc {
+				color: var(--text-light);
+				font-size: 0.9rem;
+				line-height: 1.55;
+				margin: 0;
+				overflow-wrap: break-word;
+			}
+
+			.cv-note-link {
+				border: none;
+				color: var(--text-light);
+				opacity: 0.7;
+				padding-top: 0.25rem;
+				white-space: nowrap;
+			}
+
+			.cv-note-link:hover {
+				border: none;
+				color: var(--accent);
+				opacity: 1;
 			}
 
 			/* — Tags grid — */
@@ -684,6 +742,22 @@ for (const [date, items] of sortedDates) {
 					padding-top: 0;
 				}
 
+				.cv-note {
+					grid-template-columns: 1fr;
+					gap: 0.45rem;
+				}
+
+				.cv-note-label,
+				.cv-note-link {
+					padding-top: 0;
+				}
+
+				.intro-sub,
+				.cv-note-desc,
+				.recent-post-desc {
+					max-width: 17.5rem;
+				}
+
 				.heatmap-section {
 					margin-bottom: 2rem;
 					display: flex;
@@ -777,9 +851,21 @@ for (const [date, items] of sortedDates) {
 
 			<!-- Identity intro -->
 			<div class="intro">
-				<p class="intro-line">Ya fuí de todo.</p>
+				<p class="intro-line">Ya fui de todo.</p>
 				<p class="intro-sub">palabras, código, y kilómetros desde Uruguay.</p>
 			</div>
+
+			<section class="cv-note" aria-labelledby="cv-note-title">
+				<div class="cv-note-label">cv</div>
+				<div>
+					<h2 class="cv-note-title" id="cv-note-title">Trabajo, proyectos y oficio.</h2>
+					<p class="cv-note-desc">
+						Una versión más seria y compartible de lo que hago: software,
+						participación digital, escritura pública e IA aplicada.
+					</p>
+				</div>
+				<a class="cv-note-link" href="/cv/">abrir →</a>
+			</section>
 
 			<!-- Recent writing -->
 			<section class="recent-posts" aria-labelledby="recent-heading">
@@ -910,17 +996,17 @@ for (const [date, items] of sortedDates) {
 					<div class="heatmap-wrapper">
 						<div class="heatmap-days">
 							<div></div>
-							<div>Mon</div>
+							<div>Lun</div>
 							<div></div>
-							<div>Wed</div>
+							<div>Mié</div>
 							<div></div>
-							<div>Fri</div>
+							<div>Vie</div>
 							<div></div>
 						</div>
 						<div class="heatmap-main">
 							<div class="heatmap-months">
 								{(() => {
-									const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+									const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'];
 									const months: { name: string; column: number }[] = [];
 									let currentMonth = -1;
 

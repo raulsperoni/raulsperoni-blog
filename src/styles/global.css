@@ -66,6 +66,7 @@ body {
 }
 
 main {
+	box-sizing: border-box;
 	width: 960px;
 	max-width: calc(100% - 3rem);
 	margin: 0 auto;

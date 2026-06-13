@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-06-12T07:23:12.131Z",
+  "lastUpdated": "2026-06-13T06:58:57.346Z",
   "stats": {
     "biggest_ride_distance": 156465,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 11,
-      "distance": 677203.1,
-      "moving_time": 88400,
-      "elapsed_time": 95624,
-      "elevation_gain": 2101,
+      "count": 12,
+      "distance": 697572.9,
+      "moving_time": 92598,
+      "elapsed_time": 101181,
+      "elevation_gain": 2261,
       "achievement_count": 0
     },
     "all_ride_totals": {
-      "count": 573,
-      "distance": 18259724.900000006,
-      "moving_time": 2292893,
-      "elapsed_time": 2446236,
-      "elevation_gain": 558814.8
+      "count": 574,
+      "distance": 18280094.700000007,
+      "moving_time": 2297091,
+      "elapsed_time": 2451793,
+      "elevation_gain": 558974.8
     },
     "recent_run_totals": {
       "count": 12,
@@ -49,11 +49,11 @@
       "elevation_gain": 439.50000000000006
     },
     "ytd_ride_totals": {
-      "count": 58,
-      "distance": 3190992,
-      "moving_time": 380036,
-      "elapsed_time": 409549,
-      "elevation_gain": 10539
+      "count": 59,
+      "distance": 3211362,
+      "moving_time": 384234,
+      "elapsed_time": 415106,
+      "elevation_gain": 10699
     },
     "ytd_run_totals": {
       "count": 73,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 18890718929,
+      "name": "Afternoon Ride",
+      "distance": 20369.8,
+      "moving_time": 4198,
+      "elapsed_time": 5557,
+      "total_elevation_gain": 160,
+      "type": "Ride",
+      "sport_type": "Ride",
+      "start_date_local": "2026-06-12T00:00:00Z"
+    },
     {
       "id": 18849612766,
       "name": "Morning Ride",

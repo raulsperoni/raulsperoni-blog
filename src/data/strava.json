@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-06-15T09:22:43.442Z",
+  "lastUpdated": "2026-06-16T08:46:27.878Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 12,
-      "distance": 720211.8999999999,
-      "moving_time": 91802,
-      "elapsed_time": 97390,
+      "count": 11,
+      "distance": 693746.2999999999,
+      "moving_time": 89089,
+      "elapsed_time": 94677,
       "elevation_gain": 2368,
       "achievement_count": 0
     },
@@ -19,11 +19,11 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 13,
-      "distance": 150797.59999999998,
-      "moving_time": 46984,
-      "elapsed_time": 47528,
-      "elevation_gain": 400,
+      "count": 12,
+      "distance": 140886.3,
+      "moving_time": 43969,
+      "elapsed_time": 44444,
+      "elevation_gain": 360,
       "achievement_count": 0
     },
     "all_run_totals": {

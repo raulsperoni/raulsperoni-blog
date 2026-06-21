@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T07:01:26.159Z",
+  "lastUpdated": "2026-06-21T08:00:55.516Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,11 +19,11 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 11,
-      "distance": 132871.09999999998,
-      "moving_time": 41865,
-      "elapsed_time": 42340,
-      "elevation_gain": 339,
+      "count": 10,
+      "distance": 106866.9,
+      "moving_time": 33707,
+      "elapsed_time": 34167,
+      "elevation_gain": 284,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -34,10 +34,10 @@
       "elevation_gain": 679332.1000000001
     },
     "recent_swim_totals": {
-      "count": 6,
-      "distance": 19126.9,
-      "moving_time": 20373,
-      "elapsed_time": 23497,
+      "count": 5,
+      "distance": 15126.900000000001,
+      "moving_time": 15943,
+      "elapsed_time": 18591,
       "elevation_gain": 2.7,
       "achievement_count": 0
     },
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 18993821962,
+      "name": "Berlín",
+      "distance": 18000,
+      "moving_time": 10800,
+      "elapsed_time": 10800,
+      "total_elevation_gain": 0,
+      "type": "Walk",
+      "sport_type": "Walk",
+      "start_date_local": "2026-06-19T00:00:00Z"
+    },
     {
       "id": 18918433876,
       "name": "Morning Swim",

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T06:29:59.658Z",
+  "lastUpdated": "2026-06-28T07:02:54.187Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,11 +19,11 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 7,
-      "distance": 86796.5,
-      "moving_time": 28013,
-      "elapsed_time": 28473,
-      "elevation_gain": 219,
+      "count": 6,
+      "distance": 56786.4,
+      "moving_time": 18360,
+      "elapsed_time": 18770,
+      "elevation_gain": 153,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 19082883130,
+      "name": "Brussels walk",
+      "distance": 10000,
+      "moving_time": 7200,
+      "elapsed_time": 7200,
+      "total_elevation_gain": 0,
+      "type": "Walk",
+      "sport_type": "Walk",
+      "start_date_local": "2026-06-26T00:00:00Z"
+    },
     {
       "id": 18993821962,
       "name": "Berlín",

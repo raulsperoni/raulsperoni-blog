@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T06:33:03.441Z",
+  "lastUpdated": "2026-07-04T06:21:09.709Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 4,
-      "distance": 42144.9,
-      "moving_time": 14066,
-      "elapsed_time": 14476,
-      "elevation_gain": 108,
+      "count": 5,
+      "distance": 50155.3,
+      "moving_time": 16348,
+      "elapsed_time": 16758,
+      "elevation_gain": 131,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1118,
-      "distance": 8664727.199999994,
-      "moving_time": 2739225,
-      "elapsed_time": 2811991,
-      "elevation_gain": 679332.1000000001
+      "count": 1119,
+      "distance": 8672737.599999994,
+      "moving_time": 2741507,
+      "elapsed_time": 2814273,
+      "elevation_gain": 679355.1000000001
     },
     "recent_swim_totals": {
       "count": 2,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 76,
-      "distance": 916310,
-      "moving_time": 280139,
-      "elapsed_time": 282560,
-      "elevation_gain": 4120
+      "count": 77,
+      "distance": 924320,
+      "moving_time": 282421,
+      "elapsed_time": 284842,
+      "elevation_gain": 4143
     },
     "ytd_swim_totals": {
       "count": 52,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 19166705132,
+      "name": "Afternoon Run",
+      "distance": 8010.4,
+      "moving_time": 2282,
+      "elapsed_time": 2282,
+      "total_elevation_gain": 23,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-07-03T00:00:00Z"
+    },
     {
       "id": 19082883130,
       "name": "Brussels walk",

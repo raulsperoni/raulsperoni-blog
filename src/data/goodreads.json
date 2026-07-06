@@ -1,6 +1,46 @@
 {
-  "lastUpdated": "2026-07-05T06:41:07.507Z",
+  "lastUpdated": "2026-07-06T07:13:19.948Z",
   "activities": [
+    {
+      "id": "ReadStatus11100604290",
+      "bookTitle": "The Tainted Cup",
+      "author": "Robert Jackson Bennett",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1743071083l/195512668._SY75_.jpg",
+      "pubDate": "2026-07-05T18:07:04.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305218062"
+    },
+    {
+      "id": "ReadStatus11100485077",
+      "bookTitle": "The Blacktongue Thief",
+      "author": "Christopher Buehlman",
+      "action": "activity",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1604070256l/55548155._SY75_.jpg",
+      "pubDate": "2026-07-05T17:35:40.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/7061785419"
+    },
+    {
+      "id": "ReadStatus11100484115",
+      "bookTitle": "Slow Gods",
+      "author": "Claire North",
+      "action": "activity",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1740714039l/223386724._SY75_.jpg",
+      "pubDate": "2026-07-05T17:35:25.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8532560600"
+    },
+    {
+      "id": "Review8725695462",
+      "bookTitle": "Green City Wars",
+      "author": "Adrian Tchaikovsky",
+      "action": "read",
+      "rating": 4,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1761018699l/240323771._SY75_.jpg",
+      "pubDate": "2026-07-05T17:09:43.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8725695462"
+    },
     {
       "id": "ReadStatus11074769943",
       "bookTitle": "Green City Wars",

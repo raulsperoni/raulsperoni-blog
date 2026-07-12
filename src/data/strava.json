@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T05:41:15.500Z",
+  "lastUpdated": "2026-07-12T06:02:26.104Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,25 +19,25 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 5,
-      "distance": 39188.2,
-      "moving_time": 12994,
-      "elapsed_time": 13387,
-      "elevation_gain": 178,
+      "count": 4,
+      "distance": 41465.799999999996,
+      "moving_time": 13135,
+      "elapsed_time": 13259,
+      "elevation_gain": 175,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1120,
-      "distance": 8680593.799999993,
-      "moving_time": 2743991,
-      "elapsed_time": 2816757,
-      "elevation_gain": 679428.1000000001
+      "count": 1121,
+      "distance": 8690039.399999993,
+      "moving_time": 2746833,
+      "elapsed_time": 2819599,
+      "elevation_gain": 679457.1000000001
     },
     "recent_swim_totals": {
-      "count": 3,
-      "distance": 5751.900000000001,
-      "moving_time": 6282,
-      "elapsed_time": 7148,
+      "count": 2,
+      "distance": 5403.8,
+      "moving_time": 5775,
+      "elapsed_time": 6641,
       "elevation_gain": 2.7,
       "achievement_count": 0
     },
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 78,
-      "distance": 932176,
-      "moving_time": 284905,
-      "elapsed_time": 287326,
-      "elevation_gain": 4216
+      "count": 79,
+      "distance": 941622,
+      "moving_time": 287747,
+      "elapsed_time": 290168,
+      "elevation_gain": 4245
     },
     "ytd_swim_totals": {
       "count": 53,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 19269270935,
+      "name": "Morning Run",
+      "distance": 9445.6,
+      "moving_time": 2842,
+      "elapsed_time": 2842,
+      "total_elevation_gain": 29,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-07-11T00:00:00Z"
+    },
     {
       "id": 19212248468,
       "name": "Morning Swim",

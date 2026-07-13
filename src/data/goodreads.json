@@ -1,6 +1,26 @@
 {
-  "lastUpdated": "2026-07-12T06:02:26.661Z",
+  "lastUpdated": "2026-07-13T06:19:38.321Z",
   "activities": [
+    {
+      "id": "UserFollowing349672328",
+      "bookTitle": "Raúl is now following Robert Bennett",
+      "author": null,
+      "action": "activity",
+      "rating": null,
+      "coverImage": null,
+      "pubDate": "2026-07-12T21:31:43.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/user/show/7322065-robert-bennett"
+    },
+    {
+      "id": "Review8305218062",
+      "bookTitle": "The Tainted Cup",
+      "author": "Robert Jackson Bennett",
+      "action": "read",
+      "rating": 5,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1743071083l/195512668._SY75_.jpg",
+      "pubDate": "2026-07-12T21:28:21.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305218062"
+    },
     {
       "id": "ReadStatus11100604290",
       "bookTitle": "The Tainted Cup",

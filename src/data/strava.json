@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2026-07-12T06:02:26.104Z",
+  "lastUpdated": "2026-07-13T06:19:37.719Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 1,
-      "distance": 179104,
-      "moving_time": 19359,
-      "elapsed_time": 19436,
-      "elevation_gain": 1121,
+      "count": 0,
+      "distance": 0,
+      "moving_time": 0,
+      "elapsed_time": 0,
+      "elevation_gain": 0,
       "achievement_count": 0
     },
     "all_ride_totals": {
@@ -19,11 +19,11 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 4,
-      "distance": 41465.799999999996,
-      "moving_time": 13135,
-      "elapsed_time": 13259,
-      "elevation_gain": 175,
+      "count": 3,
+      "distance": 25312.199999999997,
+      "moving_time": 7608,
+      "elapsed_time": 7608,
+      "elevation_gain": 125,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -34,11 +34,11 @@
       "elevation_gain": 679457.1000000001
     },
     "recent_swim_totals": {
-      "count": 2,
-      "distance": 5403.8,
-      "moving_time": 5775,
-      "elapsed_time": 6641,
-      "elevation_gain": 2.7,
+      "count": 1,
+      "distance": 1625,
+      "moving_time": 1586,
+      "elapsed_time": 2452,
+      "elevation_gain": 0,
       "achievement_count": 0
     },
     "all_swim_totals": {

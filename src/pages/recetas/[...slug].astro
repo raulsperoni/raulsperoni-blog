@@ -1,0 +1,560 @@
+---
+import { Image } from 'astro:assets';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_AUTHOR } from '../../consts';
+
+export async function getStaticPaths() {
+	const recetas = await getCollection('recetas');
+	return recetas.map((receta) => ({
+		params: { slug: receta.id },
+		props: receta,
+	}));
+}
+type Props = CollectionEntry<'recetas'>;
+
+const receta = Astro.props;
+const { Content } = await render(receta);
+const { title, description, pubDate, heroImage, temperatura, hidratacion, categoria, source, recipe, tags } =
+	receta.data;
+
+const all = (await getCollection('recetas')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const i = all.findIndex((p) => p.id === receta.id);
+const prev = all[i + 1] ?? null;
+const next = all[i - 1] ?? null;
+
+const fmtIng = (list: { item: string; grams?: number; note?: string }[]) =>
+	list.map((x) => `${x.grams ? `${x.grams} g ` : ''}${x.item}`);
+
+const recipeLd =
+	recipe && recipe.dough.length > 0
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'Recipe',
+				name: title,
+				description,
+				datePublished: pubDate.toISOString(),
+				url: Astro.url.href,
+				inLanguage: 'es',
+				author: { '@type': 'Person', name: SITE_AUTHOR.name, url: SITE_AUTHOR.url },
+				...(heroImage && { image: new URL(heroImage.src, Astro.url).href }),
+				recipeCategory: categoria,
+				recipeCuisine: 'Panadería casera',
+				keywords: tags.join(', '),
+				recipeIngredient: fmtIng(recipe.dough),
+				...(recipe.schedule.filter((s) => s.step).length > 0 && {
+					recipeInstructions: recipe.schedule
+						.filter((s) => s.step)
+						.map((s) => ({ '@type': 'HowToStep', name: s.time, text: s.step })),
+				}),
+			}
+		: {
+				'@context': 'https://schema.org',
+				'@type': 'BlogPosting',
+				headline: title,
+				description,
+				datePublished: pubDate.toISOString(),
+				url: Astro.url.href,
+				inLanguage: 'es',
+				author: { '@type': 'Person', name: SITE_AUTHOR.name, url: SITE_AUTHOR.url },
+				...(tags.length > 0 && { keywords: tags.join(', ') }),
+			};
+---
+
+<html lang="es">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			image={heroImage}
+			ogImageUrl={!heroImage ? `/og/recetas/${receta.id}.png` : undefined}
+			ogType="article"
+		/>
+		<script type="application/ld+json" set:html={JSON.stringify(recipeLd)} />
+		<style>
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			.hero-image {
+				width: 100%;
+				margin: 0;
+				overflow: hidden;
+				max-height: 520px;
+			}
+
+			.hero-image img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				margin: 0;
+				max-height: 520px;
+			}
+
+			.prose {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 3.5rem 1.5rem 2rem;
+			}
+
+			.title {
+				margin-bottom: 2.5rem;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.dateline {
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--text-light);
+				margin-bottom: 1.25rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+
+			.dateline::before {
+				content: '';
+				display: inline-block;
+				width: 1.5rem;
+				height: 1px;
+				background: var(--accent);
+				flex-shrink: 0;
+			}
+
+			.title h1 {
+				margin: 0 0 1.25rem 0;
+				font-size: 3rem;
+				line-height: 1.1;
+				letter-spacing: -0.02em;
+			}
+
+			.facts {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-top: 1.25rem;
+			}
+
+			.fact {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: var(--accent-dark);
+				background: var(--accent-light);
+				border-radius: var(--radius-sm);
+				padding: 0.3rem 0.6rem;
+			}
+
+			.tag {
+				padding: 0.25rem 0.625rem;
+				background: transparent;
+				color: var(--text-light);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: lowercase;
+				letter-spacing: 0.04em;
+			}
+
+			.tag::before {
+				content: '#';
+				opacity: 0.5;
+			}
+
+			.prose :global(p) {
+				font-family: var(--font-body);
+				font-size: 1.0625rem;
+				line-height: 1.8;
+			}
+
+			.prose :global(h2) {
+				margin-top: 2.5em;
+				font-size: 1.75rem;
+			}
+
+			.prose :global(h3) {
+				margin-top: 2em;
+				font-size: 1.375rem;
+			}
+
+			.prose :global(img) {
+				display: block;
+				max-width: min(100%, 560px);
+				height: auto;
+				margin: 2rem auto;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+			}
+
+			.prose :global(a) {
+				overflow-wrap: break-word;
+			}
+
+			/* Recipe card */
+			.recipe {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 2.5rem 1.5rem 3rem;
+				border-top: 1px solid var(--border);
+			}
+
+			.recipe-label {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--text-light);
+				opacity: 0.6;
+				margin: 0 0 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+
+			.recipe-label::before {
+				content: '';
+				display: inline-block;
+				width: 1.5rem;
+				height: 1px;
+				background: var(--accent);
+				flex-shrink: 0;
+			}
+
+			.recipe h3 {
+				font-family: var(--font-display);
+				font-size: 1.1rem;
+				font-style: italic;
+				margin: 2rem 0 0.75rem;
+			}
+
+			.recipe h3:first-of-type {
+				margin-top: 0;
+			}
+
+			table.ingredients {
+				width: 100%;
+				border-collapse: collapse;
+				font-family: var(--font-body);
+				font-size: 0.95rem;
+			}
+
+			table.ingredients td {
+				padding: 0.4rem 0;
+				border-bottom: 1px solid var(--border);
+				vertical-align: baseline;
+			}
+
+			table.ingredients td.qty {
+				font-family: var(--font-mono);
+				font-size: 0.8rem;
+				color: var(--accent-dark);
+				text-align: right;
+				white-space: nowrap;
+				width: 4.5rem;
+				padding-right: 1rem;
+			}
+
+			table.ingredients td.note {
+				font-size: 0.8rem;
+				color: var(--text-light);
+				font-style: italic;
+				text-align: right;
+				padding-left: 1rem;
+			}
+
+			ol.schedule {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			ol.schedule li {
+				display: grid;
+				grid-template-columns: 8.5rem 1fr;
+				gap: 0 1rem;
+				padding: 0.5rem 0;
+				border-bottom: 1px solid var(--border);
+				font-size: 0.95rem;
+				line-height: 1.5;
+			}
+
+			ol.schedule li.day {
+				grid-template-columns: 1fr;
+				border-bottom: none;
+				padding-bottom: 0.25rem;
+				margin-top: 0.75rem;
+			}
+
+			ol.schedule li.day:first-child {
+				margin-top: 0;
+			}
+
+			ol.schedule .time {
+				font-family: var(--font-mono);
+				font-size: 0.75rem;
+				color: var(--text-light);
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				padding-top: 0.15rem;
+			}
+
+			ol.schedule li.day .time {
+				font-family: var(--font-display);
+				font-style: italic;
+				font-size: 1rem;
+				color: var(--accent-dark);
+				text-transform: none;
+				letter-spacing: 0;
+			}
+
+			.source {
+				margin-top: 2rem;
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				color: var(--text-light);
+				letter-spacing: 0.03em;
+			}
+
+			.source a {
+				color: var(--accent-dark);
+			}
+
+			.post-nav {
+				width: 680px;
+				max-width: calc(100% - 3rem);
+				margin: 0 auto;
+				padding: 2rem 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				border-top: 1px solid var(--border);
+			}
+
+			.post-nav-link {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				transition: color 0.15s ease;
+				max-width: 45%;
+			}
+
+			.post-nav-link:hover {
+				color: var(--accent);
+			}
+
+			.post-nav-link.next {
+				flex-direction: row-reverse;
+				text-align: right;
+			}
+
+			.post-nav-arrow {
+				flex-shrink: 0;
+				opacity: 0.5;
+			}
+
+			.post-nav-label {
+				display: block;
+				opacity: 0.5;
+				font-size: 0.6rem;
+				margin-bottom: 0.2rem;
+			}
+
+			.post-nav-title {
+				font-family: var(--font-display);
+				font-size: 0.875rem;
+				font-weight: 700;
+				font-style: italic;
+				text-transform: none;
+				letter-spacing: 0;
+				color: var(--text);
+				line-height: 1.3;
+				display: block;
+			}
+
+			.post-nav-link:hover .post-nav-title {
+				color: var(--accent);
+			}
+
+			.post-nav-back {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--text-light);
+				text-decoration: none;
+				opacity: 0.5;
+				transition: opacity 0.15s ease, color 0.15s ease;
+			}
+
+			.post-nav-back:hover {
+				opacity: 1;
+				color: var(--accent);
+			}
+
+			@media (max-width: 720px) {
+				.prose {
+					padding: 2.5rem 1.25rem 2rem;
+				}
+
+				.title h1 {
+					font-size: 2.25rem;
+				}
+
+				ol.schedule li {
+					grid-template-columns: 1fr;
+					gap: 0.15rem;
+				}
+
+				.post-nav {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 1.5rem;
+				}
+
+				.post-nav-link {
+					max-width: 100%;
+				}
+
+				.post-nav-link.next {
+					flex-direction: row;
+					text-align: left;
+					align-self: flex-end;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main id="main">
+			<article>
+				{heroImage && (
+					<div class="hero-image">
+						<Image src={heroImage} alt={title} width={1200} height={520} />
+					</div>
+				)}
+				<div class="prose">
+					<div class="title">
+						<div class="dateline">
+							<FormattedDate date={pubDate} />
+						</div>
+						<h1>{title}</h1>
+						<div class="facts">
+							<span class="fact">{categoria}</span>
+							{hidratacion && <span class="fact">hidratación {hidratacion}</span>}
+							{temperatura !== undefined && <span class="fact">{temperatura}°C ambiente</span>}
+							{tags.map((tag) => <span class="tag">{tag}</span>)}
+						</div>
+					</div>
+					<Content />
+				</div>
+			</article>
+
+			{recipe && (recipe.dough.length > 0 || recipe.starter.length > 0) && (
+				<section class="recipe" aria-label="Receta">
+					<p class="recipe-label">la receta</p>
+					{recipe.starter.length > 0 && (
+						<>
+							<h3>Masa madre (paso cero)</h3>
+							<table class="ingredients">
+								<tbody>
+									{recipe.starter.map((ing) => (
+										<tr>
+											<td class="qty">{ing.grams ? `${ing.grams} g` : ''}</td>
+											<td>{ing.item}</td>
+											<td class="note">{ing.note ?? ''}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</>
+					)}
+					{recipe.dough.length > 0 && (
+						<>
+							<h3>Masa final</h3>
+							<table class="ingredients">
+								<tbody>
+									{recipe.dough.map((ing) => (
+										<tr>
+											<td class="qty">{ing.grams ? `${ing.grams} g` : ''}</td>
+											<td>{ing.item}</td>
+											<td class="note">{ing.note ?? ''}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</>
+					)}
+					{recipe.schedule.length > 0 && (
+						<>
+							<h3>Itinerario</h3>
+							<ol class="schedule">
+								{recipe.schedule.map((s) => (
+									<li class={s.step ? '' : 'day'}>
+										<span class="time">{s.time}</span>
+										{s.step && <span class="step">{s.step}</span>}
+									</li>
+								))}
+							</ol>
+						</>
+					)}
+					{source && (
+						<p class="source">
+							Fuente: {source.url ? <a href={source.url} target="_blank" rel="noopener noreferrer">{source.text}</a> : source.text}
+						</p>
+					)}
+				</section>
+			)}
+
+			<nav class="post-nav" aria-label="Navegación entre recetas">
+				{prev ? (
+					<a href={`/recetas/${prev.id}/`} class="post-nav-link prev">
+						<span class="post-nav-arrow">←</span>
+						<span>
+							<span class="post-nav-label">anterior</span>
+							<span class="post-nav-title">{prev.data.title}</span>
+						</span>
+					</a>
+				) : (
+					<span />
+				)}
+				<a href="/recetas/" class="post-nav-back">todas las recetas</a>
+				{next ? (
+					<a href={`/recetas/${next.id}/`} class="post-nav-link next">
+						<span class="post-nav-arrow">→</span>
+						<span>
+							<span class="post-nav-label">siguiente</span>
+							<span class="post-nav-title">{next.data.title}</span>
+						</span>
+					</a>
+				) : (
+					<span />
+				)}
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>

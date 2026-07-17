@@ -139,6 +139,51 @@ const til = defineCollection({
 	}),
 });
 
+const ingredient = z.object({
+	item: z.string(),
+	grams: z.number().optional(),
+	note: z.string().optional(),
+});
+
+const recetas = defineCollection({
+	loader: glob({ base: './src/content/recetas', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			heroImage: image().optional(),
+			ogImage: image().optional(),
+			// Ambient kitchen temperature (°C) — matters for sourdough timing.
+			temperatura: z.number().optional(),
+			// Baker's hydration, e.g. "72%", when the post states it.
+			hidratacion: z.string().optional(),
+			// Recipe category for schema.org (Pan, Pizza, Focaccia, ...).
+			categoria: z.string().default('Pan'),
+			source: z
+				.object({
+					text: z.string(),
+					// absolute (instagram/youtube/…) or internal (/recetas/…)
+					url: z.string().optional(),
+				})
+				.optional(),
+			// Structured recipe. Absent for narrative primers (e.g. las-basicas).
+			recipe: z
+				.object({
+					// Levain build / MM feed (pre_receta).
+					starter: z.array(ingredient).default([]),
+					// Final dough ingredients (receta).
+					dough: z.array(ingredient).default([]),
+					// Timeline (itinerario). Empty step = day separator.
+					schedule: z
+						.array(z.object({ time: z.string(), step: z.string() }))
+						.default([]),
+				})
+				.optional(),
+			tags: z.array(z.string()).default([]),
+		}),
+});
+
 const cv = defineCollection({
 	loader: glob({
 		base: './src/content/cv',
@@ -164,4 +209,4 @@ const cv = defineCollection({
 	}),
 });
 
-export const collections = { blog, links, strava, goodreads, til, cv };
+export const collections = { blog, links, strava, goodreads, til, cv, recetas };

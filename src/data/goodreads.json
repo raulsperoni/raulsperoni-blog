@@ -1,6 +1,16 @@
 {
-  "lastUpdated": "2026-07-17T13:15:04.021Z",
+  "lastUpdated": "2026-07-19T05:53:33.073Z",
   "activities": [
+    {
+      "id": "ReadStatus11153702095",
+      "bookTitle": "Circe",
+      "author": "Madeline Miller",
+      "action": "want",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1565909496l/35959740._SY75_.jpg",
+      "pubDate": "2026-07-18T19:56:32.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8781150094"
+    },
     {
       "id": "UserFollowing349672328",
       "bookTitle": "Raúl is now following Robert Bennett",

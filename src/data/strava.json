@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-20T06:18:32.555Z",
+  "lastUpdated": "2026-07-21T05:51:17.900Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 5,
-      "distance": 38659,
-      "moving_time": 12061,
-      "elapsed_time": 12064,
-      "elevation_gain": 178,
+      "count": 6,
+      "distance": 47286,
+      "moving_time": 14770,
+      "elapsed_time": 14773,
+      "elevation_gain": 217,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1123,
-      "distance": 8703386.199999994,
-      "moving_time": 2751286,
-      "elapsed_time": 2824055,
-      "elevation_gain": 679510.1000000001
+      "count": 1124,
+      "distance": 8712013.199999994,
+      "moving_time": 2753995,
+      "elapsed_time": 2826764,
+      "elevation_gain": 679549.1000000001
     },
     "recent_swim_totals": {
       "count": 3,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 81,
-      "distance": 954969,
-      "moving_time": 292200,
-      "elapsed_time": 294624,
-      "elevation_gain": 4298
+      "count": 82,
+      "distance": 963596,
+      "moving_time": 294909,
+      "elapsed_time": 297333,
+      "elevation_gain": 4337
     },
     "ytd_swim_totals": {
       "count": 55,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 19393707399,
+      "name": "Afternoon Run",
+      "distance": 8627,
+      "moving_time": 2709,
+      "elapsed_time": 2709,
+      "total_elevation_gain": 39,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-07-20T00:00:00Z"
+    },
     {
       "id": 19354332702,
       "name": "Afternoon Weight Training",

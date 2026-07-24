@@ -47,7 +47,7 @@ recipe:
     - time: "Durante las siguente 5 horas"
       step: "Estirar y plegar cada una hora y media"
     - time: "22hs"
-      step: "Darle forma en la mesada y colocar en molde. Llevar a la heladera envuelto en una bolsa."
+      step: "Darle forma en la mesada y colocar en molde. Llevar a la heladera envuelto en una bolsa para fermentación lenta."
     - time: "Día 2"
       step: ""
     - time: "8am"

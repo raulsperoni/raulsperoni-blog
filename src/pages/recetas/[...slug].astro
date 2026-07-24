@@ -31,6 +31,12 @@ const next = all[i - 1] ?? null;
 const fmtIng = (list: { item: string; grams?: number; note?: string }[]) =>
 	list.map((x) => `${x.grams ? `${x.grams} g ` : ''}${x.item}`);
 
+const sumGrams = (list: { grams?: number }[] = []) =>
+	list.reduce((acc, x) => acc + (x.grams ?? 0), 0);
+
+const starterTotal = sumGrams(recipe?.starter);
+const doughTotal = sumGrams(recipe?.dough);
+
 const recipeLd =
 	recipe && recipe.dough.length > 0
 		? {
@@ -278,6 +284,122 @@ const recipeLd =
 				padding-left: 1rem;
 			}
 
+			table.ingredients tr.total td {
+				border-bottom: none;
+				padding-top: 0.6rem;
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+			}
+
+			table.ingredients tr.total td.qty {
+				text-transform: none;
+			}
+
+			/* Scaler */
+			.scale {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.5rem 0.75rem;
+				margin: 0 0 1.75rem;
+				padding-bottom: 1.25rem;
+				border-bottom: 1px solid var(--border);
+			}
+
+			/* display:flex would otherwise beat the UA rule for [hidden]. */
+			.scale[hidden] {
+				display: none;
+			}
+
+			.scale-label,
+			.scale-hint {
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+			}
+
+			.scale-hint {
+				text-transform: none;
+				letter-spacing: 0;
+				opacity: 0.7;
+				font-style: italic;
+			}
+
+			.scale-buttons {
+				display: flex;
+				gap: 0.35rem;
+			}
+
+			.scale-buttons button {
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				line-height: 1;
+				padding: 0.35rem 0.6rem;
+				min-width: 2rem;
+				color: var(--text-light);
+				background: transparent;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				cursor: pointer;
+				transition: color 0.15s ease, border-color 0.15s ease;
+			}
+
+			.scale-buttons button:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+			}
+
+			.scale-buttons button.is-active {
+				color: var(--accent-dark);
+				background: var(--accent-light);
+				border-color: var(--accent-light);
+			}
+
+			.qty-input {
+				font-family: var(--font-mono);
+				font-size: 0.8rem;
+				color: var(--accent-dark);
+				text-align: right;
+				width: 3.25rem;
+				padding: 0.1rem 0.15rem;
+				background: transparent;
+				border: none;
+				border-bottom: 1px dashed transparent;
+				border-radius: 0;
+				appearance: none;
+			}
+
+			.qty-input:not([readonly]) {
+				border-bottom-color: var(--border);
+				cursor: text;
+			}
+
+			.qty-input:focus {
+				outline: none;
+				border-bottom-color: var(--accent);
+			}
+
+			.unit {
+				font-family: var(--font-mono);
+				font-size: 0.8rem;
+				color: var(--accent-dark);
+			}
+
+			@media print {
+				.scale {
+					display: none;
+				}
+
+				.qty-input {
+					border-bottom-color: transparent;
+				}
+			}
+
 			ol.schedule {
 				list-style: none;
 				margin: 0;
@@ -474,8 +596,23 @@ const recipeLd =
 			</article>
 
 			{recipe && (recipe.dough.length > 0 || recipe.starter.length > 0) && (
-				<section class="recipe" aria-label="Receta">
+				<section class="recipe" aria-label="Receta" data-recipe>
 					<p class="recipe-label">la receta</p>
+					{(starterTotal > 0 || doughTotal > 0) && (
+						<div class="scale" data-scale hidden>
+							<span class="scale-label">escalar</span>
+							<div class="scale-buttons">
+								<button type="button" data-factor="0.5">½</button>
+								<button type="button" data-factor="1" class="is-active">1</button>
+								<button type="button" data-factor="1.5">1½</button>
+								<button type="button" data-factor="2">2</button>
+								<button type="button" data-factor="3">3</button>
+							</div>
+							<span class="scale-hint">
+								o escribí los gramos que tenés en cualquier ingrediente
+							</span>
+						</div>
+					)}
 					{recipe.starter.length > 0 && (
 						<>
 							<h3>Masa madre (paso cero)</h3>
@@ -483,11 +620,33 @@ const recipeLd =
 								<tbody>
 									{recipe.starter.map((ing) => (
 										<tr>
-											<td class="qty">{ing.grams ? `${ing.grams} g` : ''}</td>
+											<td class="qty">
+												{ing.grams ? (
+													<>
+														<input
+															type="text"
+															inputmode="decimal"
+															class="qty-input"
+															readonly
+															value={ing.grams}
+															data-base={ing.grams}
+															aria-label={`Gramos de ${ing.item}`}
+														/>
+														<span class="unit">g</span>
+													</>
+												) : ''}
+											</td>
 											<td>{ing.item}</td>
 											<td class="note">{ing.note ?? ''}</td>
 										</tr>
 									))}
+									{starterTotal > 0 && (
+										<tr class="total">
+											<td class="qty"><span data-total={starterTotal}>{starterTotal}</span> g</td>
+											<td>total</td>
+											<td class="note" />
+										</tr>
+									)}
 								</tbody>
 							</table>
 						</>
@@ -499,11 +658,33 @@ const recipeLd =
 								<tbody>
 									{recipe.dough.map((ing) => (
 										<tr>
-											<td class="qty">{ing.grams ? `${ing.grams} g` : ''}</td>
+											<td class="qty">
+												{ing.grams ? (
+													<>
+														<input
+															type="text"
+															inputmode="decimal"
+															class="qty-input"
+															readonly
+															value={ing.grams}
+															data-base={ing.grams}
+															aria-label={`Gramos de ${ing.item}`}
+														/>
+														<span class="unit">g</span>
+													</>
+												) : ''}
+											</td>
 											<td>{ing.item}</td>
 											<td class="note">{ing.note ?? ''}</td>
 										</tr>
 									))}
+									{doughTotal > 0 && (
+										<tr class="total">
+											<td class="qty"><span data-total={doughTotal}>{doughTotal}</span> g</td>
+											<td>total</td>
+											<td class="note" />
+										</tr>
+									)}
 								</tbody>
 							</table>
 						</>
@@ -556,5 +737,61 @@ const recipeLd =
 			</nav>
 		</main>
 		<Footer />
+
+		<script>
+			// Recipe scaler: every gram is a multiple of the published amount.
+			// Editing any ingredient re-derives the factor and rescales the rest.
+			const recipe = document.querySelector<HTMLElement>('[data-recipe]');
+			const scale = recipe?.querySelector<HTMLElement>('[data-scale]');
+			const inputs = recipe
+				? Array.from(recipe.querySelectorAll<HTMLInputElement>('.qty-input'))
+				: [];
+			const totals = recipe
+				? Array.from(recipe.querySelectorAll<HTMLElement>('[data-total]'))
+				: [];
+			const buttons = scale
+				? Array.from(scale.querySelectorAll<HTMLButtonElement>('button[data-factor]'))
+				: [];
+
+			if (recipe && scale && inputs.length > 0) {
+				scale.hidden = false;
+				for (const input of inputs) input.removeAttribute('readonly');
+
+				const base = (el: HTMLElement) => Number(el.dataset.base ?? el.dataset.total ?? 0);
+
+				// Grams below 10 (salt, yeast) need a decimal to stay honest.
+				const fmt = (n: number) =>
+					n >= 10 ? String(Math.round(n)) : String(Math.round(n * 10) / 10);
+
+				let factor = 1;
+
+				const apply = (f: number, skip?: HTMLInputElement) => {
+					factor = f;
+					for (const input of inputs) {
+						if (input !== skip) input.value = fmt(base(input) * f);
+					}
+					for (const total of totals) total.textContent = fmt(base(total) * f);
+					for (const button of buttons) {
+						button.classList.toggle('is-active', Number(button.dataset.factor) === f);
+					}
+				};
+
+				for (const input of inputs) {
+					input.addEventListener('focus', () => input.select());
+					input.addEventListener('input', () => {
+						const grams = Number.parseFloat(input.value.replace(',', '.'));
+						const from = base(input);
+						if (!Number.isFinite(grams) || grams <= 0 || from <= 0) return;
+						apply(grams / from, input);
+					});
+					// Snap the edited field back to the canonical rounding.
+					input.addEventListener('blur', () => apply(factor));
+				}
+
+				for (const button of buttons) {
+					button.addEventListener('click', () => apply(Number(button.dataset.factor)));
+				}
+			}
+		</script>
 	</body>
 </html>

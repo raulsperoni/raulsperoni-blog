@@ -39,7 +39,7 @@ recipe:
     - time: "durante las 5hs después"
       step: "Esperar que crezca 2 y 1/2"
     - time: "cuándo creció"
-      step: "Dividir, formar, poner en Tuppers"
+      step: "Dividir, formar, poner en Tuppers y a la heladera para fermentación lenta"
     - time: "Dia 2,3,4,5"
       step: ""
     - time: "aguantan en la heladera para ir haciendo"

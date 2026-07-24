@@ -45,7 +45,7 @@ recipe:
     - time: "durante las 5hs después"
       step: "Plieges. Esperar que crezca 2 y 1/2"
     - time: "cuándo creció"
-      step: "Dividir, formar, poner en Molde"
+      step: "Dividir, formar, poner en Molde y a la heladera para fermentación lenta"
     - time: "Dia 2"
       step: ""
     - time: "de 12hs a 14hs después"

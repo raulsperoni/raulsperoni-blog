@@ -45,7 +45,7 @@ recipe:
     - time: "Durante 5 o 6hs"
       step: "Hacer pliegues cas 1 hora"
     - time: "Cuándo Creció"
-      step: "Dividir, formar, poner en la Heladera"
+      step: "Dividir, formar, poner en la heladera para fermentación lenta"
     - time: "Día 2"
       step: ""
     - time: "de 12 a 14hs después (la noche)"

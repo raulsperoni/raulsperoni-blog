@@ -1,6 +1,36 @@
 {
-  "lastUpdated": "2026-07-26T06:06:28.868Z",
+  "lastUpdated": "2026-07-27T06:30:58.812Z",
   "activities": [
+    {
+      "id": "ReadStatus11184906364",
+      "bookTitle": "The Dreaming Void",
+      "author": "Peter F. Hamilton",
+      "action": "reading",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451587419l/8161930._SY75_.jpg",
+      "pubDate": "2026-07-26T14:23:37.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8305206076"
+    },
+    {
+      "id": "ReadStatus11184904304",
+      "bookTitle": "The Temporal Void",
+      "author": "Peter F. Hamilton",
+      "action": "activity",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451588363l/8161929._SY75_.jpg",
+      "pubDate": "2026-07-26T14:23:00.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8802932128"
+    },
+    {
+      "id": "Review8802902249",
+      "bookTitle": "A Drop of Corruption",
+      "author": "Robert Jackson Bennett",
+      "action": "read",
+      "rating": 5,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1725377530l/213681682._SY75_.jpg",
+      "pubDate": "2026-07-26T14:10:50.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8802902249"
+    },
     {
       "id": "ReadStatus11153702095",
       "bookTitle": "Circe",

@@ -81,6 +81,50 @@ linkImage: '../../assets/images/screenshot.webp'  # Optional custom image
    - Example: `npm run add-link https://astro.build astro-site web development`
 2. **Manual**: Create markdown file in `src/content/links/` with frontmatter above
 
+### Recetas Collection
+
+Recipes render as **Cooking-for-Engineers tables**: ingredients down the left,
+operations to the right in cells that span every ingredient they touch, so the
+shape of the table is the shape of the process.
+
+```yaml
+recipe:
+  starter: [{ item: 'Harina Blanca', grams: 400 }, ...]   # masa madre
+  dough: [{ item: 'Sal', grams: 18, note: 'opcional' }, ...]
+  starterProcess: [{ do: 'mezclar', add: ['Harina Blanca', ...] }, ...]
+  process:
+    - do: 'horno a 250° con bandeja de agua'   # no `add` and first → prelude row
+    - do: 'mezclar'
+      time: 'día 1 · 6 a 8 h tras alimentar la MM'
+      add: ['Harina Blanca', 'Agua']          # names must match the ingredients
+    - do: 'pliegues hasta que crezca 2½'      # no `add` → spans the whole table
+      time: '5 h'
+```
+
+- Row order comes from the `process`, not from the ingredient list — ingredients
+  appear in the order you actually add them.
+- Names in `add` must match an ingredient exactly (accents/case forgiven). An
+  unknown name, or an ingredient no step adds, **fails the build** on purpose.
+- A step with no `add` that comes *before* any adding step becomes a full-width
+  prelude row (equipment/oven setup, like the printed tables do).
+- Keep each recipe at **≤6 operations**; more and the table scrolls sideways
+  even on desktop. Merge related actions into one cell (`time: '40 min a 250°
+  + 10 min a 200°'`).
+- Grid logic lives in `src/utils/recipeTable.ts`, markup in
+  `src/components/RecipeTable.astro`. The gram fields stay editable (the
+  scaler rescales the whole recipe from any one of them).
+- **Downloadable card**: `src/pages/recetas/[slug]/tabla.png.ts` renders the
+  same grid as a branded PNG at build time (satori + sharp, like the OG
+  images), linked from the recipe page as "descargar la tabla". It always shows
+  the published grams — the scaler only affects the page. Satori has no
+  rowspan, so that file computes every box height itself; it sets the grid in
+  JetBrains Mono because monospace makes the line wrapping computable.
+- Note the two Playfair files in `src/fonts/` are **mislabelled**:
+  `PlayfairDisplay-Bold.ttf` contains the italic face and `-Italic.ttf` the
+  bold one.
+- `schedule` (the old time/step list) still renders for recipes with no
+  `process`, but new recipes should use `process`.
+
 ## Image Handling
 
 **Uses Astro's built-in image optimization** for performance.

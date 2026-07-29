@@ -145,6 +145,16 @@ const ingredient = z.object({
 	note: z.string().optional(),
 });
 
+// One operation in a Cooking-for-Engineers style table: `add` names the
+// ingredients that join the dough here (matched against the phase's ingredient
+// list by name), and the cell spans every row introduced so far. Steps with no
+// `add` (pliegues, heladera, horno) span the whole table.
+const step = z.object({
+	do: z.string(),
+	time: z.string().optional(),
+	add: z.array(z.string()).default([]),
+});
+
 const recetas = defineCollection({
 	loader: glob({ base: './src/content/recetas', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) =>
@@ -174,7 +184,12 @@ const recetas = defineCollection({
 					starter: z.array(ingredient).default([]),
 					// Final dough ingredients (receta).
 					dough: z.array(ingredient).default([]),
-					// Timeline (itinerario). Empty step = day separator.
+					// Process tables. When present they replace `schedule`:
+					// the timings live in the step cells.
+					starterProcess: z.array(step).default([]),
+					process: z.array(step).default([]),
+					// Timeline (itinerario), for recipes with no `process` yet.
+					// Empty step = day separator.
 					schedule: z
 						.array(z.object({ time: z.string(), step: z.string() }))
 						.default([]),

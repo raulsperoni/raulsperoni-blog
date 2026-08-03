@@ -31,25 +31,27 @@ recipe:
       note: "% panadero: 75%"
     - item: "Sal"
       grams: 22
-  schedule:
-    - time: "Día 1"
-      step: ""
-    - time: "8hs"
-      step: "Alimentar MM"
-    - time: "6hs después"
-      step: "Mezclar harinas y agua"
-    - time: "1h después"
-      step: "Agregar Masa Madre y mezclar bien"
-    - time: "30 minutos después"
-      step: "Agregar sal"
-    - time: "Durante 5 o 6hs"
-      step: "Hacer pliegues cas 1 hora"
-    - time: "Cuándo Creció"
-      step: "Dividir, formar, poner en la heladera para fermentación lenta"
-    - time: "Día 2"
-      step: ""
-    - time: "de 12 a 14hs después (la noche)"
-      step: "Al horno!"
+  starterProcess:
+    - do: "mezclar"
+      add: ["Harina Blanca", "Harina de Centeno", "Agua", "Masa Madre Activa"]
+    - do: "esperar que duplique"
+      time: "6 h"
+  process:
+    - do: "mezclar"
+      time: "día 1 · 6 h tras alimentar la MM"
+      add: ["Harina Blanca", "Harina Integral", "Agua"]
+    - do: "mezclar bien"
+      time: "+1 h"
+      add: ["Masa Madre Activa"]
+    - do: "mezclar"
+      time: "+30 min"
+      add: ["Sal"]
+    - do: "pliegues cada hora"
+      time: "5 a 6 h"
+    - do: "dividir, formar y a la heladera"
+      time: "en frío"
+    - do: "al horno bien caliente"
+      time: "día 2 · 12 a 14 h"
 tags:
   - "pan"
   - "masa madre"

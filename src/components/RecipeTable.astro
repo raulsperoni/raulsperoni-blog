@@ -1,0 +1,277 @@
+---
+import type { RecipeTable } from '../utils/recipeTable';
+
+interface Props {
+	table: RecipeTable;
+	total: number;
+}
+
+const { table, total } = Astro.props;
+// Ingredients take two sub-columns (grams + name) before the operations.
+const width = 2 + table.columns;
+---
+
+<div class="proc-wrap">
+	<table class="proc" style={`--cols: ${table.columns}`}>
+		<colgroup>
+			<col class="col-qty" />
+			<col class="col-name" />
+			{Array.from({ length: table.columns }, () => <col class="col-op" />)}
+		</colgroup>
+		{table.prelude.length > 0 && (
+			<thead>
+				{table.prelude.map((step) => (
+					<tr>
+						<th class="prelude" colspan={width}>
+							{step.do}
+							{step.time && <span class="prelude-time">{step.time}</span>}
+						</th>
+					</tr>
+				))}
+			</thead>
+		)}
+		<tbody>
+			{table.rows.map((row) => (
+				<tr>
+					<td class="qty">
+						{row.ingredient.grams ? (
+							<>
+								<input
+									type="text"
+									inputmode="decimal"
+									class="qty-input"
+									readonly
+									value={row.ingredient.grams}
+									data-base={row.ingredient.grams}
+									aria-label={`Gramos de ${row.ingredient.item}`}
+								/>
+								<span class="unit">g</span>
+							</>
+						) : ''}
+					</td>
+					<td class="name">
+						{row.ingredient.item}
+						{row.ingredient.note && <span class="note">{row.ingredient.note}</span>}
+					</td>
+					{row.cells.map((cell) =>
+						cell.kind === 'op' ? (
+							<td class="op" rowspan={cell.rowspan}>
+								<span class="op-do">{cell.do}</span>
+								{cell.time && <span class="op-time">{cell.time}</span>}
+							</td>
+						) : (
+							<td class="gap" rowspan={cell.rowspan} colspan={cell.colspan} />
+						),
+					)}
+				</tr>
+			))}
+			{total > 0 && (
+				<tr class="total">
+					<td class="qty"><span data-total={total}>{total}</span> g</td>
+					<td class="name">total</td>
+					<td class="gap" colspan={table.columns} />
+				</tr>
+			)}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	/* Cooking-for-Engineers table: the merged cells carry the process, so the
+	   shape has to survive. On narrow screens it scrolls rather than reflow. */
+	.proc-wrap {
+		overflow-x: auto;
+		padding-bottom: 0.25rem;
+		/* Shadows that appear only on the side there's more table to see. */
+		background:
+			linear-gradient(to right, var(--bg) 40%, transparent) left center,
+			linear-gradient(to left, var(--bg) 40%, transparent) right center,
+			radial-gradient(farthest-side at 0 50%, rgba(28, 20, 16, 0.13), transparent)
+				left center,
+			radial-gradient(farthest-side at 100% 50%, rgba(28, 20, 16, 0.13), transparent)
+				right center;
+		background-repeat: no-repeat;
+		background-size: 2rem 100%, 2rem 100%, 0.6rem 100%, 0.6rem 100%;
+		background-attachment: local, local, scroll, scroll;
+	}
+
+	/* Every column is sized up front: a long operation label must wrap inside
+	   its cell instead of stretching the whole grid. */
+	table.proc {
+		/* Exactly the sum of the columns below, so a long prelude line can't
+		   stretch the grid. */
+		width: calc(17rem + var(--cols) * 5.5rem);
+		table-layout: fixed;
+		border-collapse: collapse;
+		font-family: var(--font-body);
+		font-size: 0.95rem;
+	}
+
+	.col-qty {
+		width: 4.75rem;
+	}
+
+	.col-name {
+		width: 12.25rem;
+	}
+
+	.col-op {
+		width: 5.5rem;
+	}
+
+	.prelude {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--accent-dark);
+		background: var(--accent-light);
+		text-align: left;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--border);
+	}
+
+	.prelude-time {
+		font-style: italic;
+		text-transform: none;
+		letter-spacing: 0;
+		opacity: 0.75;
+	}
+
+	.prelude-time::before {
+		content: ' · ';
+		opacity: 0.6;
+	}
+
+	.qty,
+	.name {
+		border-bottom: 1px solid var(--border);
+		vertical-align: baseline;
+		padding: 0.45rem 0;
+	}
+
+	.qty {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-dark);
+		text-align: right;
+		white-space: nowrap;
+		padding-right: 0.5rem;
+	}
+
+	.name {
+		padding-right: 0.75rem;
+		line-height: 1.4;
+	}
+
+	.note {
+		font-size: 0.8rem;
+		color: var(--text-light);
+		font-style: italic;
+	}
+
+	.note::before {
+		content: ' — ';
+		opacity: 0.6;
+	}
+
+	/* An operation cell hangs down over every ingredient it touches. */
+	.op {
+		border: 1px solid var(--border);
+		padding: 0.5rem 0.6rem;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 1.35;
+	}
+
+	.op-do {
+		display: block;
+		font-size: 0.85rem;
+	}
+
+	.op-time {
+		display: block;
+		margin-top: 0.25rem;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		line-height: 1.4;
+		color: var(--text-light);
+	}
+
+	/* Dead space under a column that ended early: no borders, no content. */
+	.gap {
+		border: none;
+	}
+
+	tr.total .qty,
+	tr.total .name {
+		border-bottom: none;
+		padding-top: 0.6rem;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--text-light);
+	}
+
+	tr.total .qty {
+		text-transform: none;
+	}
+
+	.qty-input {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-dark);
+		text-align: right;
+		width: 3.25rem;
+		padding: 0.1rem 0.15rem;
+		background: transparent;
+		border: none;
+		border-bottom: 1px dashed transparent;
+		border-radius: 0;
+		appearance: none;
+	}
+
+	.qty-input:not([readonly]) {
+		border-bottom-color: var(--border);
+		cursor: text;
+	}
+
+	.qty-input:focus {
+		outline: none;
+		border-bottom-color: var(--accent);
+	}
+
+	.unit {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-dark);
+	}
+
+	@media (max-width: 720px) {
+		/* Tighter columns so at least the first operation is on screen. */
+		table.proc {
+			width: calc(14rem + var(--cols) * 5.5rem);
+			font-size: 0.9rem;
+		}
+
+		.col-name {
+			width: 9.25rem;
+		}
+
+		.op {
+			padding: 0.4rem 0.45rem;
+		}
+	}
+
+	@media print {
+		.proc-wrap {
+			overflow-x: visible;
+		}
+
+		.qty-input {
+			border-bottom-color: transparent;
+		}
+	}
+</style>

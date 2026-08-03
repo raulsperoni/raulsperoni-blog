@@ -22,8 +22,9 @@ recipe:
       grams: 220
     - item: "Harina Blanca"
       grams: 900
-    - item: "Harina Integral Molienda Fina"
+    - item: "Harina Integral"
       grams: 100
+      note: "molienda fina"
     - item: "Agua"
       grams: 670
       note: "32 a 35"
@@ -31,29 +32,28 @@ recipe:
       grams: 30
     - item: "Sal"
       grams: 18
-  schedule:
-    - time: "Día 1"
-      step: ""
-    - time: "8hs"
-      step: "Alimentar MM"
-    - time: "de 6h a 8hs después"
-      step: "Mezclar Harina y el agua"
-    - time: "30 min después"
-      step: "Masa Madre"
-    - time: "30 min después"
-      step: "Agregar Sal y Miel"
-    - time: "durante las 5hs después"
-      step: "Plieges. Esperar que crezca 2 y 1/2"
-    - time: "cuándo creció"
-      step: "Dividir, formar, poner en Molde y a la heladera para fermentación lenta"
-    - time: "Dia 2"
-      step: ""
-    - time: "de 12hs a 14hs después"
-      step: "precalentar el horno a 250"
-    - time: "luego"
-      step: "hornear en bandeja por 40 min, con agua en bandeja abajo para vapor"
-    - time: "luego"
-      step: "hornear 10 min más a 200, casi negrito y tiene que sonar hueco"
+  starterProcess:
+    - do: "mezclar"
+      add: ["Harina Blanca", "Agua", "Masa Madre Activa"]
+    - do: "esperar que duplique"
+      time: "6 a 8 h"
+  process:
+    - do: "horno a 250° con una bandeja de agua abajo para hacer vapor"
+    - do: "mezclar"
+      time: "día 1 · 6 a 8 h tras alimentar la MM"
+      add: ["Harina Blanca", "Harina Integral", "Agua"]
+    - do: "mezclar"
+      time: "+30 min"
+      add: ["Masa Madre Activa"]
+    - do: "mezclar"
+      time: "+30 min"
+      add: ["Miel", "Sal"]
+    - do: "pliegues hasta que crezca 2½"
+      time: "5 h"
+    - do: "dividir, formar, al molde y a la heladera"
+      time: "12 a 14 h"
+    - do: "hornear en bandeja, casi negrito y que suene hueco"
+      time: "día 2 · 40 min a 250° + 10 min a 200°"
 tags:
   - "pan"
   - "masa madre"

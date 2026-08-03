@@ -5,7 +5,9 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import RecipeTable from '../../components/RecipeTable.astro';
 import { SITE_AUTHOR } from '../../consts';
+import { buildRecipeTable } from '../../utils/recipeTable';
 
 export async function getStaticPaths() {
 	const recetas = await getCollection('recetas');
@@ -37,6 +39,18 @@ const sumGrams = (list: { grams?: number }[] = []) =>
 const starterTotal = sumGrams(recipe?.starter);
 const doughTotal = sumGrams(recipe?.dough);
 
+// With a `process` the ingredients and the timeline become one table
+// (Cooking-for-Engineers style) and the separate itinerario goes away.
+const starterTable =
+	recipe && recipe.starterProcess.length > 0
+		? buildRecipeTable(recipe.starter, recipe.starterProcess, `${receta.id} · masa madre`)
+		: null;
+const doughTable =
+	recipe && recipe.process.length > 0
+		? buildRecipeTable(recipe.dough, recipe.process, `${receta.id} · masa final`)
+		: null;
+const processSteps = [...(recipe?.starterProcess ?? []), ...(recipe?.process ?? [])];
+
 const recipeLd =
 	recipe && recipe.dough.length > 0
 		? {
@@ -53,11 +67,19 @@ const recipeLd =
 				recipeCuisine: 'Panadería casera',
 				keywords: tags.join(', '),
 				recipeIngredient: fmtIng(recipe.dough),
-				...(recipe.schedule.filter((s) => s.step).length > 0 && {
-					recipeInstructions: recipe.schedule
-						.filter((s) => s.step)
-						.map((s) => ({ '@type': 'HowToStep', name: s.time, text: s.step })),
-				}),
+				...(processSteps.length > 0
+					? {
+							recipeInstructions: processSteps.map((s) => ({
+								'@type': 'HowToStep',
+								...(s.time && { name: s.time }),
+								text: s.do,
+							})),
+						}
+					: recipe.schedule.filter((s) => s.step).length > 0 && {
+							recipeInstructions: recipe.schedule
+								.filter((s) => s.step)
+								.map((s) => ({ '@type': 'HowToStep', name: s.time, text: s.step })),
+						}),
 			}
 		: {
 				'@context': 'https://schema.org',
@@ -220,6 +242,20 @@ const recipeLd =
 				border-top: 1px solid var(--border);
 			}
 
+			/* A process table with many steps needs more room than the prose. */
+			.recipe.wide {
+				/* Fits a six-step table (see RecipeTable) without scrolling. */
+				width: 912px;
+			}
+
+			.recipe-head {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 1rem;
+				margin-bottom: 1.5rem;
+			}
+
 			.recipe-label {
 				font-family: var(--font-mono);
 				font-size: 0.65rem;
@@ -227,10 +263,38 @@ const recipeLd =
 				letter-spacing: 0.12em;
 				color: var(--text-light);
 				opacity: 0.6;
-				margin: 0 0 1.5rem;
+				margin: 0;
 				display: flex;
 				align-items: center;
 				gap: 0.75rem;
+			}
+
+			.download {
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+				flex-shrink: 0;
+				font-family: var(--font-mono);
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-light);
+				text-decoration: none;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				padding: 0.35rem 0.6rem;
+				transition: color 0.15s ease, border-color 0.15s ease;
+			}
+
+			.download:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+			}
+
+			@media print {
+				.download {
+					display: none;
+				}
 			}
 
 			.recipe-label::before {
@@ -596,8 +660,35 @@ const recipeLd =
 			</article>
 
 			{recipe && (recipe.dough.length > 0 || recipe.starter.length > 0) && (
-				<section class="recipe" aria-label="Receta" data-recipe>
-					<p class="recipe-label">la receta</p>
+				<section
+					class:list={['recipe', { wide: (doughTable?.columns ?? 0) >= 4 }]}
+					aria-label="Receta"
+					data-recipe
+				>
+					<div class="recipe-head">
+						<p class="recipe-label">la receta</p>
+						{doughTable && (
+							<a
+								class="download"
+								href={`/recetas/${receta.id}/tabla.png`}
+								download={`${receta.id}-tabla.png`}
+							>
+								<svg
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									aria-hidden="true"
+								>
+									<path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16" />
+								</svg>
+								descargar la tabla
+							</a>
+						)}
+					</div>
 					{(starterTotal > 0 || doughTotal > 0) && (
 						<div class="scale" data-scale hidden>
 							<span class="scale-label">escalar</span>
@@ -613,7 +704,19 @@ const recipeLd =
 							</span>
 						</div>
 					)}
-					{recipe.starter.length > 0 && (
+					{recipe.starter.length > 0 && starterTable && (
+						<>
+							<h3>Masa madre (paso cero)</h3>
+							<RecipeTable table={starterTable} total={starterTotal} />
+						</>
+					)}
+					{recipe.dough.length > 0 && doughTable && (
+						<>
+							<h3>Masa final</h3>
+							<RecipeTable table={doughTable} total={doughTotal} />
+						</>
+					)}
+					{recipe.starter.length > 0 && !starterTable && (
 						<>
 							<h3>Masa madre (paso cero)</h3>
 							<table class="ingredients">
@@ -651,7 +754,7 @@ const recipeLd =
 							</table>
 						</>
 					)}
-					{recipe.dough.length > 0 && (
+					{recipe.dough.length > 0 && !doughTable && (
 						<>
 							<h3>Masa final</h3>
 							<table class="ingredients">
@@ -689,7 +792,7 @@ const recipeLd =
 							</table>
 						</>
 					)}
-					{recipe.schedule.length > 0 && (
+					{recipe.schedule.length > 0 && processSteps.length === 0 && (
 						<>
 							<h3>Itinerario</h3>
 							<ol class="schedule">

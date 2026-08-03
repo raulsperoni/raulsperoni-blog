@@ -29,21 +29,21 @@ recipe:
       note: "32 a 35"
     - item: "Sal"
       grams: 10
-  schedule:
-    - time: "Día 1"
-      step: ""
-    - time: "8hs"
-      step: "Alimentar MM"
-    - time: "de 6h a 8hs después"
-      step: "Mezclar todo"
-    - time: "durante las 5hs después"
-      step: "Esperar que crezca 2 y 1/2"
-    - time: "cuándo creció"
-      step: "Dividir, formar, poner en Tuppers y a la heladera para fermentación lenta"
-    - time: "Dia 2,3,4,5"
-      step: ""
-    - time: "aguantan en la heladera para ir haciendo"
-      step: "hornear con horno precalentado"
+  starterProcess:
+    - do: "mezclar"
+      add: ["Harina Blanca", "Harina Integral", "Agua", "Masa Madre Activa"]
+    - do: "esperar que duplique"
+      time: "6 a 8 h"
+  process:
+    - do: "mezclar todo"
+      time: "día 1 · 6 a 8 h tras alimentar la MM"
+      add: ["Harina Blanca", "Agua", "Masa Madre Activa", "Sal"]
+    - do: "esperar que crezca 2½"
+      time: "5 h"
+    - do: "dividir, bollar, a los tuppers y a la heladera"
+      time: "aguantan 3 o 4 días"
+    - do: "hornear con el horno bien caliente"
+      time: "días 2 a 5"
 tags:
   - "pizza"
   - "masa madre"

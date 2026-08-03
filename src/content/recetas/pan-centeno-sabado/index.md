@@ -36,23 +36,24 @@ recipe:
       note: "1/2 cdta de té"
     - item: "Harina Centeno Blanca"
       grams: 150
-  schedule:
-    - time: "Día 1"
-      step: ""
-    - time: "8hs"
-      step: "Alimentar MM"
-    - time: "de 6h a 8hs después"
-      step: "Mezclar y el agua"
-    - time: "30min después"
-      step: "Mezclar el resto"
-    - time: "durante las 5hs después"
-      step: "Plieges. Esperar que crezca 2 y 1/2"
-    - time: "cuándo creció"
-      step: "Dividir, formar, poner en Molde y a la heladera para fermentación lenta"
-    - time: "Dia 2"
-      step: ""
-    - time: "de 12hs a 14hs después"
-      step: "hornear con horno precalentado"
+  starterProcess:
+    - do: "mezclar"
+      add: ["Harina Blanca", "Harina Integral", "Agua", "Masa Madre Activa"]
+    - do: "esperar que duplique"
+      time: "6 a 8 h"
+  process:
+    - do: "mezclar"
+      time: "día 1 · 6 a 8 h tras alimentar la MM"
+      add: ["Harina Blanca", "Harina Integral", "Harina Centeno Blanca", "Agua"]
+    - do: "mezclar el resto"
+      time: "+30 min"
+      add: ["Masa Madre Activa", "Sal", "Levadura Industrial"]
+    - do: "pliegues hasta que crezca 2½"
+      time: "5 h"
+    - do: "dividir, formar, al molde y a la heladera"
+      time: "12 a 14 h"
+    - do: "hornear con el horno bien caliente"
+      time: "día 2"
 tags:
   - "pan"
   - "masa madre"

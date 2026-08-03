@@ -33,17 +33,19 @@ recipe:
       grams: 50
     - item: "Sal"
       grams: 10
-  schedule:
-    - time: "Día 1"
-      step: ""
-    - time: "8hs"
-      step: "Alimentar MM"
-    - time: "de 6 a 8 hs después, 16hs"
-      step: "Amasar todo junto"
-    - time: "en las 4 horas siguientes"
-      step: "Si la masa está floja dar pliegues"
-    - time: "20hs"
-      step: "Oliva por encima, toppings a gusto, y al horno!"
+  starterProcess:
+    - do: "mezclar"
+      add: ["Harina Blanca", "Harina Integral", "Harina Centeno", "Agua", "Masa Madre Activa"]
+    - do: "esperar que duplique"
+      time: "6 a 8 h"
+  process:
+    - do: "amasar todo junto"
+      time: "día 1 · 16 h"
+      add: ["Harina Blanca", "Agua", "Masa Madre Activa", "Oliva", "Sal"]
+    - do: "si la masa está floja, dar pliegues"
+      time: "las 4 h siguientes"
+    - do: "oliva por encima, toppings a gusto y al horno"
+      time: "20 h"
 tags:
   - "focaccia"
   - "masa madre"

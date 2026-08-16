@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T03:38:34.540Z",
+  "lastUpdated": "2026-08-16T03:47:57.824Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 8,
-      "distance": 74390.3,
-      "moving_time": 22790,
-      "elapsed_time": 22886,
-      "elevation_gain": 315,
+      "count": 9,
+      "distance": 89810.7,
+      "moving_time": 27469,
+      "elapsed_time": 27565,
+      "elevation_gain": 383,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1131,
-      "distance": 8777776.499999994,
-      "moving_time": 2774076,
-      "elapsed_time": 2846941,
-      "elevation_gain": 679825.1000000001
+      "count": 1132,
+      "distance": 8793196.899999995,
+      "moving_time": 2778755,
+      "elapsed_time": 2851620,
+      "elevation_gain": 679893.1000000001
     },
     "recent_swim_totals": {
       "count": 7,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 89,
-      "distance": 1029359,
-      "moving_time": 314990,
-      "elapsed_time": 317510,
-      "elevation_gain": 4613
+      "count": 90,
+      "distance": 1044779,
+      "moving_time": 319669,
+      "elapsed_time": 322189,
+      "elevation_gain": 4681
     },
     "ytd_swim_totals": {
       "count": 62,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 19755023224,
+      "name": "Lunch Run",
+      "distance": 15420.4,
+      "moving_time": 4679,
+      "elapsed_time": 4679,
+      "total_elevation_gain": 68,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-08-15T00:00:00Z"
+    },
     {
       "id": 19723148759,
       "name": "Morning Swim",

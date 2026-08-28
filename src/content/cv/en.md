@@ -5,7 +5,7 @@ lang: 'en'
 name: 'Raúl Speroni'
 role: 'Principal Data Engineer and Technical Lead'
 location: 'Montevideo, Uruguay'
-updated: 'June 2026'
+updated: 'August 2026'
 contact:
   - label: 'LinkedIn'
     value: 'linkedin.com/in/raulsperoni'
@@ -30,8 +30,7 @@ languages:
 
 ## Profile
 
-- Principal Data Engineer and technical lead with experience building search-quality systems, recommendation workflows, data platforms, document-processing systems, and applied AI/ML workflows.
-- Currently lead ML/Data teams in legal tech, translating product ideas into phased technical plans, production systems, and measurable feedback loops.
+- Principal Data Engineer and hands-on technical lead who defines strategy and builds production retrieval, ranking, and evaluation systems.
 - Strong background in Python, AWS, PostgreSQL, OpenSearch/Elasticsearch, distributed queues, ranking/retrieval workflows, document enrichment, and human-in-the-loop ML/LLM systems.
 - Experienced in public-sector and independent projects involving open data, digital participation, and large document collections.
 
@@ -39,21 +38,18 @@ languages:
 
 ### Expert Institute
 
-Principal Data Engineer + Tech Lead · New York, NY / Remote · 2022 - Present
+Principal Data Engineer + Technical Lead · New York, NY / Remote · 2022 - Present
+
+Set the technical direction for a large-scale matching and recommendation program while contributing directly to its implementation.
 
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Lead ML/Data teams building production systems for legal documents, spanning recommendation workflows, search quality, ingestion, and enrichment.
-- Built a recommendation workflow combining LLM case analysis, ontology mapping, semantic/vector evidence, OpenSearch ranking, eligibility filters, and calibrated confidence levels.
-- Created the measurement and feedback loop around quality: production data models, recurring KPI reporting, recall-miss audits, AI-assisted feedback classification, remediation tracking, post-release validation, and product decisions about where automation was reliable enough.
-- Operate a document-processing system that handles approximately 300K documents per month and 15M pages, using 24 AWS Lambda microservices, SQS, and a custom DynamoDB-based router.
-- Own data storage and retrieval across PostgreSQL, S3, OCR outputs, JSON outputs, OpenSearch, full-text search, and vector-search workflows.
-- Maintain PostgreSQL workloads around 485 GB, with the largest table above 450M rows.
-- Keep typical document turnaround around 10-12 minutes, with p95 below 50 minutes.
-- Integrated deep-learning and LLM components using OpenAI and Gemini APIs for document summarization, parsing, and enrichment.
-- Replaced manual data-entry workflows with automated enrichment pipelines.
-- Oversee CI/CD, observability, and reliability using CloudWatch, Langfuse, Looker Studio, Streamlit, and custom dashboards.
+- Lead the ML/Data team responsible for retrieval and recommendations while contributing directly to ranking and evaluation systems.
+- Define the technical strategy, quality framework, and production architecture for search and recommendation systems, and implement core components.
+- Designed and shipped an LLM-assisted recommendation system combining semantic and full-text retrieval with reusable ranking signals.
+- Established confidence thresholds and validation practices to determine when recommendations could be automated safely.
+- Operate the document-processing platform that supports these systems using AWS Lambda, SQS, and PostgreSQL.
 
 </details>
 
@@ -64,7 +60,7 @@ Senior Software Engineer / Project Lead · Montevideo, Uruguay · 2020 - Present
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Led product and software development for a Django project for a foundation, coordinating a team of around six people.
+- Led product and software development for a foundation's Django project, coordinating a team of around six people.
 - Built backend services, Django REST APIs, Celery tasks, and deployment infrastructure.
 
 </details>
@@ -77,7 +73,7 @@ Senior Data Engineer · Los Angeles, CA / Remote · 2021 - 2022
 <summary>Selected impact and responsibilities</summary>
 
 - Built data pipelines, ETL processes, data models, and data architecture for legal analytics products.
-- Worked on data science, NLP, and MLOps workflows.
+- Developed data science, NLP, and MLOps workflows.
 
 </details>
 
@@ -103,7 +99,7 @@ Research, Architecture, and Tooling · Montevideo, Uruguay · 2019 - 2021
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on a multidisciplinary project between the University of the Republic and the Uruguayan state to develop guidance for digital citizen participation.
+- Contributed to a multidisciplinary initiative between the University of the Republic and the Uruguayan state that developed guidance for digital citizen participation.
 - Directed the selection, adaptation, and deployment of open-source participation tools.
 - Proposed an architecture for integrating those tools into a shared platform.
 
@@ -116,7 +112,7 @@ Research Assistant · Montevideo, Uruguay · 2017 - 2019
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on anonymization and automatic classification of judicial decisions in the Natural Language Processing group.
+- Researched anonymization and automatic classification of judicial decisions with the Natural Language Processing group.
 - Experimented with language-processing techniques for legal/judicial documents.
 
 </details>
@@ -128,7 +124,7 @@ Founding Partner, Developer, DevOps · Montevideo, Uruguay · 2015 - 2021
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Founding partner and developer across software and web-service projects for companies and organizations.
+- Co-founded the cooperative and developed software and web services for companies and civil-society organizations.
 - Configured and maintained CI/CD pipelines for deploying and scaling services.
 
 </details>
@@ -151,7 +147,7 @@ Linux Systems Administrator · Montevideo, Uruguay · 2007 - 2008
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on Linux systems administration, attack detection and prevention, and systems/services monitoring.
+- Administered Linux systems and implemented attack detection, prevention, and service monitoring.
 
 </details>
 
@@ -159,15 +155,15 @@ Linux Systems Administrator · Montevideo, Uruguay · 2007 - 2008
 
 ### draftingdocs.org
 
-Collaborative drafting for sensitive documents. AI suggestions are treated as reviewable proposals that require explicit human approval, with traceability over changes and approvals.
+Collaborative drafting for sensitive documents, with AI suggestions treated as reviewable proposals that require explicit human approval and preserve a traceable change history.
 
 ### memoria.uy
 
-Open-source experiment on news perception in Uruguay. Users anonymously vote on whether news items are good or bad, and the system uses clustering to reveal aggregate patterns.
+Open-source experiment on news perception in Uruguay. Anonymous votes and clustering reveal aggregate patterns in how people interpret the news.
 
 ### Cruzar
 
-Engineering collaboration on a large historical archive project. The work focused on tools to extract, organize, and search information across more than 3M documents.
+Engineering collaboration on a large historical archive, focused on tools for extracting, organizing, and searching more than 3M documents.
 
 ### Marcha Virtual
 
@@ -195,7 +191,7 @@ Built a website using open data so citizens could compare article-by-article cha
 
 **University of the Republic, Faculty of Engineering** · Montevideo, Uruguay
 
-- Master in Data Science and Machine Learning · **Paused**
+- Master's studies in Data Science and Machine Learning · **Paused**
 - Computer Engineering · **2017**
 - Computer Analyst · **2015**
 

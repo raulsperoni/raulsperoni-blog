@@ -20,6 +20,7 @@ npm run preview        # Preview production build locally
 npm run migrate        # Migrate posts from Ghost JSON export
 npm run migrate:images # Download Ghost images locally
 npm run add-link       # Add a new link with SEO metadata
+npm run fetch:goodreads # Refresh src/data/goodreads.json
 ```
 
 ## Content System Architecture
@@ -27,7 +28,11 @@ npm run add-link       # Add a new link with SEO metadata
 **Content Collections** (`src/content.config.ts`):
 - Uses Astro's Content Collections API with glob loader
 - Schema validation with Zod
-- Two collections: `blog` and `links`
+- Seven collections: `blog`, `links`, `til`, `cv`, `recetas` (markdown, glob
+  loader) and `strava`, `goodreads` (generated from `src/data/*.json` by the
+  fetch scripts)
+- `src/content/draft/` is **not** a collection — files there are never built
+  or published. Move a file into `blog/` to publish it.
 
 ### Blog Posts
 
@@ -80,6 +85,40 @@ linkImage: '../../assets/images/screenshot.webp'  # Optional custom image
    - Creates markdown file in `src/content/links/`
    - Example: `npm run add-link https://astro.build astro-site web development`
 2. **Manual**: Create markdown file in `src/content/links/` with frontmatter above
+
+### TIL Collection
+
+Short English technical notes — `/til`. Distinct from the blog, which is
+Spanish and personal.
+
+```yaml
+---
+title: 'Five Logstash gotchas that wedged me in production'
+description: 'PQ on NFS, JDBC interval arithmetic, DLQ subdirs, queue.max_bytes math'
+pubDate: 'Apr 21 2026'  # 'Mon DD YYYY' — see below
+tags: [logstash, jdbc, postgres, production]
+---
+```
+
+- Four fields only. **No `heroImage`/`ogImage`** — the Zod object is non-strict,
+  so unknown keys are silently stripped rather than flagged, and the key simply
+  does nothing. The social card is generated from title + tags by
+  `src/pages/og/til/[slug].png.ts`.
+- **Use `'Mon DD YYYY'`.** An ISO date (`'2026-08-28'`) validates but renders a
+  day early: `new Date()` reads ISO as UTC midnight and `FormattedDate.astro`
+  formats with no `timeZone`, so in UTC-3 it displays as Aug 27.
+- `npm run build` catches missing fields and unparseable dates
+  (`InvalidContentEntryDataError`). It does **not** catch unknown keys or the
+  ISO-date shift — check those by eye.
+- Titles render at 52px on the OG card; keep under ~70 characters.
+- Tags are shared with blog and links and feed `/tags/[tag]`, so reuse existing
+  ones instead of coining near-duplicates.
+- **Writing one**: `/til <rough description>` — see `.claude/skills/til/SKILL.md`
+  for the voice and structure conventions.
+
+**Routing**:
+- `src/pages/til/index.astro` - TIL listing
+- `src/pages/til/[...slug].astro` - Individual entries
 
 ### Recetas Collection
 
@@ -142,10 +181,14 @@ recipe:
 **Content**:
 - `src/content/blog/` - All blog posts (managed by Obsidian or any editor)
 - `src/content/links/` - Link bookmarks with SEO metadata
+- `src/content/til/` - Short technical notes
+- `src/content/recetas/` - Recipes
+- `src/content/cv/` - CV source
+- `src/content/draft/` - Unpublished; not a collection, never built
 - `src/content.config.ts` - Content Collections schema and validation
 
 **Layouts**:
-- `src/layouts/BlogPost.astro` - Main blog post layout (used by all posts)
+- `src/layouts/BlogPost.astro` - The only layout, and used **only** by `blog/[...slug].astro`. The til, links and recetas routes build their own markup inline.
 
 **Pages**:
 - `src/pages/index.astro` - Homepage (intro → recent posts → reciente timeline → tags grid → heatmap)
@@ -154,17 +197,22 @@ recipe:
 - `src/pages/hago.astro` - Projects/activism page (items tagged `hago 🔧` from blog + links)
 - `src/pages/links/index.astro` - Links listing page
 - `src/pages/links/[...slug].astro` - Individual link pages
-- `src/pages/tags/[tag].astro` - Tag filtering (works for both blog posts and links)
-- `src/pages/about.astro` - About page
+- `src/pages/tags/[tag].astro` - Tag filtering (works across collections)
+- `src/pages/tags/index.astro` - Tag index
+- `src/pages/til/index.astro`, `src/pages/til/[...slug].astro` - TIL
+- `src/pages/cv.astro` - CV (rendered from `src/content/cv/en.md`)
+- `src/pages/recetas/index.astro`, `src/pages/recetas/[...slug].astro` - Recipes
+- `src/pages/fitness.astro` - Training page (Strava data)
+- `src/pages/og/{blog,til,recetas}/[slug].png.ts` - Generated OG cards (satori + sharp)
 
 **Components**:
 - `src/components/BaseHead.astro` - SEO meta tags (uses ImageMetadata.src for OG images)
-- `src/components/Header.astro` - Site header; nav: `inicio · escribo · hago · entreno`
+- `src/components/Header.astro` - Site header; nav: `inicio · escribo · hago · cv · til · entreno`
 - `src/components/Footer.astro` - Site footer
 
 ## Navigation & Design Conventions
 
-- **Nav labels are verbs/nouns in Spanish**: `inicio`, `escribo`, `hago`, `entreno` — no "links" in nav (links are discoverable via tags/homepage)
+- **Nav labels are verbs/nouns in Spanish**: `inicio`, `escribo`, `hago`, `entreno` — except `cv` and `til`, which keep their conventional names. No "links" in nav (links are discoverable via tags/homepage)
 - **Horizontal lines**: used only as item separators, not as section wrappers. No `border-bottom` on section containers or labels — the small `——` accent decoration on `.section-label::before` is enough.
 - **Intro text** on homepage is upright (not italic) display font
 - **Blog post layout** (`BlogPost.astro`): prev/next navigation + related posts (by shared tag, max 3) at bottom

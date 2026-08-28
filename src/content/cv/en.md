@@ -5,7 +5,7 @@ lang: 'en'
 name: 'Raúl Speroni'
 role: 'Principal Data Engineer and Technical Lead'
 location: 'Montevideo, Uruguay'
-updated: 'June 2026'
+updated: 'August 2026'
 contact:
   - label: 'LinkedIn'
     value: 'linkedin.com/in/raulsperoni'
@@ -30,8 +30,7 @@ languages:
 
 ## Profile
 
-- Principal Data Engineer and technical lead with experience building search-quality systems, recommendation workflows, data platforms, document-processing systems, and applied AI/ML workflows.
-- Currently lead ML/Data teams in legal tech, translating product ideas into phased technical plans, production systems, and measurable feedback loops.
+- Principal Data Engineer and technical lead who sets direction and does the work: I write the technical strategy for a search-quality program and build the retrieval, ranking, and evaluation systems that come out of it.
 - Strong background in Python, AWS, PostgreSQL, OpenSearch/Elasticsearch, distributed queues, ranking/retrieval workflows, document enrichment, and human-in-the-loop ML/LLM systems.
 - Experienced in public-sector and independent projects involving open data, digital participation, and large document collections.
 
@@ -39,21 +38,18 @@ languages:
 
 ### Expert Institute
 
-Principal Data Engineer + Tech Lead · New York, NY / Remote · 2022 - Present
+Principal Data Engineer + Technical Lead · New York, NY / Remote · 2022 - Present
+
+Set the technical direction for a large-scale matching and recommendation program and build inside it.
 
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Lead ML/Data teams building production systems for legal documents, spanning recommendation workflows, search quality, ingestion, and enrichment.
-- Built a recommendation workflow combining LLM case analysis, ontology mapping, semantic/vector evidence, OpenSearch ranking, eligibility filters, and calibrated confidence levels.
-- Created the measurement and feedback loop around quality: production data models, recurring KPI reporting, recall-miss audits, AI-assisted feedback classification, remediation tracking, post-release validation, and product decisions about where automation was reliable enough.
-- Operate a document-processing system that handles approximately 300K documents per month and 15M pages, using 24 AWS Lambda microservices, SQS, and a custom DynamoDB-based router.
-- Own data storage and retrieval across PostgreSQL, S3, OCR outputs, JSON outputs, OpenSearch, full-text search, and vector-search workflows.
-- Maintain PostgreSQL workloads around 485 GB, with the largest table above 450M rows.
-- Keep typical document turnaround around 10-12 minutes, with p95 below 50 minutes.
-- Integrated deep-learning and LLM components using OpenAI and Gemini APIs for document summarization, parsing, and enrichment.
-- Replaced manual data-entry workflows with automated enrichment pipelines.
-- Oversee CI/CD, observability, and reliability using CloudWatch, Langfuse, Looker Studio, Streamlit, and custom dashboards.
+- Lead the ML/Data function for retrieval and recommendations, a team of five engineers, while remaining a primary author on the ranking and evaluation code.
+- Own the technical strategy: framed the problem, decomposed it into retrieval, ranking, and judgement stages, defined how quality is measured, and implemented core parts directly.
+- Designed and shipped the recommendation system: LLM-assisted request analysis, semantic and full-text retrieval over OpenSearch, reusable entity-level signals, calibrated confidence tiers, and the offline replay and held-out validation it is measured with.
+- Matched automation to confidence, and took fully automated matching to production behind that model.
+- Operate the document-processing platform underneath: hundreds of thousands of documents and millions of pages per month on AWS Lambda and SQS, PostgreSQL in the hundreds of gigabytes.
 
 </details>
 

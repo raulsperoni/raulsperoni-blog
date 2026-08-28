@@ -30,7 +30,7 @@ languages:
 
 ## Profile
 
-- Principal Data Engineer and technical lead who sets direction and does the work: I write the technical strategy for a search-quality program and build the retrieval, ranking, and evaluation systems that come out of it.
+- Principal Data Engineer and hands-on technical lead who defines strategy and builds production retrieval, ranking, and evaluation systems.
 - Strong background in Python, AWS, PostgreSQL, OpenSearch/Elasticsearch, distributed queues, ranking/retrieval workflows, document enrichment, and human-in-the-loop ML/LLM systems.
 - Experienced in public-sector and independent projects involving open data, digital participation, and large document collections.
 
@@ -40,16 +40,16 @@ languages:
 
 Principal Data Engineer + Technical Lead · New York, NY / Remote · 2022 - Present
 
-Set the technical direction for a large-scale matching and recommendation program and build inside it.
+Set the technical direction for a large-scale matching and recommendation program while contributing directly to its implementation.
 
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Lead the ML/Data function for retrieval and recommendations, a team of five engineers, while remaining a primary author on the ranking and evaluation code.
-- Own the technical strategy: framed the problem, decomposed it into retrieval, ranking, and judgement stages, defined how quality is measured, and implemented core parts directly.
-- Designed and shipped the recommendation system: LLM-assisted request analysis, semantic and full-text retrieval over OpenSearch, reusable entity-level signals, calibrated confidence tiers, and the offline replay and held-out validation it is measured with.
-- Matched automation to confidence, and took fully automated matching to production behind that model.
-- Operate the document-processing platform underneath: hundreds of thousands of documents and millions of pages per month on AWS Lambda and SQS, PostgreSQL in the hundreds of gigabytes.
+- Lead the ML/Data team responsible for retrieval and recommendations while contributing directly to ranking and evaluation systems.
+- Define the technical strategy, quality framework, and production architecture for search and recommendation systems, and implement core components.
+- Designed and shipped an LLM-assisted recommendation system combining semantic and full-text retrieval with reusable ranking signals.
+- Established confidence thresholds and validation practices to determine when recommendations could be automated safely.
+- Operate the document-processing platform that supports these systems using AWS Lambda, SQS, and PostgreSQL.
 
 </details>
 
@@ -60,7 +60,7 @@ Senior Software Engineer / Project Lead · Montevideo, Uruguay · 2020 - Present
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Led product and software development for a Django project for a foundation, coordinating a team of around six people.
+- Led product and software development for a foundation's Django project, coordinating a team of around six people.
 - Built backend services, Django REST APIs, Celery tasks, and deployment infrastructure.
 
 </details>
@@ -73,7 +73,7 @@ Senior Data Engineer · Los Angeles, CA / Remote · 2021 - 2022
 <summary>Selected impact and responsibilities</summary>
 
 - Built data pipelines, ETL processes, data models, and data architecture for legal analytics products.
-- Worked on data science, NLP, and MLOps workflows.
+- Developed data science, NLP, and MLOps workflows.
 
 </details>
 
@@ -99,7 +99,7 @@ Research, Architecture, and Tooling · Montevideo, Uruguay · 2019 - 2021
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on a multidisciplinary project between the University of the Republic and the Uruguayan state to develop guidance for digital citizen participation.
+- Contributed to a multidisciplinary initiative between the University of the Republic and the Uruguayan state that developed guidance for digital citizen participation.
 - Directed the selection, adaptation, and deployment of open-source participation tools.
 - Proposed an architecture for integrating those tools into a shared platform.
 
@@ -112,7 +112,7 @@ Research Assistant · Montevideo, Uruguay · 2017 - 2019
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on anonymization and automatic classification of judicial decisions in the Natural Language Processing group.
+- Researched anonymization and automatic classification of judicial decisions with the Natural Language Processing group.
 - Experimented with language-processing techniques for legal/judicial documents.
 
 </details>
@@ -124,7 +124,7 @@ Founding Partner, Developer, DevOps · Montevideo, Uruguay · 2015 - 2021
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Founding partner and developer across software and web-service projects for companies and organizations.
+- Co-founded the cooperative and developed software and web services for companies and civil-society organizations.
 - Configured and maintained CI/CD pipelines for deploying and scaling services.
 
 </details>
@@ -147,7 +147,7 @@ Linux Systems Administrator · Montevideo, Uruguay · 2007 - 2008
 <details>
 <summary>Selected impact and responsibilities</summary>
 
-- Worked on Linux systems administration, attack detection and prevention, and systems/services monitoring.
+- Administered Linux systems and implemented attack detection, prevention, and service monitoring.
 
 </details>
 
@@ -155,15 +155,15 @@ Linux Systems Administrator · Montevideo, Uruguay · 2007 - 2008
 
 ### draftingdocs.org
 
-Collaborative drafting for sensitive documents. AI suggestions are treated as reviewable proposals that require explicit human approval, with traceability over changes and approvals.
+Collaborative drafting for sensitive documents, with AI suggestions treated as reviewable proposals that require explicit human approval and preserve a traceable change history.
 
 ### memoria.uy
 
-Open-source experiment on news perception in Uruguay. Users anonymously vote on whether news items are good or bad, and the system uses clustering to reveal aggregate patterns.
+Open-source experiment on news perception in Uruguay. Anonymous votes and clustering reveal aggregate patterns in how people interpret the news.
 
 ### Cruzar
 
-Engineering collaboration on a large historical archive project. The work focused on tools to extract, organize, and search information across more than 3M documents.
+Engineering collaboration on a large historical archive, focused on tools for extracting, organizing, and searching more than 3M documents.
 
 ### Marcha Virtual
 
@@ -191,7 +191,7 @@ Built a website using open data so citizens could compare article-by-article cha
 
 **University of the Republic, Faculty of Engineering** · Montevideo, Uruguay
 
-- Master in Data Science and Machine Learning · **Paused**
+- Master's studies in Data Science and Machine Learning · **Paused**
 - Computer Engineering · **2017**
 - Computer Analyst · **2015**
 

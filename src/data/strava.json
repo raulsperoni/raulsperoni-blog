@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-09-02T07:41:03.480Z",
+  "lastUpdated": "2026-09-03T07:50:12.006Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 2,
-      "distance": 44135.3,
-      "moving_time": 6539,
-      "elapsed_time": 6539,
+      "count": 1,
+      "distance": 16886.8,
+      "moving_time": 2666,
+      "elapsed_time": 2666,
       "elevation_gain": 0,
       "achievement_count": 0
     },
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 8,
-      "distance": 87086.40000000001,
-      "moving_time": 26241,
-      "elapsed_time": 26295,
-      "elevation_gain": 378,
+      "count": 9,
+      "distance": 94343.79999999999,
+      "moving_time": 28464,
+      "elapsed_time": 28518,
+      "elevation_gain": 391,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1136,
-      "distance": 8840565.399999995,
-      "moving_time": 2792642,
-      "elapsed_time": 2865510,
-      "elevation_gain": 680056.1000000001
+      "count": 1137,
+      "distance": 8847822.799999995,
+      "moving_time": 2794865,
+      "elapsed_time": 2867733,
+      "elevation_gain": 680069.1000000001
     },
     "recent_swim_totals": {
       "count": 3,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 94,
-      "distance": 1092148,
-      "moving_time": 333556,
-      "elapsed_time": 336079,
-      "elevation_gain": 4844
+      "count": 95,
+      "distance": 1099405,
+      "moving_time": 335779,
+      "elapsed_time": 338302,
+      "elevation_gain": 4857
     },
     "ytd_swim_totals": {
       "count": 62,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 20010962048,
+      "name": "Afternoon Run",
+      "distance": 7257.4,
+      "moving_time": 2223,
+      "elapsed_time": 2223,
+      "total_elevation_gain": 13,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-09-02T00:00:00Z"
+    },
     {
       "id": 19965105423,
       "name": "Lunch Run",

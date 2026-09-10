@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-09-09T07:55:08.285Z",
+  "lastUpdated": "2026-09-10T07:54:55.885Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
     "recent_ride_totals": {
-      "count": 1,
-      "distance": 16886.8,
-      "moving_time": 2666,
-      "elapsed_time": 2666,
+      "count": 0,
+      "distance": 0,
+      "moving_time": 0,
+      "elapsed_time": 0,
       "elevation_gain": 0,
       "achievement_count": 0
     },
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 9,
-      "distance": 91800.9,
-      "moving_time": 27389,
-      "elapsed_time": 27392,
-      "elevation_gain": 304,
+      "count": 10,
+      "distance": 100944.6,
+      "moving_time": 30229,
+      "elapsed_time": 30232,
+      "elevation_gain": 337,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1140,
-      "distance": 8869577.399999997,
-      "moving_time": 2801465,
-      "elapsed_time": 2874333,
-      "elevation_gain": 680129.1000000001
+      "count": 1141,
+      "distance": 8878721.099999996,
+      "moving_time": 2804305,
+      "elapsed_time": 2877173,
+      "elevation_gain": 680162.1000000001
     },
     "recent_swim_totals": {
       "count": 2,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 98,
-      "distance": 1121160,
-      "moving_time": 342379,
-      "elapsed_time": 344902,
-      "elevation_gain": 4917
+      "count": 99,
+      "distance": 1130304,
+      "moving_time": 345219,
+      "elapsed_time": 347742,
+      "elevation_gain": 4950
     },
     "ytd_swim_totals": {
       "count": 63,
@@ -71,6 +71,17 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 20107408726,
+      "name": "Afternoon Run",
+      "distance": 9143.7,
+      "moving_time": 2840,
+      "elapsed_time": 2840,
+      "total_elevation_gain": 33,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-09-09T00:00:00Z"
+    },
     {
       "id": 20085849714,
       "name": "Morning Swim",

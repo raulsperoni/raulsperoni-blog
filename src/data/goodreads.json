@@ -1,6 +1,16 @@
 {
-  "lastUpdated": "2026-09-12T07:43:41.324Z",
+  "lastUpdated": "2026-09-13T08:02:58.882Z",
   "activities": [
+    {
+      "id": "ReadStatus11378913350",
+      "bookTitle": "A Trade of Blood",
+      "author": "Robert Jackson Bennett",
+      "action": "activity",
+      "rating": null,
+      "coverImage": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1771880265l/239560521._SY75_.jpg",
+      "pubDate": "2026-09-12T15:03:59.000Z",
+      "goodreadsUrl": "https://www.goodreads.com/review/show/8939663020"
+    },
     {
       "id": "ReadStatus11184906364",
       "bookTitle": "The Dreaming Void",

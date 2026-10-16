@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-15T08:01:37.838Z",
+  "lastUpdated": "2026-10-16T07:55:54.114Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,11 +19,11 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 11,
-      "distance": 95684.2,
-      "moving_time": 29786,
-      "elapsed_time": 30550,
-      "elevation_gain": 289,
+      "count": 10,
+      "distance": 86285.7,
+      "moving_time": 26973,
+      "elapsed_time": 27680,
+      "elevation_gain": 272,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -34,18 +34,18 @@
       "elevation_gain": 680489.1000000001
     },
     "recent_swim_totals": {
-      "count": 2,
-      "distance": 3300,
-      "moving_time": 3503,
-      "elapsed_time": 4208,
+      "count": 3,
+      "distance": 5500,
+      "moving_time": 5845,
+      "elapsed_time": 7011,
       "elevation_gain": 0,
       "achievement_count": 0
     },
     "all_swim_totals": {
-      "count": 671,
-      "distance": 1203809.0999999999,
-      "moving_time": 1418283,
-      "elapsed_time": 1805304,
+      "count": 672,
+      "distance": 1206009.0999999999,
+      "moving_time": 1420625,
+      "elapsed_time": 1808107,
       "elevation_gain": 442.2000000000001
     },
     "ytd_ride_totals": {
@@ -63,14 +63,36 @@
       "elevation_gain": 5277
     },
     "ytd_swim_totals": {
-      "count": 66,
-      "distance": 171345,
-      "moving_time": 183574,
-      "elapsed_time": 222124,
+      "count": 67,
+      "distance": 173545,
+      "moving_time": 185916,
+      "elapsed_time": 224927,
       "elevation_gain": 46.7
     }
   },
   "recentActivities": [
+    {
+      "id": 20593366424,
+      "name": "Morning Swim",
+      "distance": 2200,
+      "moving_time": 2342,
+      "elapsed_time": 2803,
+      "total_elevation_gain": 0,
+      "type": "Swim",
+      "sport_type": "Swim",
+      "start_date_local": "2026-10-15T00:00:00Z"
+    },
+    {
+      "id": 20594013874,
+      "name": "Morning Weight Training",
+      "distance": 0,
+      "moving_time": 1886,
+      "elapsed_time": 1886,
+      "total_elevation_gain": 0,
+      "type": "WeightTraining",
+      "sport_type": "WeightTraining",
+      "start_date_local": "2026-10-15T00:00:00Z"
+    },
     {
       "id": 20585666752,
       "name": "Afternoon Run",

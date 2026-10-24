@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-23T08:17:35.596Z",
+  "lastUpdated": "2026-10-24T07:55:12.246Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,19 +19,19 @@
       "elevation_gain": 560095.8
     },
     "recent_run_totals": {
-      "count": 7,
-      "distance": 61954.59999999999,
-      "moving_time": 19305,
-      "elapsed_time": 19599,
-      "elevation_gain": 241,
+      "count": 8,
+      "distance": 75961.09999999999,
+      "moving_time": 23789,
+      "elapsed_time": 24100,
+      "elevation_gain": 282,
       "achievement_count": 0
     },
     "all_run_totals": {
-      "count": 1155,
-      "distance": 9001590.899999999,
-      "moving_time": 2842530,
-      "elapsed_time": 2916185,
-      "elevation_gain": 680514.1000000001
+      "count": 1156,
+      "distance": 9015597.399999999,
+      "moving_time": 2847014,
+      "elapsed_time": 2920686,
+      "elevation_gain": 680555.1000000001
     },
     "recent_swim_totals": {
       "count": 5,
@@ -56,11 +56,11 @@
       "elevation_gain": 11820
     },
     "ytd_run_totals": {
-      "count": 113,
-      "distance": 1253173,
-      "moving_time": 383444,
-      "elapsed_time": 386754,
-      "elevation_gain": 5302
+      "count": 114,
+      "distance": 1267180,
+      "moving_time": 387928,
+      "elapsed_time": 391255,
+      "elevation_gain": 5343
     },
     "ytd_swim_totals": {
       "count": 69,
@@ -71,6 +71,28 @@
     }
   },
   "recentActivities": [
+    {
+      "id": 20703755995,
+      "name": "Afternoon Weight Training",
+      "distance": 0,
+      "moving_time": 1971,
+      "elapsed_time": 1971,
+      "total_elevation_gain": 0,
+      "type": "WeightTraining",
+      "sport_type": "WeightTraining",
+      "start_date_local": "2026-10-23T00:00:00Z"
+    },
+    {
+      "id": 20704364272,
+      "name": "Afternoon Run",
+      "distance": 14006.5,
+      "moving_time": 4484,
+      "elapsed_time": 4501,
+      "total_elevation_gain": 41,
+      "type": "Run",
+      "sport_type": "Run",
+      "start_date_local": "2026-10-23T00:00:00Z"
+    },
     {
       "id": 20685711438,
       "name": "Morning Swim",

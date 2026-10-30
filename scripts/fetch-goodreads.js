@@ -128,7 +128,9 @@ async function main() {
   );
 }
 
+// Goodreads is a nice-to-have: if the feed is down, keep the existing
+// goodreads.json and let the deploy go ahead instead of blocking it.
 main().catch(err => {
   console.error('Error fetching Goodreads data:', err);
-  process.exit(1);
+  console.log(`::warning::Goodreads fetch failed, keeping existing data (${err.message})`);
 });

@@ -31,3 +31,6 @@ scripts/ghost-export.json
 # Playwright screenshots
 .playwright-mcp/
 *.png
+
+# Claude Code worktrees
+.claude/worktrees/

@@ -24,9 +24,22 @@ function formatElevation(meters: number): string {
   return Math.round(meters).toString();
 }
 
+// Strava sport types, in Spanish; unknown ones show as Strava names them.
+const SPORTS: Record<string, string> = {
+  Run: 'Carrera',
+  TrailRun: 'Trail',
+  Ride: 'Bici',
+  VirtualRide: 'Rodillo',
+  Swim: 'Natación',
+  WeightTraining: 'Pesas',
+  Walk: 'Caminata',
+  Workout: 'Entrenamiento',
+};
+const sportLabel = (type: string) => SPORTS[type] ?? type;
+
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('es-UY', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -34,7 +47,7 @@ function formatDate(dateString: string): string {
 }
 
 const lastUpdatedDate = new Date(lastUpdated);
-const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
+const formattedLastUpdated = new Intl.DateTimeFormat('es-UY', {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
@@ -215,30 +228,30 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
       {stats ? (
         <>
           <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">
-            Year to Date
+            Este año
           </h2>
           <div class="stats-grid">
             {stats.ytd_run_totals && stats.ytd_run_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Running</h2>
+                <h2>Carrera</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.ytd_run_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.ytd_run_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.ytd_run_totals.elapsed_time)}
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Elevation</span>
+                  <span class="stat-label">Desnivel</span>
                   <span class="stat-value">
                     {formatElevation(stats.ytd_run_totals.elevation_gain)} m
                   </span>
@@ -248,25 +261,25 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
 
             {stats.ytd_ride_totals && stats.ytd_ride_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Cycling</h2>
+                <h2>Bici</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.ytd_ride_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.ytd_ride_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.ytd_ride_totals.elapsed_time)}
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Elevation</span>
+                  <span class="stat-label">Desnivel</span>
                   <span class="stat-value">
                     {formatElevation(stats.ytd_ride_totals.elevation_gain)} m
                   </span>
@@ -276,19 +289,19 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
 
             {stats.ytd_swim_totals && stats.ytd_swim_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Swimming</h2>
+                <h2>Natación</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.ytd_swim_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.ytd_swim_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.ytd_swim_totals.elapsed_time)}
                   </span>
@@ -298,30 +311,30 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
           </div>
 
           <h2 style="margin-bottom: 1rem; margin-top: 2rem; font-size: 1.25rem;">
-            All Time
+            Histórico
           </h2>
           <div class="stats-grid">
             {stats.all_run_totals && stats.all_run_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Running</h2>
+                <h2>Carrera</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.all_run_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.all_run_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.all_run_totals.elapsed_time)}
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Elevation</span>
+                  <span class="stat-label">Desnivel</span>
                   <span class="stat-value">
                     {formatElevation(stats.all_run_totals.elevation_gain)} m
                   </span>
@@ -331,25 +344,25 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
 
             {stats.all_ride_totals && stats.all_ride_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Cycling</h2>
+                <h2>Bici</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.all_ride_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.all_ride_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.all_ride_totals.elapsed_time)}
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Elevation</span>
+                  <span class="stat-label">Desnivel</span>
                   <span class="stat-value">
                     {formatElevation(stats.all_ride_totals.elevation_gain)} m
                   </span>
@@ -359,19 +372,19 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
 
             {stats.all_swim_totals && stats.all_swim_totals.count > 0 && (
               <div class="stat-card">
-                <h2>Swimming</h2>
+                <h2>Natación</h2>
                 <div class="stat-row">
-                  <span class="stat-label">Distance</span>
+                  <span class="stat-label">Distancia</span>
                   <span class="stat-value">
                     {formatDistance(stats.all_swim_totals.distance)} km
                   </span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Activities</span>
+                  <span class="stat-label">Actividades</span>
                   <span class="stat-value">{stats.all_swim_totals.count}</span>
                 </div>
                 <div class="stat-row">
-                  <span class="stat-label">Time</span>
+                  <span class="stat-label">Tiempo</span>
                   <span class="stat-value">
                     {formatTime(stats.all_swim_totals.elapsed_time)}
                   </span>
@@ -382,14 +395,14 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
         </>
       ) : (
         <div class="empty-state">
-          <p>No stats available yet. Check back after Strava data is fetched.</p>
+          <p>Todavía no hay datos de Strava.</p>
         </div>
       )}
 
       {recentActivities.length > 0 && (
         <>
           <h2 style="margin-bottom: 1rem; margin-top: 2rem; font-size: 1.25rem;">
-            Recent Activities
+            Actividades recientes
           </h2>
           <ul class="activity-list">
             {recentActivities.slice(0, 10).map((activity) => (
@@ -397,32 +410,32 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
                 <div class="activity-header">
                   <h3 class="activity-name">{activity.name}</h3>
                   <span class="activity-type">
-                    {activity.sport_type || activity.type}
+                    {sportLabel(activity.sport_type || activity.type)}
                   </span>
                 </div>
                 <div class="activity-details">
                   <div class="activity-detail">
-                    <span class="activity-detail-label">Distance</span>
+                    <span class="activity-detail-label">Distancia</span>
                     <span class="activity-detail-value">
                       {formatDistance(activity.distance)} km
                     </span>
                   </div>
                   <div class="activity-detail">
-                    <span class="activity-detail-label">Time</span>
+                    <span class="activity-detail-label">Tiempo</span>
                     <span class="activity-detail-value">
                       {formatTime(activity.moving_time)}
                     </span>
                   </div>
                   {activity.total_elevation_gain > 0 && (
                     <div class="activity-detail">
-                      <span class="activity-detail-label">Elevation</span>
+                      <span class="activity-detail-label">Desnivel</span>
                       <span class="activity-detail-value">
                         {formatElevation(activity.total_elevation_gain)} m
                       </span>
                     </div>
                   )}
                   <div class="activity-detail">
-                    <span class="activity-detail-label">Date</span>
+                    <span class="activity-detail-label">Fecha</span>
                     <span class="activity-detail-value">
                       {formatDate(activity.start_date_local)}
                     </span>
@@ -435,7 +448,7 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
       )}
 
       <div class="last-updated">
-        Last updated: {formattedLastUpdated}
+        Actualizado: {formattedLastUpdated}
       </div>
     </main>
     <Footer />

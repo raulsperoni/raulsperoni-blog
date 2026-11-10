@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-10T10:49:25.435Z",
+  "lastUpdated": "2026-11-10T23:33:57.268Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -80,6 +80,17 @@
       "total_elevation_gain": 0,
       "type": "Swim",
       "sport_type": "Swim",
+      "start_date_local": "2026-11-10T00:00:00Z"
+    },
+    {
+      "id": 20931559479,
+      "name": "Morning Weight Training",
+      "distance": 0,
+      "moving_time": 2207,
+      "elapsed_time": 2207,
+      "total_elevation_gain": 0,
+      "type": "WeightTraining",
+      "sport_type": "WeightTraining",
       "start_date_local": "2026-11-10T00:00:00Z"
     },
     {

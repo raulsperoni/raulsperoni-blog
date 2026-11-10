@@ -15,6 +15,8 @@ type Props = CollectionEntry<'blog'>['data'] & {
 };
 
 const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, slug, prevPost, nextPost, relatedPosts } = Astro.props;
+const socialImage = ogImage ?? heroImage;
+const socialImageUrl = socialImage?.src ?? (slug ? `/og/blog/${slug}.png` : undefined);
 ---
 
 <html lang="es">
@@ -28,8 +30,12 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage, tags, slug
 			"datePublished": pubDate.toISOString(),
 			...(updatedDate && { "dateModified": updatedDate.toISOString() }),
 			"url": Astro.url,
+			"mainEntityOfPage": Astro.url,
+			...(socialImageUrl && { "image": new URL(socialImageUrl, Astro.site) }),
+			"inLanguage": "es",
 			"author": {
 				"@type": "Person",
+				"@id": SITE_AUTHOR['@id'],
 				"name": SITE_AUTHOR.name,
 				"url": SITE_AUTHOR.url,
 			},

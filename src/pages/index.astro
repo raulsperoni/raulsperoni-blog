@@ -94,6 +94,7 @@ const lanes = [
 	{
 		key: 'palabras',
 		label: 'palabras',
+		href: '/blog/',
 		total: `${palabras.reduce((n, c) => n + c.titles.length, 0)}`,
 		cells: palabras.map((c, i) => ({
 			level: Math.min(3, c.titles.length),
@@ -104,6 +105,7 @@ const lanes = [
 	{
 		key: 'codigo',
 		label: 'código',
+		href: '/til/',
 		total: `${codigo.reduce((n, c) => n + c.titles.length, 0)}`,
 		cells: codigo.map((c, i) => ({
 			level: Math.min(3, c.titles.length),
@@ -114,6 +116,7 @@ const lanes = [
 	{
 		key: 'km',
 		label: 'km',
+		href: '/fitness/',
 		total: fmtKm(km.reduce((n, c) => n + c.km, 0)),
 		cells: km.map((c, i) => ({
 			level: c.titles.length ? Math.max(1, Math.ceil((c.hours / maxHours) * 3)) : 0,
@@ -171,6 +174,22 @@ for (const item of [...posts, ...links, ...tils, ...books].sort(newestFirst).sli
 	});
 }
 
+// Two doors under the intro, one per audience, each in its own language.
+const doors = [
+	{
+		lang: 'en',
+		label: 'search · data · applied ai',
+		text: 'What I do for a living',
+		href: '/cv/',
+	},
+	{
+		lang: 'es',
+		label: 'participación · datos abiertos',
+		text: 'Lo que hago por fuera',
+		href: '/hago/',
+	},
+];
+
 const blocks = [
 	{ id: 'til', label: 'til — notas técnicas', items: recentTil, more: '/til/', lang: 'en' },
 	{ id: 'hago', label: 'hago — proyectos', items: recentHago, more: '/hago/', lang: undefined },
@@ -206,6 +225,55 @@ const blocks = [
 				letter-spacing: 0.1em;
 				margin: 0;
 				opacity: 0.7;
+			}
+
+			/* — Doors — */
+			.doors {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1.25rem 3rem;
+				margin-top: 2.25rem;
+			}
+
+			.door {
+				display: flex;
+				flex-direction: column;
+				gap: 0.3rem;
+				text-decoration: none;
+				border: none;
+				color: var(--text);
+			}
+
+			.door-label {
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--accent);
+			}
+
+			.door-text {
+				font-family: var(--font-display);
+				font-size: 1.25rem;
+				font-weight: 700;
+				line-height: 1.2;
+				transition: color 0.15s ease;
+			}
+
+			.door-arrow {
+				display: inline-block;
+				font-family: var(--font-mono);
+				font-weight: 400;
+				font-size: 0.9em;
+				transition: transform 0.15s ease;
+			}
+
+			.door:hover .door-text {
+				color: var(--accent);
+			}
+
+			.door:hover .door-arrow {
+				transform: translateX(4px);
 			}
 
 			/* — Year strip — */
@@ -250,7 +318,16 @@ const blocks = [
 			}
 
 			.lane-label {
+				color: inherit;
+				text-decoration: none;
+				border: none;
 				opacity: 0.75;
+				transition: color 0.15s ease, opacity 0.15s ease;
+			}
+
+			.lane-label:hover {
+				color: var(--lane);
+				opacity: 1;
 			}
 
 			.lane-total {
@@ -445,6 +522,10 @@ const blocks = [
 					display: none;
 				}
 
+				.doors {
+					grid-template-columns: 1fr;
+				}
+
 				.strip-months span:nth-child(even) {
 					display: none;
 				}
@@ -477,6 +558,14 @@ const blocks = [
 			<div class="intro">
 				<p class="intro-line">Ya fui de todo.</p>
 				<p class="intro-sub">palabras, código, y kilómetros desde Uruguay.</p>
+				<nav class="doors" aria-label="Por dónde empezar">
+					{doors.map(door => (
+						<a class="door" href={door.href} lang={door.lang}>
+							<span class="door-label">{door.label}</span>
+							<span class="door-text">{door.text} <span class="door-arrow" aria-hidden="true">→</span></span>
+						</a>
+					))}
+				</nav>
 			</div>
 
 			<!-- A year in three lanes, one column per week. Rendered at build time. -->
@@ -490,7 +579,7 @@ const blocks = [
 				</div>
 				{lanes.map(lane => (
 					<div class={`lane lane-${lane.key}`}>
-						<span class="lane-label">{lane.label}</span>
+						<a class="lane-label" href={lane.href}>{lane.label}</a>
 						<div class="lane-cells">
 							{lane.cells.map(cell =>
 								cell.level === 0 ? (

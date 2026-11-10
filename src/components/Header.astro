@@ -94,7 +94,7 @@ const Title = Astro.url.pathname === '/' ? 'h1' : 'p';
 	.social-links a {
 		color: var(--text-light);
 		border: none;
-		opacity: 0.6;
+		opacity: 0.9;
 		transition: opacity 0.15s ease, color 0.15s ease;
 		display: flex;
 		align-items: center;
@@ -146,7 +146,7 @@ const Title = Astro.url.pathname === '/' ? 'h1' : 'p';
 
 	.nav-sep {
 		font-family: var(--font-mono);
-		font-size: 0.65rem;
+		font-size: 0.7rem;
 		color: var(--border);
 		padding: 0 0.125rem;
 		user-select: none;
@@ -162,13 +162,14 @@ const Title = Astro.url.pathname === '/' ? 'h1' : 'p';
 		}
 
 		.nav-links {
-			max-width: calc(100% - 1.5rem);
+			/* content-box: width + padding must not exceed the viewport */
+			max-width: calc(100% - 2.5rem);
 			padding: 0 1.25rem;
 			row-gap: 0.125rem;
 		}
 
 		.nav-links :global(a) {
-			font-size: 0.64rem;
+			font-size: 0.68rem;
 			padding: 0.55rem 0.35rem;
 		}
 

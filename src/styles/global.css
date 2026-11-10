@@ -13,7 +13,7 @@ html {
 	--bg: #f1f0eb;
 	--bg-elevated: #f8f7f3;
 	--text: #1c1410;
-	--text-light: #7a6b5a;
+	--text-light: #685a4b;
 	--border: #d5d2c8;
 
 	/* Editorial crimson */
@@ -29,10 +29,65 @@ html {
 	--radius: 3px;
 	--radius-sm: 2px;
 
+	/* Secondary inks: code/links, training, books */
+	--ink-teal: #1f4e5f;
+	--ink-ochre: #94640a;
+	--ink-brown: #553b08;
+
+	/* Code blocks stay dark-on-light inverted in both themes */
+	--code-bg: #1c1410;
+	--code-fg: #f1f0eb;
+
+	color-scheme: light dark;
+
 	/* Fonts */
 	--font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
 	--font-body: 'EB Garamond', Georgia, 'Times New Roman', serif;
 	--font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Dark theme: follows the system setting. Same paper-and-ink idea, inverted:
+   warm near-black, cream text, a crimson bright enough to read on it. */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #16130f;
+		--bg-elevated: #1e1a15;
+		--text: #ebe5d9;
+		--text-light: #b3a691;
+		--border: #38322a;
+
+		--accent: #ff6a5c;
+		--accent-dark: #ff8f84;
+		--accent-light: #5a2a25;
+
+		--ink-teal: #7fb8cc;
+		--ink-ochre: #d9a441;
+		--ink-brown: #c9a66b;
+
+		--code-bg: #0e0c09;
+		--code-fg: #ebe5d9;
+
+		--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+		--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+	}
+}
+
+/* Paper is always light: printing (the CV above all) ignores the dark theme. */
+@media print {
+	:root {
+		--bg: #f1f0eb;
+		--bg-elevated: #f8f7f3;
+		--text: #1c1410;
+		--text-light: #685a4b;
+		--border: #d5d2c8;
+		--accent: #c2160a;
+		--accent-dark: #8b0c05;
+		--accent-light: #fde8e6;
+		--ink-teal: #1f4e5f;
+		--ink-ochre: #94640a;
+		--ink-brown: #553b08;
+		color-scheme: light;
+	}
 }
 
 /* Grain texture overlay for paper feel */
@@ -238,8 +293,8 @@ pre {
 	padding: 1.5em;
 	border-radius: var(--radius);
 	overflow-x: auto;
-	background: var(--text);
-	color: var(--bg);
+	background: var(--code-bg);
+	color: var(--code-fg);
 	margin: 2em 0;
 	box-shadow: var(--shadow-md);
 }
@@ -249,7 +304,7 @@ pre > code {
 	font-family: var(--font-mono);
 	font-size: 0.825rem;
 	line-height: 1.6;
-	color: var(--bg);
+	color: var(--code-fg);
 }
 
 /* Blockquote — like a protest placard excerpt */

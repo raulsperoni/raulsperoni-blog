@@ -45,11 +45,11 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <BaseHead
-      title={`Fitness | ${SITE_TITLE}`}
-      description="Fitness and training stats from Strava"
+      title={`Entreno — ${SITE_TITLE}`}
+      description="Kilómetros corridos, pedaleados y nadados: datos de entrenamiento desde Strava."
     />
     <style>
       .stats-grid {
@@ -208,8 +208,8 @@ const formattedLastUpdated = new Intl.DateTimeFormat('en-US', {
     <Header />
     <main id="main">
       <div class="section-header">
-        <h1>Fitness Stats</h1>
-        <p>Training data powered by Strava</p>
+        <h1>Entreno</h1>
+        <p>Datos de entrenamiento desde Strava</p>
       </div>
 
       {stats ? (

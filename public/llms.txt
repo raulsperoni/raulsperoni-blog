@@ -1,14 +1,15 @@
 # Lo de Raul
 
-> Blog personal de Raul Speroni — escritura, codigo y kilometros desde Uruguay.
+> Sitio de Raul Speroni, Principal Data Engineer en Montevideo — notas tecnicas, proyectos, escritura y kilometros.
 
-Este sitio es el blog personal de Raul Speroni, desarrollador de software radicado en Uruguay. Contiene ensayos, cronicas, notas tecnicas (TIL) y enlaces comentados.
+Este sitio es el blog personal de Raul Speroni, Principal Data Engineer y lider tecnico radicado en Montevideo, Uruguay. Trabaja en busqueda y recomendacion, plataformas de datos, IA aplicada con revision humana y herramientas de participacion digital. Contiene ensayos, cronicas, notas tecnicas (TIL) y enlaces comentados.
 
 ## Secciones
 
 - Blog (/blog/): Ensayos y cronicas sobre tecnologia, politica, trabajo y vida cotidiana. En espanol.
 - TIL (/til/): Short technical notes about things learned — programming, tools, infrastructure.
 - Links (/links/): Enlaces comentados a proyectos, articulos y recursos externos.
+- CV (/cv/): Curriculum in English — experience, projects, publications.
 - Hago (/hago/): Proyectos y activismo en los que participa el autor.
 - Entreno (/fitness/): Actividad deportiva (datos de Strava).
 

@@ -3,8 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
-import { SITE_AUTHOR, SITE_TITLE } from '../consts';
-import fallbackImage from '../assets/images/blog-placeholder-1.jpg';
+import { SITE_AUTHOR, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import faviconIco from '../assets/images/favicon.ico';
 import favicon32 from '../assets/images/favicon-32x32.png';
 import favicon16 from '../assets/images/favicon-16x16.png';
@@ -15,14 +14,23 @@ interface Props {
 	image?: ImageMetadata;
 	ogImageUrl?: string;
 	ogType?: 'website' | 'article';
+	// Open Graph locale; English pages (TIL, CV) pass 'en_US'.
+	locale?: 'es_UY' | 'en_US';
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = fallbackImage, ogImageUrl, ogType = 'website' } = Astro.props;
+const { title, description, image, ogImageUrl, ogType = 'website', locale = 'es_UY' } = Astro.props;
+// No image of its own → the generated site card (src/pages/og/site.png.ts).
 const resolvedOgImage = ogImageUrl
 	? new URL(ogImageUrl, Astro.site)
-	: new URL(image.src, Astro.url);
+	: new URL(image?.src ?? '/og/site.png', Astro.site);
+
+// Search results show <title>: make sure the author's name is in every one.
+// "Contexto" → "Contexto — Raúl Speroni"; "Blog — Lo de Raúl" → "Blog — Raúl Speroni".
+// Social cards keep the short title, since og:site_name already carries the rest.
+const shortTitle = title.replace(new RegExp(`\\s*[—|-]\\s*${SITE_TITLE}$`), '');
+const fullTitle = title.includes('Speroni') ? title : `${shortTitle} — ${SITE_AUTHOR.name}`;
 ---
 
 <!-- Global Metadata -->
@@ -50,34 +58,53 @@ const resolvedOgImage = ogImageUrl
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
+<meta name="author" content={SITE_AUTHOR.name} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content={locale} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={shortTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={resolvedOgImage} />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={resolvedOgImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={shortTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={resolvedOgImage} />
 
 {Astro.url.pathname === '/' && (
 	<script type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
-		"@type": "WebSite",
-		"name": SITE_TITLE,
-		"url": Astro.site,
-		"author": {
-			"@type": "Person",
-			...SITE_AUTHOR,
-		}
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": new URL('/#website', Astro.site),
+				"name": SITE_TITLE,
+				"alternateName": SITE_AUTHOR.name,
+				"url": Astro.site,
+				"description": SITE_DESCRIPTION,
+				"inLanguage": ["es", "en"],
+				"author": { "@id": SITE_AUTHOR['@id'] },
+			},
+			{
+				"@type": "Person",
+				...SITE_AUTHOR,
+				"description": SITE_DESCRIPTION,
+				"image": new URL('/og/site.png', Astro.site),
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Montevideo",
+					"addressCountry": "UY",
+				},
+				"mainEntityOfPage": new URL('/cv/', Astro.site),
+			},
+		],
 	})} />
 )}
 

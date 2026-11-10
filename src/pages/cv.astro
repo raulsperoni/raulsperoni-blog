@@ -36,7 +36,7 @@ const schema = {
 <!doctype html>
 <html lang={cv.data.lang}>
 	<head>
-			<BaseHead title={`${cv.data.name} CV`} description={cv.data.description} />
+			<BaseHead title={`${cv.data.name} — ${cv.data.role} (CV)`} description={cv.data.description} locale="en_US" />
 		<link rel="alternate" hreflang="en" href={new URL('/cv/', Astro.site)} />
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 			<style>

@@ -28,7 +28,7 @@ const { Content } = await render(link);
 			}
 			.link-header {
 				padding: 2rem 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
+				border-bottom: 1px solid var(--border);
 			}
 			.link-title {
 				margin: 0 0 0.5rem 0;
@@ -38,7 +38,7 @@ const { Content } = await render(link);
 				display: inline-flex;
 				align-items: center;
 				gap: 0.5rem;
-				color: rgb(var(--accent));
+				color: var(--accent-dark);
 				text-decoration: none;
 				font-size: 1.1rem;
 				margin: 1rem 0;
@@ -55,7 +55,11 @@ const { Content } = await render(link);
 				align-items: center;
 				gap: 1rem;
 				margin-top: 1rem;
-				color: rgb(var(--gray));
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: var(--text-light);
 			}
 			.tags {
 				display: flex;
@@ -63,11 +67,10 @@ const { Content } = await render(link);
 				gap: 0.5rem;
 			}
 			.tag {
-				padding: 0.25rem 0.5rem;
-				background: rgb(var(--accent));
-				color: white;
-				border-radius: 0.25rem;
-				font-size: 0.875rem;
+				padding: 0.2rem 0.5rem;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				color: var(--text-light);
 				text-decoration: none;
 			}
 			.link-content {

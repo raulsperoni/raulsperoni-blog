@@ -42,7 +42,7 @@ Principal Data Engineer + Technical Lead · New York, NY / Remote · 2022 - Pres
 
 Set the technical direction for a large-scale matching and recommendation program while contributing directly to its implementation.
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Lead the ML/Data team responsible for retrieval and recommendations while contributing directly to ranking and evaluation systems.
@@ -57,7 +57,7 @@ Set the technical direction for a large-scale matching and recommendation progra
 
 Senior Software Engineer / Project Lead · Montevideo, Uruguay · 2020 - Present
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Led product and software development for a foundation's Django project, coordinating a team of around six people.
@@ -69,7 +69,7 @@ Senior Software Engineer / Project Lead · Montevideo, Uruguay · 2020 - Present
 
 Senior Data Engineer · Los Angeles, CA / Remote · 2021 - 2022
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Built data pipelines, ETL processes, data models, and data architecture for legal analytics products.
@@ -81,7 +81,7 @@ Senior Data Engineer · Los Angeles, CA / Remote · 2021 - 2022
 
 Technical Project Management, Data Pipelines, Research, and Development · Montevideo, Uruguay · 2017 - 2021
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Designed and developed a data pipeline for retrieving, enriching, and visualizing social media mentions related to the city.
@@ -96,7 +96,7 @@ Technical Project Management, Data Pipelines, Research, and Development · Monte
 
 Research, Architecture, and Tooling · Montevideo, Uruguay · 2019 - 2021
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Contributed to a multidisciplinary initiative between the University of the Republic and the Uruguayan state that developed guidance for digital citizen participation.
@@ -109,7 +109,7 @@ Research, Architecture, and Tooling · Montevideo, Uruguay · 2019 - 2021
 
 Research Assistant · Montevideo, Uruguay · 2017 - 2019
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Researched anonymization and automatic classification of judicial decisions with the Natural Language Processing group.
@@ -121,7 +121,7 @@ Research Assistant · Montevideo, Uruguay · 2017 - 2019
 
 Founding Partner, Developer, DevOps · Montevideo, Uruguay · 2015 - 2021
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Co-founded the cooperative and developed software and web services for companies and civil-society organizations.
@@ -133,7 +133,7 @@ Founding Partner, Developer, DevOps · Montevideo, Uruguay · 2015 - 2021
 
 Full-stack Developer · Montevideo, Uruguay · 2014 - 2017
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Researched and developed the organization's first high-availability services for receiving postal events.
@@ -144,7 +144,7 @@ Full-stack Developer · Montevideo, Uruguay · 2014 - 2017
 
 Linux Systems Administrator · Montevideo, Uruguay · 2007 - 2008
 
-<details>
+<details open>
 <summary>Selected impact and responsibilities</summary>
 
 - Administered Linux systems and implemented attack detection, prevention, and service monitoring.

@@ -140,7 +140,7 @@ for (let i = 0, last = -1; i < WEEKS; i++) {
 //   folded into a single line —
 const TIMELINE_LIMIT = 10;
 const shortDate = (d: Date) =>
-	d.toLocaleDateString('en-us', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+	d.toLocaleDateString('es-UY', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 
 type TimelineRow =
 	| { kind: 'item'; date: Date; label: string; type: string; title: string; url: string }
@@ -174,6 +174,21 @@ for (const item of [...posts, ...links, ...tils, ...books].sort(newestFirst).sli
 	});
 }
 
+// "Ya fui de todo." made literal: clicking "de todo" walks through these, oldest
+// first, then comes back around. Each one points at where it shows on the site.
+const lives = [
+	{ was: 'sysadmin', when: '2007–2008', where: 'Total Server Solutions', href: '/cv/#total-server-solutions' },
+	{ was: 'desarrollador en el Correo', when: '2014–2017', where: 'Correo Uruguayo', href: '/cv/#uruguayan-postal-service' },
+	{ was: 'cooperativista', when: '2015–2021', where: 'Magnesium Coop', href: '/cv/#magnesium-coop' },
+	{ was: 'investigador', when: '2017–2019', where: 'Grupo de PLN, Fing', href: '/cv/#nlp-group-faculty-of-engineering-university-of-the-republic' },
+	{ was: 'ingeniero municipal', when: '2017–2021', where: 'Intendencia de Montevideo', href: '/cv/#municipality-of-montevideo' },
+	{ was: 'ingeniero de datos', when: '2021–2022', where: 'Gavelytics', href: '/cv/#gavelytics' },
+	{ was: 'AI tech lead', when: '2022–hoy', where: 'Expert Institute', href: '/cv/#expert-institute' },
+	{ was: 'aspirante a escritor', when: 'desde 2018', where: 'el blog', href: '/blog/' },
+	{ was: 'panadero amateur', when: 'en pandemia', where: 'el recetario', href: '/recetas/' },
+	{ was: 'triatleta', when: 'nado, pedaleo, corro', where: 'el entreno', href: '/fitness/' },
+];
+
 // Two doors under the intro, one per audience, each in its own language.
 const doors = [
 	{
@@ -191,9 +206,9 @@ const doors = [
 ];
 
 const blocks = [
-	{ id: 'til', label: 'til — notas técnicas', items: recentTil, more: '/til/', lang: 'en' },
-	{ id: 'hago', label: 'hago — proyectos', items: recentHago, more: '/hago/', lang: undefined },
-	{ id: 'escribo', label: 'escribo — últimas entradas', items: recentPosts, more: '/blog/', lang: undefined },
+	{ id: 'til', label: 'til — notas técnicas', items: recentTil, more: '/til/', lang: 'en', locale: 'en-US' as const },
+	{ id: 'hago', label: 'hago — proyectos', items: recentHago, more: '/hago/', lang: undefined, locale: 'es-UY' as const },
+	{ id: 'escribo', label: 'escribo — últimas entradas', items: recentPosts, more: '/blog/', lang: undefined, locale: 'es-UY' as const },
 ];
 ---
 
@@ -219,12 +234,50 @@ const blocks = [
 
 			.intro-sub {
 				font-family: var(--font-mono);
-				font-size: 0.65rem;
+				font-size: 0.7rem;
 				color: var(--text-light);
 				text-transform: uppercase;
 				letter-spacing: 0.1em;
 				margin: 0;
-				opacity: 0.7;
+				min-height: 1.75em;
+			}
+
+			.lives {
+				font: inherit;
+				color: inherit;
+				letter-spacing: inherit;
+				padding: 0;
+				background: none;
+				border: none;
+				border-bottom: 2px dotted var(--accent);
+				cursor: pointer;
+				transition: color 0.15s ease;
+			}
+
+			.lives:hover {
+				color: var(--accent);
+			}
+
+			.lives.swap,
+			.intro-sub.swap {
+				animation: swap 0.25s ease;
+			}
+
+			@keyframes swap {
+				from {
+					opacity: 0;
+					transform: translateY(0.25em);
+				}
+			}
+
+			.intro-sub :global(a) {
+				color: inherit;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.intro-sub :global(a:hover) {
+				color: var(--accent);
+				border-bottom-color: var(--accent);
 			}
 
 			/* — Doors — */
@@ -246,7 +299,7 @@ const blocks = [
 
 			.door-label {
 				font-family: var(--font-mono);
-				font-size: 0.6rem;
+				font-size: 0.68rem;
 				text-transform: uppercase;
 				letter-spacing: 0.1em;
 				color: var(--accent);
@@ -283,7 +336,7 @@ const blocks = [
 				--gap: 2px;
 				margin-bottom: 4rem;
 				font-family: var(--font-mono);
-				font-size: 0.6rem;
+				font-size: 0.68rem;
 				letter-spacing: 0.06em;
 				color: var(--text-light);
 			}
@@ -309,8 +362,8 @@ const blocks = [
 
 			.strip-months {
 				height: 1rem;
-				opacity: 0.55;
-				font-size: 0.55rem;
+				opacity: 0.8;
+				font-size: 0.62rem;
 			}
 
 			.lane {
@@ -321,8 +374,7 @@ const blocks = [
 				color: inherit;
 				text-decoration: none;
 				border: none;
-				opacity: 0.75;
-				transition: color 0.15s ease, opacity 0.15s ease;
+				transition: color 0.15s ease;
 			}
 
 			.lane-label:hover {
@@ -332,7 +384,7 @@ const blocks = [
 
 			.lane-total {
 				text-align: right;
-				opacity: 0.55;
+				opacity: 0.8;
 			}
 
 			.cell {
@@ -341,11 +393,11 @@ const blocks = [
 				border: none;
 				border-radius: 1px;
 				background: var(--border);
-				opacity: 0.45;
+				opacity: 0.6;
 			}
 
 			.lane-palabras { --lane: var(--accent); }
-			.lane-codigo { --lane: #1f4e5f; }
+			.lane-codigo { --lane: var(--ink-teal); }
 			.lane-km { --lane: #b07a10; }
 
 			.cell[data-level='1'] { background: var(--lane); opacity: 0.4; }
@@ -369,7 +421,7 @@ const blocks = [
 
 			.section-label {
 				font-family: var(--font-mono);
-				font-size: 0.65rem;
+				font-size: 0.7rem;
 				font-weight: 400;
 				text-transform: uppercase;
 				letter-spacing: 0.12em;
@@ -378,7 +430,6 @@ const blocks = [
 				display: flex;
 				align-items: center;
 				gap: 0.75rem;
-				opacity: 0.7;
 			}
 
 			.section-label::before {
@@ -402,12 +453,11 @@ const blocks = [
 
 			.entry-date {
 				font-family: var(--font-mono);
-				font-size: 0.6rem;
+				font-size: 0.68rem;
 				color: var(--text-light);
 				text-transform: uppercase;
 				letter-spacing: 0.06em;
 				padding-top: 0.35rem;
-				opacity: 0.65;
 			}
 
 			.entry-title {
@@ -440,18 +490,16 @@ const blocks = [
 				display: inline-block;
 				margin-top: 1rem;
 				font-family: var(--font-mono);
-				font-size: 0.65rem;
+				font-size: 0.7rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
 				color: var(--text-light);
 				text-decoration: none;
 				border: none;
-				opacity: 0.6;
-				transition: opacity 0.15s ease, color 0.15s ease;
+				transition: color 0.15s ease;
 			}
 
 			.view-all:hover {
-				opacity: 1;
 				color: var(--accent);
 			}
 
@@ -478,18 +526,17 @@ const blocks = [
 			.timeline-date,
 			.timeline-type {
 				font-family: var(--font-mono);
-				font-size: 0.6rem;
+				font-size: 0.68rem;
 				text-transform: uppercase;
 				letter-spacing: 0.06em;
 				color: var(--text-light);
-				opacity: 0.65;
 			}
 
-			.timeline-type.blog { color: var(--accent); opacity: 1; }
-			.timeline-type.til { color: #1f4e5f; opacity: 1; }
-			.timeline-type.link { color: #1f4e5f; opacity: 1; }
-			.timeline-type.goodreads { color: #553b08; opacity: 1; }
-			.timeline-type.training { color: #b07a10; opacity: 1; }
+			.timeline-type.blog { color: var(--accent); }
+			.timeline-type.til { color: var(--ink-teal); }
+			.timeline-type.link { color: var(--ink-teal); }
+			.timeline-type.goodreads { color: var(--ink-brown); }
+			.timeline-type.training { color: var(--ink-ochre); }
 
 			.timeline-link {
 				font-family: var(--font-body);
@@ -556,8 +603,10 @@ const blocks = [
 
 			<!-- Identity intro -->
 			<div class="intro">
-				<p class="intro-line">Ya fui de todo.</p>
-				<p class="intro-sub">palabras, código, y kilómetros desde Uruguay.</p>
+				<p class="intro-line">
+					Ya fui <button type="button" class="lives" id="lives" title="¿De todo? Tocá para ver">de todo</button>.
+				</p>
+				<p class="intro-sub" id="lives-sub" aria-live="polite">palabras, código, y kilómetros desde Uruguay.</p>
 				<nav class="doors" aria-label="Por dónde empezar">
 					{doors.map(door => (
 						<a class="door" href={door.href} lang={door.lang}>
@@ -601,7 +650,7 @@ const blocks = [
 					<h2 class="section-label" id={`${block.id}-heading`}>{block.label}</h2>
 					{block.items.map(item => (
 						<div class="entry" lang={block.lang}>
-							<span class="entry-date"><FormattedDate date={item.data.pubDate} /></span>
+							<span class="entry-date"><FormattedDate date={item.data.pubDate} locale={block.locale} /></span>
 							<div>
 								<a href={item.url} class="entry-title">{item.data.title}</a>
 								{item.data.description && <p class="entry-desc">{item.data.description}</p>}
@@ -640,5 +689,34 @@ const blocks = [
 
 		</main>
 		<Footer />
+		<script is:inline define:vars={{ lives }}>
+			const word = document.getElementById('lives');
+			const sub = document.getElementById('lives-sub');
+			const rest = { word: word.textContent, sub: sub.textContent };
+			let i = -1;
+
+			const swap = el => {
+				el.classList.remove('swap');
+				void el.offsetWidth; // restart the animation
+				el.classList.add('swap');
+			};
+
+			word.addEventListener('click', () => {
+				i = i + 1 < lives.length ? i + 1 : -1;
+				const life = lives[i];
+				word.textContent = life ? life.was : rest.word;
+				if (life) {
+					const link = document.createElement('a');
+					link.href = life.href;
+					link.textContent = life.where + ' →';
+					sub.replaceChildren(life.when + ' · ', link);
+				} else {
+					sub.textContent = rest.sub;
+				}
+				swap(word);
+				swap(sub);
+				if (window.umami) window.umami.track('ya-fui', { was: life ? life.was : 'de todo' });
+			});
+		</script>
 	</body>
 </html>

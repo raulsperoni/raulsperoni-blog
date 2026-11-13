@@ -5,7 +5,7 @@ lang: 'en'
 name: 'Raúl Speroni'
 role: 'Principal Data Engineer and Technical Lead'
 location: 'Montevideo, Uruguay'
-updated: 'August 2026'
+updated: 'November 2026'
 contact:
   - label: 'LinkedIn'
     value: 'linkedin.com/in/raulsperoni'
@@ -20,7 +20,7 @@ focus:
   - 'search quality and recommendation systems'
   - 'measurement, feedback loops, and production KPIs'
   - 'data platforms and document processing'
-  - 'AI/LLM-enabled workflows with human review'
+  - 'AI/LLM-enabled workflows with human review and evaluation'
   - 'technical leadership for engineering teams'
   - 'open data and digital participation tools'
 languages:
@@ -30,7 +30,7 @@ languages:
 
 ## Profile
 
-- Principal Data Engineer and hands-on technical lead who defines strategy and builds production retrieval, ranking, and evaluation systems.
+- Principal Data Engineer and hands-on technical lead who defines strategy and builds production retrieval, ranking, and LLM evaluation systems.
 - Strong background in Python, AWS, PostgreSQL, OpenSearch/Elasticsearch, distributed queues, ranking/retrieval workflows, document enrichment, and human-in-the-loop ML/LLM systems.
 - Experienced in public-sector and independent projects involving open data, digital participation, and large document collections.
 
@@ -45,11 +45,11 @@ Set the technical direction for a large-scale matching and recommendation progra
 <details open>
 <summary>Selected impact and responsibilities</summary>
 
-- Lead the ML/Data team responsible for retrieval and recommendations while contributing directly to ranking and evaluation systems.
+- Lead the Search team responsible for retrieval and recommendations while contributing directly to ranking and evaluation systems.
 - Define the technical strategy, quality framework, and production architecture for search and recommendation systems, and implement core components.
-- Designed and shipped an LLM-assisted recommendation system combining semantic and full-text retrieval with reusable ranking signals.
-- Established confidence thresholds and validation practices to determine when recommendations could be automated safely.
-- Operate the document-processing platform that supports these systems using AWS Lambda, SQS, and PostgreSQL.
+- Designed and shipped an LLM-assisted recommendation system combining semantic and full-text retrieval, structured facts extracted from documents, and reusable ranking signals.
+- Expanded automated recommendations step by step, using confidence thresholds, versioned prompts, and replay against production inputs to decide what could be automated safely.
+- Built an MCP server and shared agent tooling that give internal users and engineers safe access to search results and production data.
 
 </details>
 
@@ -175,15 +175,15 @@ Built a website using open data so citizens could compare article-by-article cha
 
 ## Skills
 
-**Search, recommendations, and applied AI:** OpenSearch, Elasticsearch, semantic search, full-text search, vector search, pgvector, ranking/reranking, confidence scoring, recall analysis, feedback classification, OpenAI API, Gemini API, Claude, human-in-the-loop workflows.
+**Search, recommendations, and applied AI:** OpenSearch, Elasticsearch, semantic search, full-text search, vector search, pgvector, ranking/reranking, confidence scoring, recall analysis, feedback classification, OpenAI API, Gemini API, Claude, LLM evaluation, prompt versioning, Model Context Protocol (MCP), human-in-the-loop workflows.
 
-**Data platforms and orchestration:** PostgreSQL, MySQL, MongoDB, Redshift, DynamoDB, S3, dbt, AWS Lambda, SQS, Celery, Redis, Kafka, Luigi, ETL, data modeling, document ingestion, task routing, priority queues.
+**Data platforms and orchestration:** PostgreSQL, MySQL, MongoDB, Redshift, DynamoDB, S3, dbt, AWS Lambda, SQS, Celery, Redis, Kafka, Logstash, Luigi, ETL, data modeling, document ingestion, task routing, priority queues.
 
 **Programming and backend systems:** Python, TypeScript, Java, Django, FastAPI, Flask, NestJS, React, REST APIs, domain-driven design.
 
 **Machine learning and NLP:** Scikit-learn, spaCy, PyTorch, TensorFlow, Hugging Face Transformers, SageMaker, embeddings, document classification, information extraction, summarization, parsing.
 
-**Infrastructure and observability:** Linux, Docker, Kubernetes, Docker Swarm, AWS, ECS, OpenShift, DigitalOcean, CI/CD, GitHub Actions, CloudWatch, Datadog, Grafana, QuickSight, Looker Studio, Streamlit, Langfuse, GitLab.
+**Infrastructure and observability:** Linux, Docker, Kubernetes, Docker Swarm, AWS, ECS, Terraform, OpenShift, DigitalOcean, CI/CD, GitHub Actions, CloudWatch, Datadog, Grafana, QuickSight, Looker Studio, Streamlit, Langfuse, GitLab.
 
 **Participation and collaboration platforms:** Discourse, Decidim.
 

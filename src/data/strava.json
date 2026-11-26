@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25T12:12:15.031Z",
+  "lastUpdated": "2026-11-26T11:57:09.554Z",
   "stats": {
     "biggest_ride_distance": 179104,
     "biggest_climb_elevation_gain": 12656.2,
@@ -19,11 +19,11 @@
       "elevation_gain": 560753.8
     },
     "recent_run_totals": {
-      "count": 8,
-      "distance": 87606.79999999999,
-      "moving_time": 27660,
-      "elapsed_time": 27681,
-      "elevation_gain": 309,
+      "count": 7,
+      "distance": 79327.09999999999,
+      "moving_time": 25042,
+      "elapsed_time": 25063,
+      "elevation_gain": 290,
       "achievement_count": 0
     },
     "all_run_totals": {
@@ -42,10 +42,10 @@
       "achievement_count": 0
     },
     "all_swim_totals": {
-      "count": 683,
-      "distance": 1229902.4000000001,
-      "moving_time": 1445739,
-      "elapsed_time": 1841448,
+      "count": 684,
+      "distance": 1232502.4,
+      "moving_time": 1448442,
+      "elapsed_time": 1844895,
       "elevation_gain": 453.1000000000001
     },
     "ytd_ride_totals": {
@@ -63,14 +63,36 @@
       "elevation_gain": 5652
     },
     "ytd_swim_totals": {
-      "count": 78,
-      "distance": 197438,
-      "moving_time": 211030,
-      "elapsed_time": 258268,
+      "count": 79,
+      "distance": 200038,
+      "moving_time": 213733,
+      "elapsed_time": 261715,
       "elevation_gain": 57.6
     }
   },
   "recentActivities": [
+    {
+      "id": 21129727714,
+      "name": "Morning Swim",
+      "distance": 2600,
+      "moving_time": 2703,
+      "elapsed_time": 3447,
+      "total_elevation_gain": 0,
+      "type": "Swim",
+      "sport_type": "Swim",
+      "start_date_local": "2026-11-26T00:00:00Z"
+    },
+    {
+      "id": 21130063334,
+      "name": "Morning Weight Training",
+      "distance": 0,
+      "moving_time": 2187,
+      "elapsed_time": 2187,
+      "total_elevation_gain": 0,
+      "type": "WeightTraining",
+      "sport_type": "WeightTraining",
+      "start_date_local": "2026-11-26T00:00:00Z"
+    },
     {
       "id": 21105420899,
       "name": "Morning Swim",
